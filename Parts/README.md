@@ -1,4 +1,6 @@
-These are the parts you need to buy for building the Spot Welder V3. With the Mouser.com Shop Link you can directly ad all parts to your shopping cart. For a complete parts list take a look at the BOM file.
+<b>For a complete parts list take a look at the BOM file</b>
+
+These are the parts you need to buy for building the Spot Welder V3. With the Mouser.com Shop Link you can directly ad all parts to your shopping cart. 
 
 Not included in the Mouser shopping cart:
 - 1x Arduino Nano
