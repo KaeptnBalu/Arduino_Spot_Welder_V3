@@ -1,0 +1,8 @@
+(fp_lib_table
+  (lib (name pots_own)(type KiCad)(uri E:\Cloud\SkyDrive\Own_Kicad_Libraries\pots_own.pretty)(options "")(descr ""))
+  (lib (name arduino)(type Legacy)(uri E:\Cloud\SkyDrive\Own_Kicad_Libraries\Arduino_nano\arduino.mod)(options "")(descr ""))
+  (lib (name Rotary-Encoders)(type KiCad)(uri E:\Cloud\SkyDrive\Own_Kicad_Libraries\Rotary-Encoders.pretty)(options "")(descr ""))
+  (lib (name OLED_SSD1306)(type KiCad)(uri E:\Cloud\SkyDrive\Own_Kicad_Libraries\OLED_SSD1306.pretty)(options "")(descr ""))
+  (lib (name Vias)(type KiCad)(uri E:\Cloud\SkyDrive\Own_Kicad_Libraries\Vias.pretty)(options "")(descr ""))
+  (lib (name smd-semi)(type KiCad)(uri E:\Cloud\SkyDrive\Own_Kicad_Libraries\kicad-pcblib-master\smd-semi.pretty)(options "")(descr ""))
+)
