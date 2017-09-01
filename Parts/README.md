@@ -11,4 +11,4 @@ Parts I bought at the local hardware store:
 - 1x piece of 16x70mm aluminium about 3 or 4mm thick
 - Some 16mm² cable and short piece of thick solid copper wire for the probes tips
 
-You can get ready made welding cables and pcb sets at www.malectrics.eu if you dont want to make them yourself.
+You can get ready made welding cables, aluminum parts and pcb sets at www.malectrics.eu if you dont want to make them yourself.
