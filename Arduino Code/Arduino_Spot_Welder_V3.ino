@@ -148,6 +148,8 @@ void setup()   {
 	lastActiveTime = millis();
 	lastVirtualPosition = VirtualPosition;
 	
+	
+	
 	gAllData.delay 				= 20;
 	gAllData.batteryAlarm = 110;
 	gAllData.weldCount 		= 0;
@@ -167,6 +169,7 @@ void setup()   {
 			memcpy(&gAllData,tmpArraEe,8);
 		}
 	}
+	eepromReset();
 	
 	//Serial.println(gAllData.delay);
 	//Serial.println(gAllData.batteryAlarm);
@@ -183,8 +186,6 @@ void setup()   {
 	AutoPulse			=		gAllData.autoPulse		;
 	
 }
-
-
 
 /*=======================================================================================
                                             Loop
@@ -228,6 +229,26 @@ void loop(){
 /*=======================================================================================
                                          Functions
 ========================================================================================*/
+
+void eepromReset(){
+	if( encBtnState()==LOW ){
+		byte tmpArraEe[10],tmp2ArrEe[10];		
+			
+		gAllData.delay 					= 20;
+		gAllData.batteryAlarm 	= 110;
+		gAllData.weldCount 			= gAllData.weldCount;
+		gAllData.pulseDelay 		= 5;
+		gAllData.shortPulse			= 12;
+		gAllData.autoPulse			= 1;
+			
+		memcpy(tmp2ArrEe, &gAllData,8);
+		eeprom_write_bytes(0,tmp2ArrEe,8);
+		Serial.println("EEPROM reset");
+		
+		while(!encBtnState());
+	}
+}
+
 void sendPulse(){
 	//Serial.println("pulse activated");
 	unsigned long shortPulseDelay = PulseDelay*ShortPulse/100;
