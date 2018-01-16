@@ -1,7 +1,7 @@
 These are the pcb files for the Spot welder V3
 
 V3.2
-- the Arduino Board was updated so it is now possible to mount a 3.5mm screw terminal to the input pads. 
+- the Arduino Board was updated so it is now possible to mount a 3.5mm terminal block to the input pads. 
 - the voltage measurement now connects directly to the 12V input pad instead of behind the schottky diode in the previous version. This guarantuees a more precise voltage measurement.
 - the 8 small SMAJ13A-13-F TVS diodes have been removed from the mosfet board. There is now one of these diodes on the Arduino board that protects all mosfet gates at once.
 
