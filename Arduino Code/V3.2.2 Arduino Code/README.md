@@ -1,7 +1,7 @@
 Changes in V3.2.2:
 
-The software reset function has been removed. 
-This eliminates the need to install the SoftwareReset library and you also dont need to change the default bootloader of the Arduino Nano to the OptiBoot Bootloader anymore.
+The software reset function has been removed because there were many complains that it is to complicated to update the Arduino Nano Bootloder. 
+This change eliminates the need to install the SoftwareReset library and you also dont need to change the default bootloader of the Arduino Nano to the OptiBoot Bootloader anymore.
 
 How does this change the Spot Welder usability ?
 
