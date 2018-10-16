@@ -128,18 +128,16 @@ void setup()   {
 	pinMode(PinDT,INPUT);
 
 	pinMode(PinSW,INPUT_PULLUP);
-	digitalWrite(PinSW,HIGH);
 
 	attachInterrupt (0,isr,FALLING);   // interrupt 0 is always connected to pin 2 on Arduino UNO
 
 	pinMode(PinLED,OUTPUT);
+	digitalWrite(PinPulse, LOW);
 	pinMode(PinPulse,OUTPUT);
 
 	pinMode(PinFootSwitch,INPUT_PULLUP);
-	digitalWrite(PinFootSwitch,HIGH);
 
 	pinMode(PinAutoPulse,INPUT);
-	//digitalWrite(PinAutoPulse,LOW);
 
 	// by default, we'll generate the high voltage from the 3.3v line internally! (neat!)
 	display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
@@ -205,27 +203,22 @@ void loop(){
 //------------------------Pulse activated with AutoPulse feature-------------------------
 		if(digitalRead(PinAutoPulse) && (AutoPulse == 0)){
 			//auto pulse activate
-	  delay(Delay*100);
+			delay(Delay*100);
 			sendPulse();
-			  // Wait until switch has been released
-		do {
-		digitalWrite(PinPulse, LOW);
-		} while (digitalRead(PinAutoPulse));
-	  // Delay before impulse can be triggered again
-	  delay(500);
-		}
+			// Wait until switch has been released
+			while (digitalRead(PinAutoPulse)) delay(10);
+			// Delay before impulse can be triggered again
+			delay(500);
+	}
 
 //------------------------Pulse activated with Foot switch-------------------------------
 		if(!digitalRead(PinFootSwitch)){
 			//pulse activated;
-	 delay(200);
-		 sendPulse();
-		do {
-		digitalWrite(PinPulse, LOW);
-		}
-			  while(!digitalRead(PinFootSwitch));
-	 // Delay before impulse can be triggered again
-	 delay(500);
+			delay(200);
+			sendPulse();
+			while(!digitalRead(PinFootSwitch)) delay(10);
+			// Delay before impulse can be triggered again
+			delay(500);
 		}
 	}
 }
@@ -661,6 +654,7 @@ void StateMachine(){
 bool encBtnState(){
 	if(!digitalRead(PinSW)){
 		lastActiveTime = millis();
+		delay(50); // debounce
 	}
 	return (digitalRead(PinSW));
 }
