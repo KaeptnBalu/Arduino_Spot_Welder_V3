@@ -380,7 +380,7 @@ void StateMachine(){
 				selectedMenu = 0;
 				displayMainMenu(0);
 				delay(30);
-				//set all the functionalities anable;
+				//set all the functionalities enable;
 				while(!encBtnState());
 				break;
 			}
@@ -803,7 +803,7 @@ void mainScreen( const char * pulseTime, const char * batteryV, const char * tot
 	if(AutoPulse==0)
 		display.print("AUTO");
 	else
-		display.print("MANU");
+		display.print("MAN.");
 	display.display();
 }
 
