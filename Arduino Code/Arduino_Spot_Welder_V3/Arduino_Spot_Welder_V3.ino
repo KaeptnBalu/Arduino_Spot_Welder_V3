@@ -270,12 +270,13 @@ void sendPulse(){
 
 void updateEeprom(){
 	byte tmpArraEe[10],tmp2ArrEe[10];
-	if( gAllData.delay != Delay || \
-			gAllData.batteryAlarm != BatteryAlarm || \
-			gAllData.weldCount != WeldCount || \
-			gAllData.pulseDelay != PulseDelay ||\
-			gAllData.shortPulse	!= ShortPulse || \
-			gAllData.autoPulse	!= AutoPulse ){
+	if ( (  gAllData.delay != Delay || \
+  			gAllData.batteryAlarm != BatteryAlarm || \
+  			gAllData.weldCount != WeldCount || \
+  			gAllData.pulseDelay != PulseDelay ||\
+  			gAllData.shortPulse	!= ShortPulse || \
+  			gAllData.autoPulse	!= AutoPulse ) && \
+			(millis() - lastActiveTime) > 3000 ) {  // reduce EEPROM write count and collect changes over (at least) 3 seconds
 
 		gAllData.delay 					= Delay;
 		gAllData.batteryAlarm 	= BatteryAlarm;
@@ -286,6 +287,7 @@ void updateEeprom(){
 
 		memcpy(tmp2ArrEe, &gAllData,8);
 		eeprom_write_bytes(0,tmp2ArrEe,8);
+		lastActiveTime = millis();
 	#ifdef DEBUG
 		Serial.println("Updated eeprom");
 	#endif
