@@ -40,6 +40,7 @@ const int PinFootSwitch		= 7;
 const int PinAutoPulse		= 3;
 
 const int PinPulse			= 5;
+const bool ActivePulse    	= HIGH;	// pulse mode: active HIGH (default) or active LOW
 const int PinLED			= 4;
 
 const int PinBatVol			= A0;
@@ -132,7 +133,7 @@ void setup()   {
 	attachInterrupt (0,isr,FALLING);   // interrupt 0 is always connected to pin 2 on Arduino UNO
 
 	pinMode(PinLED,OUTPUT);
-	digitalWrite(PinPulse, LOW);
+	digitalWrite(PinPulse, !ActivePulse);
 	pinMode(PinPulse,OUTPUT);
 
 	pinMode(PinFootSwitch,INPUT_PULLUP);
@@ -254,14 +255,14 @@ void sendPulse(){
 
 	if(shortPulseDelay < 1) shortPulseDelay = 1; 	// so that the delay less than 1 millisecond will round off to 1ms.
 
-	digitalWrite(PinPulse,HIGH);
+	digitalWrite(PinPulse,ActivePulse);
 	delay(shortPulseDelay);
-	digitalWrite(PinPulse,LOW);
+	digitalWrite(PinPulse,!ActivePulse);
 	delay(shortPulseDelay);
 
-	digitalWrite(PinPulse,HIGH);
+	digitalWrite(PinPulse,ActivePulse);
 	delay(PulseDelay);
-	digitalWrite(PinPulse,LOW);
+	digitalWrite(PinPulse,!ActivePulse);
   WeldCount++;
 	lastActiveTime = millis();
 }
