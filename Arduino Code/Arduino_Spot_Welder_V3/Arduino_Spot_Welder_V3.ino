@@ -44,6 +44,7 @@ const bool ActivePulse    	= HIGH;	// pulse mode: active HIGH (default) or activ
 const int PinLED			= 4;
 
 const int PinBatVol			= A0;
+// #define DISABLE_LOW_BATTERY
 
 /*=======================================================================================
 					   OLED Display Configurarions and variables
@@ -292,7 +293,6 @@ void updateEeprom(){
 }
 
 void CheckBatteryVoltage(){
-	static uint8_t LastState = MAIN_SCREEN;
 	uint16_t tmp = analogRead(PinBatVol);
 	double tmp1 = tmp * 5 * 4.03 * 10 / 1023 + 6;
 	uint8_t tmp2 = (uint8_t)tmp1;
@@ -301,18 +301,21 @@ void CheckBatteryVoltage(){
 		BatteryVoltage = tmp2;
 	}
 
+#ifndef DISABLE_LOW_BATTERY
+	if ( State != MENU_SCREEN && State != SUB_MENU_1 && State != SUB_MENU_2 ) {
+		if(BatteryAlarm > BatteryVoltage && State!=BATTERY_LOW){
+			State = BATTERY_LOW;
+			char tmpAr1[5] = {0,0,0,0,0};
+			tmpAr1[0] = BatteryVoltage/100+ '0';	tmpAr1[1] = BatteryVoltage%100/10+ '0';	tmpAr1[2] = '.';	tmpAr1[3] = BatteryVoltage%100%10+ '0';
+			lowBatterry(tmpAr1);
+		}
 
-	if(BatteryAlarm > BatteryVoltage && State!=BATTERY_LOW){
-		State = BATTERY_LOW;
-		LastState = State;
-		char tmpAr1[5] = {0,0,0,0,0};
-		tmpAr1[0] = BatteryVoltage/100+ '0';	tmpAr1[1] = BatteryVoltage%100/10+ '0';	tmpAr1[2] = '.';	tmpAr1[3] = BatteryVoltage%100%10+ '0';
-		lowBatterry(tmpAr1);
+		if(BatteryAlarm <= BatteryVoltage && State==BATTERY_LOW){
+			State = MAIN_SCREEN;
+		}
 	}
+#endif
 
-	if(BatteryAlarm <= BatteryVoltage && State==BATTERY_LOW){
-		State = LastState;
-	}
 }
 
 void CheckForSleep(){
@@ -356,6 +359,15 @@ void StateMachine(){
 			break;
 
 		case BATTERY_LOW:
+			if( encBtnState()==LOW ){
+				State = MENU_SCREEN;  
+				selectedMenu = 0;     
+				displayMainMenu(0);
+				delay(30);
+				//set all the functionalities enable;
+				while(!encBtnState());
+				break;
+			}
 
 		break;
 
