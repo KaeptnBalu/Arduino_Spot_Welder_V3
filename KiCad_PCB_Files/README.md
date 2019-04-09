@@ -1,5 +1,14 @@
 These are the pcb files for the Spot welder V3
 
+
+V3.3
+- The mosfet board was updated with following improvements: 
+- Much wider traces on the bottom of the pcb for the high current connection to the u-shaped aluminum part
+- Mosfet gate resistors directly on the mosfet board, very close to the mosfet gate pins
+- All 8 Pins of the female 8 pin header that connects the Arduino and mosfet board are now connected to each other, which eliminates contact problems.
+- compatible to all Spot Welder Arduino Boards V3 or later
+
+
 V3.2
 - the Arduino Board was updated so it is now possible to mount a 3.5mm terminal block to the input pads. 
 - the voltage measurement now connects directly to the 12V input pad instead of behind the schottky diode in the previous version. This guarantuees a more precise voltage measurement.
