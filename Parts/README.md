@@ -1,5 +1,7 @@
 <b>For a complete parts list take a look at the BOM file</b>
 
+PLEASE NOTE: V3.3 of the welder uses the same parts as V3.2, so there is no extra BOM for V3.3
+
 These are the parts you need to buy for building the Spot Welder V3. With the Mouser.com Shop Link you can directly ad all electronic component parts to your shopping cart. 
 
 Not included in the Mouser shopping cart:
