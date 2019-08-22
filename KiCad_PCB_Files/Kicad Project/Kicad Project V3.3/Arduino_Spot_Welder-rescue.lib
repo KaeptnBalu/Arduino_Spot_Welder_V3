@@ -1,11 +1,11 @@
 EESchema-LIBRARY Version 2.4
 #encoding utf-8
 #
-# Arduino_Spot_Welder-rescue_ALPS-STEC12E08
+# ALPS-STEC12E08
 #
-DEF Arduino_Spot_Welder-rescue_ALPS-STEC12E08 ENC 0 40 Y Y 1 F N
+DEF ALPS-STEC12E08 ENC 0 40 Y Y 1 F N
 F0 "ENC" 0 375 60 H V C CNN
-F1 "Arduino_Spot_Welder-rescue_ALPS-STEC12E08" 0 500 60 H V C CNN
+F1 "ALPS-STEC12E08" 0 500 60 H V C CNN
 F2 "" 0 0 60 H V C CNN
 F3 "" 0 0 60 H V C CNN
 DRAW
@@ -42,11 +42,11 @@ X PB SW2 -550 -150 250 R 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Arduino_Spot_Welder-rescue_C
+# C
 #
-DEF Arduino_Spot_Welder-rescue_C C 0 10 N Y 1 F N
+DEF C C 0 10 N Y 1 F N
 F0 "C" 25 100 50 H V L CNN
-F1 "Arduino_Spot_Welder-rescue_C" 25 -100 50 H V L CNN
+F1 "C" 25 -100 50 H V L CNN
 F2 "" 38 -150 50 H V C CNN
 F3 "" 0 0 50 H V C CNN
 $FPLIST
@@ -64,11 +64,11 @@ X ~ 2 0 -150 110 U 40 40 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Arduino_Spot_Welder-rescue_CONN_01X02
+# CONN_01X02
 #
-DEF Arduino_Spot_Welder-rescue_CONN_01X02 P 0 40 Y N 1 F N
+DEF CONN_01X02 P 0 40 Y N 1 F N
 F0 "P" 0 150 50 H V C CNN
-F1 "Arduino_Spot_Welder-rescue_CONN_01X02" 100 0 50 V V C CNN
+F1 "CONN_01X02" 100 0 50 V V C CNN
 F2 "" 0 0 50 H V C CNN
 F3 "" 0 0 50 H V C CNN
 $FPLIST
@@ -86,11 +86,11 @@ X P2 2 -200 -50 150 R 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Arduino_Spot_Welder-rescue_CONN_01X04
+# CONN_01X04
 #
-DEF Arduino_Spot_Welder-rescue_CONN_01X04 P 0 40 Y N 1 F N
+DEF CONN_01X04 P 0 40 Y N 1 F N
 F0 "P" 0 250 50 H V C CNN
-F1 "Arduino_Spot_Welder-rescue_CONN_01X04" 100 0 50 V V C CNN
+F1 "CONN_01X04" 100 0 50 V V C CNN
 F2 "" 0 0 50 H V C CNN
 F3 "" 0 0 50 H V C CNN
 $FPLIST
@@ -112,11 +112,11 @@ X P4 4 -200 -150 150 R 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Arduino_Spot_Welder-rescue_CONN_01X08
+# CONN_01X08
 #
-DEF Arduino_Spot_Welder-rescue_CONN_01X08 P 0 40 Y N 1 F N
+DEF CONN_01X08 P 0 40 Y N 1 F N
 F0 "P" 0 450 50 H V C CNN
-F1 "Arduino_Spot_Welder-rescue_CONN_01X08" 100 0 50 V V C CNN
+F1 "CONN_01X08" 100 0 50 V V C CNN
 F2 "" 0 0 50 H V C CNN
 F3 "" 0 0 50 H V C CNN
 $FPLIST
@@ -146,11 +146,11 @@ X P8 8 -200 -350 150 R 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Arduino_Spot_Welder-rescue_CP
+# CP
 #
-DEF Arduino_Spot_Welder-rescue_CP C 0 10 N Y 1 F N
+DEF CP C 0 10 N Y 1 F N
 F0 "C" 25 100 50 H V L CNN
-F1 "Arduino_Spot_Welder-rescue_CP" 25 -100 50 H V L CNN
+F1 "CP" 25 -100 50 H V L CNN
 F2 "" 38 -150 50 H V C CNN
 F3 "" 0 0 50 H V C CNN
 $FPLIST
@@ -175,11 +175,11 @@ X ~ 2 0 -150 110 U 40 40 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Arduino_Spot_Welder-rescue_D
+# D
 #
-DEF Arduino_Spot_Welder-rescue_D D 0 40 N N 1 F N
+DEF D D 0 40 N N 1 F N
 F0 "D" 0 100 50 H V C CNN
-F1 "Arduino_Spot_Welder-rescue_D" 0 -100 50 H V C CNN
+F1 "D" 0 -100 50 H V C CNN
 F2 "" 0 0 50 H V C CNN
 F3 "" 0 0 50 H V C CNN
 $FPLIST
@@ -197,11 +197,11 @@ X A 2 150 0 100 L 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Arduino_Spot_Welder-rescue_DIL8
+# DIL8
 #
-DEF Arduino_Spot_Welder-rescue_DIL8 P 0 40 Y N 1 F N
+DEF DIL8 P 0 40 Y N 1 F N
 F0 "P" 0 250 50 H V C CNN
-F1 "Arduino_Spot_Welder-rescue_DIL8" 0 0 50 V V C CNN
+F1 "DIL8" 0 0 50 V V C CNN
 F2 "" 0 0 50 H V C CNN
 F3 "" 0 0 50 H V C CNN
 DRAW
@@ -217,11 +217,11 @@ X P8 8 350 150 300 L 50 50 1 1 P I
 ENDDRAW
 ENDDEF
 #
-# Arduino_Spot_Welder-rescue_D_Schottky_x2_Serial_AKC
+# D_Schottky_x2_Serial_AKC
 #
-DEF Arduino_Spot_Welder-rescue_D_Schottky_x2_Serial_AKC D 0 30 Y N 1 F N
+DEF D_Schottky_x2_Serial_AKC D 0 30 Y N 1 F N
 F0 "D" 50 -100 50 H V C CNN
-F1 "Arduino_Spot_Welder-rescue_D_Schottky_x2_Serial_AKC" 0 100 50 H V C CNN
+F1 "D_Schottky_x2_Serial_AKC" 0 100 50 H V C CNN
 F2 "" 0 0 50 H V C CNN
 F3 "" 0 0 50 H V C CNN
 DRAW
@@ -242,11 +242,11 @@ X common 3 0 -200 100 U 50 50 0 1 P
 ENDDRAW
 ENDDEF
 #
-# Arduino_Spot_Welder-rescue_IRF540N
+# IRF540N
 #
-DEF Arduino_Spot_Welder-rescue_IRF540N Q 0 0 Y Y 1 F N
+DEF IRF540N Q 0 0 Y Y 1 F N
 F0 "Q" 250 75 50 H V L CNN
-F1 "Arduino_Spot_Welder-rescue_IRF540N" 250 0 50 H V L CNN
+F1 "IRF540N" 250 0 50 H V L CNN
 F2 "TO-220" 250 -75 50 H V L CIN
 F3 "" 0 0 50 H V L CNN
 $FPLIST
@@ -281,11 +281,11 @@ X S 3 100 -200 100 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Arduino_Spot_Welder-rescue_R
+# R
 #
-DEF Arduino_Spot_Welder-rescue_R R 0 0 N Y 1 F N
+DEF R R 0 0 N Y 1 F N
 F0 "R" 80 0 50 V V C CNN
-F1 "Arduino_Spot_Welder-rescue_R" 0 0 50 V V C CNN
+F1 "R" 0 0 50 V V C CNN
 F2 "" -70 0 50 V V C CNN
 F3 "" 0 0 50 H V C CNN
 $FPLIST
@@ -299,11 +299,11 @@ X ~ 2 0 -150 50 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Arduino_Spot_Welder-rescue_ZENER
+# ZENER
 #
-DEF Arduino_Spot_Welder-rescue_ZENER D 0 40 N N 1 F N
+DEF ZENER D 0 40 N N 1 F N
 F0 "D" 0 100 50 H V C CNN
-F1 "Arduino_Spot_Welder-rescue_ZENER" 0 -100 50 H V C CNN
+F1 "ZENER" 0 -100 50 H V C CNN
 F2 "" 0 0 50 H V C CNN
 F3 "" 0 0 50 H V C CNN
 $FPLIST
@@ -319,11 +319,11 @@ X A 2 200 0 150 L 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Arduino_Spot_Welder-rescue_arduino_mini
+# arduino_mini
 #
-DEF Arduino_Spot_Welder-rescue_arduino_mini U 0 40 Y Y 1 F N
+DEF arduino_mini U 0 40 Y Y 1 F N
 F0 "U" 500 -950 70 H V C CNN
-F1 "Arduino_Spot_Welder-rescue_arduino_mini" 750 -1050 70 H V C CNN
+F1 "arduino_mini" 750 -1050 70 H V C CNN
 F2 "DIL20" 0 -50 60 H V C CNN
 F3 "" 0 0 60 H I C CNN
 DRAW
@@ -358,49 +358,6 @@ X A2 6 -700 0 300 R 60 60 1 1 B
 X A3 7 -700 -100 300 R 60 60 1 1 B
 X A4(SDA) 8 -700 -200 300 R 60 60 1 1 B
 X A5(SCL) 9 -700 -300 300 R 60 60 1 1 B
-ENDDRAW
-ENDDEF
-#
-# power_+12V
-#
-DEF power_+12V #PWR 0 0 Y Y 1 F P
-F0 "#PWR" 0 -150 50 H I C CNN
-F1 "power_+12V" 0 140 50 H V C CNN
-F2 "" 0 0 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-DRAW
-P 2 0 1 0 -30 50 0 100 N
-P 2 0 1 0 0 0 0 100 N
-P 2 0 1 0 0 100 30 50 N
-X +12V 1 0 0 0 U 50 50 1 1 W N
-ENDDRAW
-ENDDEF
-#
-# power_+5V
-#
-DEF power_+5V #PWR 0 0 Y Y 1 F P
-F0 "#PWR" 0 -150 50 H I C CNN
-F1 "power_+5V" 0 140 50 H V C CNN
-F2 "" 0 0 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-DRAW
-P 2 0 1 0 -30 50 0 100 N
-P 2 0 1 0 0 0 0 100 N
-P 2 0 1 0 0 100 30 50 N
-X +5V 1 0 0 0 U 50 50 1 1 W N
-ENDDRAW
-ENDDEF
-#
-# power_GND
-#
-DEF power_GND #PWR 0 0 Y Y 1 F P
-F0 "#PWR" 0 -250 50 H I C CNN
-F1 "power_GND" 0 -150 50 H V C CNN
-F2 "" 0 0 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-DRAW
-P 6 0 1 0 0 0 0 -50 50 -50 0 -100 -50 -50 0 -50 N
-X GND 1 0 0 0 D 50 50 1 1 W N
 ENDDRAW
 ENDDEF
 #
