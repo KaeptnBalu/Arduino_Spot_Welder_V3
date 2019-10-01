@@ -1,5 +1,4 @@
 EESchema Schematic File Version 5
-LIBS:Spot_Welder-cache
 EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
@@ -13,16 +12,21 @@ Comment1 ""
 Comment2 ""
 Comment3 ""
 Comment4 ""
+Comment5 ""
+Comment6 ""
+Comment7 ""
+Comment8 ""
+Comment9 ""
 $EndDescr
 $Comp
 L MCU_ST_STM32F0:STM32F030F4Px U2
 U 1 1 5D58381A
-P 3100 5100
-F 0 "U2" H 3100 4211 50  0000 C CNN
-F 1 "STM32F030F4Px" H 3100 4120 50  0000 C CNN
-F 2 "Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm" H 2700 4400 50  0001 R CNN
-F 3 "http://www.st.com/st-web-ui/static/active/en/resource/technical/document/datasheet/DM00088500.pdf" H 3100 5100 50  0001 C CNN
-	1    3100 5100
+P 4100 6000
+F 0 "U2" H 4100 5111 50  0000 C CNN
+F 1 "STM32F030F4Px" H 4100 5020 50  0000 C CNN
+F 2 "Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm" H 3700 5300 50  0001 R CNN
+F 3 "http://www.st.com/st-web-ui/static/active/en/resource/technical/document/datasheet/DM00088500.pdf" H 4100 6000 50  0001 C CNN
+	1    4100 6000
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -115,7 +119,7 @@ U 1 1 5D5F5F67
 P 2400 1150
 F 0 "C3" H 2500 1200 50  0000 L CNN
 F 1 "1u" H 2518 1105 50  0000 L CNN
-F 2 "Rotary_Encoder:RotaryEncoder_Alps_EC12E-Switch_Vertical_H20mm_CircularMountingHoles" H 2438 1000 50  0001 C CNN
+F 2 "Capacitor_SMD:C_0603_1608Metric" H 2438 1000 50  0001 C CNN
 F 3 "~" H 2400 1150 50  0001 C CNN
 	1    2400 1150
 	1    0    0    -1  
@@ -224,8 +228,8 @@ L Device:C C6
 U 1 1 5D61C228
 P 4350 1350
 F 0 "C6" H 4236 1396 50  0000 R CNN
-F 1 "1u" H 4236 1305 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric" H 4388 1200 50  0001 C CNN
+F 1 "10u" H 4236 1305 50  0000 R CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 4388 1200 50  0001 C CNN
 F 3 "~" H 4350 1350 50  0001 C CNN
 	1    4350 1350
 	1    0    0    -1  
@@ -235,8 +239,8 @@ L Device:C C7
 U 1 1 5D61D515
 P 5350 1350
 F 0 "C7" H 5236 1396 50  0000 R CNN
-F 1 "1u" H 5236 1305 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric" H 5388 1200 50  0001 C CNN
+F 1 "22u" H 5236 1305 50  0000 R CNN
+F 2 "Capacitor_SMD:C_1206_3216Metric" H 5388 1200 50  0001 C CNN
 F 3 "~" H 5350 1350 50  0001 C CNN
 	1    5350 1350
 	1    0    0    -1  
@@ -274,7 +278,7 @@ $EndComp
 Wire Wire Line
 	4350 1500 4350 1650
 Wire Wire Line
-	5350 1650 5350 1500
+	5350 1650 5350 1600
 Text GLabel 4350 950  1    50   Input ~ 0
 12V_VCC
 Wire Wire Line
@@ -954,37 +958,10 @@ F 3 "~" H 5000 2650 50  0001 C CNN
 	1    5000 2650
 	1    0    0    -1  
 $EndComp
-Text GLabel 4650 2350 0    50   Input ~ 0
-3.3V_MCU
-Wire Wire Line
-	4650 2350 4750 2350
-Wire Wire Line
-	4750 2350 4750 2550
-Wire Wire Line
-	4750 2550 4800 2550
-$Comp
-L power:GND #PWR0101
-U 1 1 5D78F79B
-P 4300 2750
-F 0 "#PWR0101" H 4300 2500 50  0001 C CNN
-F 1 "GND" H 4305 2577 50  0000 C CNN
-F 2 "" H 4300 2750 50  0001 C CNN
-F 3 "" H 4300 2750 50  0001 C CNN
-	1    4300 2750
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	4300 2750 4300 2650
-Wire Wire Line
-	4300 2650 4800 2650
-Text GLabel 4700 2750 0    50   Input ~ 0
-SCL
-Text GLabel 4700 2850 0    50   Input ~ 0
+Text GLabel 4100 2850 0    50   Input ~ 0
 SDA
 Wire Wire Line
-	4700 2750 4800 2750
-Wire Wire Line
-	4700 2850 4800 2850
+	4100 2850 4450 2850
 Wire Notes Line
 	5700 1950 5700 3500
 Wire Notes Line
@@ -1008,4 +985,150 @@ U 5D9E2BB1
 F0 "MOSFET_Array" 50
 F1 "MOSFET_Array.sch" 50
 $EndSheet
+$Comp
+L power:GND #PWR0105
+U 1 1 5D9385C4
+P 4850 1700
+F 0 "#PWR0105" H 4850 1450 50  0001 C CNN
+F 1 "GND" H 4855 1527 50  0000 C CNN
+F 2 "" H 4850 1700 50  0001 C CNN
+F 3 "" H 4850 1700 50  0001 C CNN
+	1    4850 1700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4850 1700 4850 1350
+$Comp
+L Mechanical:MountingHole H3
+U 1 1 5D9367B8
+P 1300 2550
+F 0 "H3" H 1400 2596 50  0000 L CNN
+F 1 "MountingHole" H 1400 2505 50  0000 L CNN
+F 2 "MountingHole:MountingHole_2.5mm" H 1300 2550 50  0001 C CNN
+F 3 "~" H 1300 2550 50  0001 C CNN
+	1    1300 2550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H4
+U 1 1 5D937A6C
+P 1300 2800
+F 0 "H4" H 1400 2846 50  0000 L CNN
+F 1 "MountingHole" H 1400 2755 50  0000 L CNN
+F 2 "MountingHole:MountingHole_2.5mm" H 1300 2800 50  0001 C CNN
+F 3 "~" H 1300 2800 50  0001 C CNN
+	1    1300 2800
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H5
+U 1 1 5D9397FA
+P 1300 3050
+F 0 "H5" H 1400 3096 50  0000 L CNN
+F 1 "MountingHole" H 1400 3005 50  0000 L CNN
+F 2 "MountingHole:MountingHole_2.5mm" H 1300 3050 50  0001 C CNN
+F 3 "~" H 1300 3050 50  0001 C CNN
+	1    1300 3050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H6
+U 1 1 5D93AEBC
+P 1300 3300
+F 0 "H6" H 1400 3346 50  0000 L CNN
+F 1 "MountingHole" H 1400 3255 50  0000 L CNN
+F 2 "MountingHole:MountingHole_2.5mm" H 1300 3300 50  0001 C CNN
+F 3 "~" H 1300 3300 50  0001 C CNN
+	1    1300 3300
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C1
+U 1 1 5DA83E12
+P 5600 1350
+F 0 "C1" H 5500 1450 50  0000 R CNN
+F 1 "10u" H 5550 1200 50  0000 R CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 5638 1200 50  0001 C CNN
+F 3 "~" H 5600 1350 50  0001 C CNN
+	1    5600 1350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5600 1200 5600 1050
+Wire Wire Line
+	5600 1050 5350 1050
+Wire Wire Line
+	5600 1500 5600 1600
+Wire Wire Line
+	5600 1600 5350 1600
+Connection ~ 5350 1600
+Wire Wire Line
+	5350 1600 5350 1500
+Wire Wire Line
+	4100 2750 4200 2750
+Text GLabel 4100 2750 0    50   Input ~ 0
+SCL
+Wire Wire Line
+	4300 2650 4800 2650
+Wire Wire Line
+	4300 3150 4300 2650
+$Comp
+L power:GND #PWR0101
+U 1 1 5D78F79B
+P 4300 3150
+F 0 "#PWR0101" H 4300 2900 50  0001 C CNN
+F 1 "GND" H 4305 2977 50  0000 C CNN
+F 2 "" H 4300 3150 50  0001 C CNN
+F 3 "" H 4300 3150 50  0001 C CNN
+	1    4300 3150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4750 2550 4800 2550
+Wire Wire Line
+	4750 2200 4750 2550
+Wire Wire Line
+	4350 2200 4450 2200
+Text GLabel 4350 2200 0    50   Input ~ 0
+3.3V_MCU
+$Comp
+L Device:R R?
+U 1 1 5DAFE2BC
+P 4200 2450
+F 0 "R?" H 4130 2496 50  0000 R CNN
+F 1 "4.7k" H 4130 2405 50  0000 R CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 4130 2450 50  0001 C CNN
+F 3 "~" H 4200 2450 50  0001 C CNN
+	1    4200 2450
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 5DB04CA4
+P 4450 2450
+F 0 "R?" H 4600 2500 50  0000 R CNN
+F 1 "4.7k" H 4700 2400 50  0000 R CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 4380 2450 50  0001 C CNN
+F 3 "~" H 4450 2450 50  0001 C CNN
+	1    4450 2450
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4200 2600 4200 2750
+Connection ~ 4200 2750
+Wire Wire Line
+	4200 2750 4800 2750
+Wire Wire Line
+	4450 2600 4450 2850
+Connection ~ 4450 2850
+Wire Wire Line
+	4450 2850 4800 2850
+Wire Wire Line
+	4450 2300 4200 2300
+Wire Wire Line
+	4450 2300 4450 2200
+Connection ~ 4450 2300
+Connection ~ 4450 2200
+Wire Wire Line
+	4450 2200 4750 2200
 $EndSCHEMATC
