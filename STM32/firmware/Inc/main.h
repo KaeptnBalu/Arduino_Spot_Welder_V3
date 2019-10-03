@@ -58,6 +58,20 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define ADC_Auto_Pulse_Pin GPIO_PIN_0
+#define ADC_Auto_Pulse_GPIO_Port GPIOA
+#define MCU_Gate_Pin GPIO_PIN_1
+#define MCU_Gate_GPIO_Port GPIOA
+#define Foot_Switch_Pin GPIO_PIN_4
+#define Foot_Switch_GPIO_Port GPIOA
+#define ADC_VIN_Pin GPIO_PIN_5
+#define ADC_VIN_GPIO_Port GPIOA
+#define Encoder_A_Pin GPIO_PIN_6
+#define Encoder_A_GPIO_Port GPIOA
+#define Encoder_B_Pin GPIO_PIN_7
+#define Encoder_B_GPIO_Port GPIOA
+#define Encoder_Switch_Pin GPIO_PIN_1
+#define Encoder_Switch_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
