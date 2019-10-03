@@ -1,4 +1,4 @@
-update=Thu Oct  3 14:56:35 2019
+update=Thu Oct  3 16:17:03 2019
 last_client=kicad
 [general]
 version=1
@@ -239,3 +239,19 @@ uViaDrill=0.1
 dPairWidth=0.3
 dPairGap=0.25
 dPairViaGap=0.25
+[schematic_editor]
+version=1
+PageLayoutDescrFile=
+PlotDirectoryName=Images/
+SubpartIdSeparator=0
+SubpartFirstId=65
+NetFmtName=
+SpiceAjustPassiveValues=0
+LabSize=50
+ERC_WriteFile=0
+ERC_TestSimilarLabels=1
+ERC_CheckUniqueGlobalLabels=1
+ERC_CheckBusDriverConflicts=1
+ERC_CheckBusEntryConflicts=1
+ERC_CheckBusToBusConflicts=1
+ERC_CheckBusToNetConflicts=1
