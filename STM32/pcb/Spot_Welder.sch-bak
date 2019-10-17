@@ -240,7 +240,7 @@ U 1 1 5D61D515
 P 5350 1350
 F 0 "C7" H 5236 1396 50  0000 R CNN
 F 1 "22u" H 5236 1305 50  0000 R CNN
-F 2 "Capacitor_SMD:C_1206_3216Metric" H 5388 1200 50  0001 C CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 5388 1200 50  0001 C CNN
 F 3 "~" H 5350 1350 50  0001 C CNN
 	1    5350 1350
 	1    0    0    -1  
@@ -1131,17 +1131,6 @@ Connection ~ 4450 2300
 Connection ~ 4450 2200
 Wire Wire Line
 	4450 2200 4750 2200
-$Comp
-L Memory_EEPROM:AT24CS04-STUM U12
-U 1 1 5D95BB2E
-P 2050 2800
-F 0 "U12" H 1720 2846 50  0000 R CNN
-F 1 "AT24CS04-STUM" H 1720 2755 50  0000 R CNN
-F 2 "Package_TO_SOT_SMD:SOT-23-5" H 2050 2800 50  0001 C CNN
-F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8766-SEEPROM-AT24CS04-08-Datasheet.pdf" H 2050 2800 50  0001 C CNN
-	1    2050 2800
-	1    0    0    -1  
-$EndComp
 Text GLabel 2600 2800 2    50   Input ~ 0
 SCL
 Text GLabel 2600 2700 2    50   Input ~ 0
@@ -1530,4 +1519,31 @@ Wire Wire Line
 	4850 5900 4600 5900
 NoConn ~ 4850 5800
 NoConn ~ 4850 5700
+$Comp
+L Memory_EEPROM:24LC64 U12
+U 1 1 5DA8B716
+P 2050 2800
+F 0 "U12" H 2050 3281 50  0000 C CNN
+F 1 "24LC64" H 2050 3190 50  0000 C CNN
+F 2 "Package_SO:TSSOP-8_4.4x3mm_P0.65mm" H 2050 2800 50  0001 C CNN
+F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/21189f.pdf" H 2050 2800 50  0001 C CNN
+	1    2050 2800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1650 2700 1500 2700
+Wire Wire Line
+	1500 2700 1500 2800
+Wire Wire Line
+	1500 3150 2050 3150
+Wire Wire Line
+	1650 2900 1500 2900
+Connection ~ 1500 2900
+Wire Wire Line
+	1500 2900 1500 3150
+Wire Wire Line
+	1650 2800 1500 2800
+Connection ~ 1500 2800
+Wire Wire Line
+	1500 2800 1500 2900
 $EndSCHEMATC
