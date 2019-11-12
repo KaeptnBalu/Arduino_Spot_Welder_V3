@@ -1,0 +1,5 @@
+spot_welder_main.c:27:6:Encoder_Buttorn_Callback	0	static
+spot_welder_main.c:16:6:Systic_Callback	8	static
+spot_welder_main.c:32:6:Spot_Welder_Give_Pusle	16	static
+spot_welder_main.c:40:6:Foot_Switch_Callback	8	static
+spot_welder_main.c:50:6:Spot_Welder_Main	120	static
