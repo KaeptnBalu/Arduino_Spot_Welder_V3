@@ -195,7 +195,7 @@ char ssd1306_WriteChar(char ch, FontDef Font, SSD1306_COLOR color)
 //	Font => Het font dat gebruikt moet worden
 //	color => Black or White
 //
-char ssd1306_WriteString(char* str, FontDef Font, SSD1306_COLOR color)
+char ssd1306_WriteString(const char* str, FontDef Font, SSD1306_COLOR color)
 {
 	// We schrijven alle char tot een nulbyte
 	while (*str) 

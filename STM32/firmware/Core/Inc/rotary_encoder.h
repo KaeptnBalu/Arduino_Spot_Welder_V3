@@ -8,7 +8,7 @@
 #ifndef ROTARY_ENCODER_H_
 #define ROTARY_ENCODER_H_
 
-#include"stm32f0xx_hal.h"
+#include "stm32f0xx_hal.h"
 
 #define HIGH 1
 #define LOW  0

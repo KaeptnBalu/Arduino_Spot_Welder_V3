@@ -8,6 +8,13 @@
 #ifndef INC_SPOT_WELDER_MAIN_H_
 #define INC_SPOT_WELDER_MAIN_H_
 
+#include "ssd1306.h"
+#include "rotary_encoder.h"
+#include "button.h"
+#include "main.h"
+#include "stdlib.h"
+
+
 void Spot_Welder_Main();
 
 

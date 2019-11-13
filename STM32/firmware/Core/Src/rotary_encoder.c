@@ -78,13 +78,17 @@ void Encoder_Scan()
 	    PTR->Encoder_Pin_0__State = !PTR->Encoder_Pin_0__State;
 	    if (PTR->Encoder_Pin_0__State && !PTR->Encoder_Pin_1__State)
 		{
-		if (HAL_GetTick() - PTR->Encoder_Time_Stamp > 3)
+		if (HAL_GetTick() - PTR->Encoder_Time_Stamp > 10)
 		    {
 		    PTR->Encoder_Count += 1;
 		    }
+		else if (HAL_GetTick() - PTR->Encoder_Time_Stamp > 5)
+		    {
+		    PTR->Encoder_Count += 10;
+		    }
 		else
 		    {
-		    PTR->Encoder_Count += 5;
+		    PTR->Encoder_Count += 50;
 		    }
 
 		PTR->Encoder_Time_Stamp = HAL_GetTick();
@@ -96,13 +100,17 @@ void Encoder_Scan()
 	    PTR->Encoder_Pin_1__State = !PTR->Encoder_Pin_1__State;
 	    if (PTR->Encoder_Pin_1__State && !PTR->Encoder_Pin_0__State)
 		{
-		if (HAL_GetTick() - PTR->Encoder_Time_Stamp > 3)
+		if (HAL_GetTick() - PTR->Encoder_Time_Stamp > 10)
 		    {
 		    PTR->Encoder_Count -= 1;
 		    }
+		else if (HAL_GetTick() - PTR->Encoder_Time_Stamp > 5)
+		    {
+		    PTR->Encoder_Count -= 10;
+		    }
 		else
 		    {
-		    PTR->Encoder_Count -= 5;
+		    PTR->Encoder_Count -= 50;
 		    }
 		PTR->Encoder_Time_Stamp = HAL_GetTick();
 		}
