@@ -87,6 +87,8 @@ void Execute_Page1_Element1(uint8_t button, int16_t count)
 
     char temp[10];
 
+    int16_t bat_voltage;
+
     if (In_Loop)
 	{
 
@@ -97,23 +99,50 @@ void Execute_Page1_Element1(uint8_t button, int16_t count)
 
 	Set_Main_Pulse_Duration(count + Get_Main_Pulse_Duration());
 
-	if (Foot_Switchn_Flag && Get_Welder_Status())
+
+	HAL_ADC_PollForConversion(&hadc, 10);
+	bat_voltage = HAL_ADC_GetValue(&hadc)*13;
+
+	if(bat_voltage < Get_Batt_Alarm())
+	    {
+	    //Disble_Welder();
+	    }
+
+	if (Foot_Switchn_Flag)
 	    {
 	    Foot_Switchn_Flag = 0;
-	    ssd1306_Fill(Black);
-	    ssd1306_SetCursor(0, 0);
-	    ssd1306_WriteString("Pulse:", Font_11x18, White);
-	    itoa(Get_Main_Pulse_Duration(), temp, 10);
-	    ssd1306_WriteString(temp, Font_11x18, White);
-	    ssd1306_WriteString("ms", Font_11x18, White);
-	    ssd1306_UpdateScreen();
 
-	    HAL_GPIO_WritePin(Gate_Driver_GPIO_Port, Gate_Driver_Pin,
-		    GPIO_PIN_SET);
-	    HAL_Delay(Get_Main_Pulse_Duration());
-	    HAL_GPIO_WritePin(Gate_Driver_GPIO_Port, Gate_Driver_Pin,
-		    GPIO_PIN_RESET);
-	    HAL_Delay(1000);
+	    if (Get_Welder_Status())
+		{
+		ssd1306_Fill(Black);
+		ssd1306_SetCursor(0, 0);
+		ssd1306_WriteString("Pulse:", Font_11x18, White);
+		itoa(Get_Main_Pulse_Duration(), temp, 10);
+		ssd1306_WriteString(temp, Font_11x18, White);
+		ssd1306_WriteString("ms", Font_11x18, White);
+		ssd1306_UpdateScreen();
+
+		HAL_GPIO_WritePin(Gate_Driver_GPIO_Port, Gate_Driver_Pin,
+			GPIO_PIN_SET);
+		HAL_Delay(Get_Main_Pulse_Duration());
+		HAL_GPIO_WritePin(Gate_Driver_GPIO_Port, Gate_Driver_Pin,
+			GPIO_PIN_RESET);
+		HAL_Delay(1000);
+		}
+	    else
+		{
+		ssd1306_Fill(Black);
+		ssd1306_SetCursor(0, 0);
+		ssd1306_WriteString("Battery Low", Font_7x10, White);
+		ssd1306_SetCursor(0, 15);
+		ssd1306_WriteString("Under Voltage", Font_7x10, White);
+		ssd1306_SetCursor(0, 30);
+		ssd1306_WriteString("Lock Out", Font_7x10, White);
+		ssd1306_SetCursor(0, 45);
+		ssd1306_WriteString("Reboot Welder", Font_7x10, White);
+		ssd1306_UpdateScreen();
+		HAL_Delay(2000);
+		}
 	    }
 
 	ssd1306_Fill(Black);
@@ -126,8 +155,7 @@ void Execute_Page1_Element1(uint8_t button, int16_t count)
 	ssd1306_SetCursor(0, 20);
 	ssd1306_WriteString("Battery:", Font_7x10, White);
 	ssd1306_SetCursor(75, 20);
-	//itoa(Batt_Voltage*4, temp, 10);
-	itoa(100 * 4, temp, 10);
+	itoa(bat_voltage, temp, 10);
 	ssd1306_WriteString(temp, Font_7x10, White);
 	ssd1306_WriteString("mV", Font_7x10, White);
 

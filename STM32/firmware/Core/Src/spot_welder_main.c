@@ -22,8 +22,6 @@ int16_t  Batt_Alarm = 11000; // in mv
 uint8_t Foot_Switchn_Flag = 0;
 uint8_t Welder_Enable_Flag = 1;
 
-uint8_t Batt_Voltage = 0;
-
 
 Soft_I2C_t Soft_I2C1;
 
@@ -65,9 +63,9 @@ void Set_Main_Pulse_Duration(int16_t duration)
 	{
 	duration = 1;
 	}
-    if (duration > 100)
+    if (duration > 50)
 	{
-	duration = 100;
+	duration = 50;
 	}
     Main_Pulse_Duration = duration;
     }
@@ -83,9 +81,9 @@ void Set_Short_Pulse_Duration(int16_t duration)
 	{
 	duration = 1;
 	}
-    if (duration > 100)
+    if (duration > 20)
 	{
-	duration = 100;
+	duration = 20;
 	}
     Short_Pulse_Duration = duration;
     }

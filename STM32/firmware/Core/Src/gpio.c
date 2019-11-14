@@ -50,7 +50,7 @@ void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(Gate_Driver_GPIO_Port, Gate_Driver_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, Gate_Driver_Pin|GPIO_PIN_9, GPIO_PIN_RESET);
 
   /*Configure GPIO pins : PF0 PF1 */
   GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_1;
@@ -58,21 +58,23 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOF, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PAPin PAPin PAPin PAPin */
-  GPIO_InitStruct.Pin = Auto_Pulse_Pin_Pin|Foot_Switch_Pin|ENCDR_B_Pin|ENCDR_A_Pin;
+  /*Configure GPIO pins : PAPin PAPin PAPin PAPin 
+                           PA10 */
+  GPIO_InitStruct.Pin = Auto_Pulse_Pin_Pin|Foot_Switch_Pin|ENCDR_B_Pin|ENCDR_A_Pin 
+                          |GPIO_PIN_10;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : PtPin */
-  GPIO_InitStruct.Pin = Gate_Driver_Pin;
+  /*Configure GPIO pins : PAPin PA9 */
+  GPIO_InitStruct.Pin = Gate_Driver_Pin|GPIO_PIN_9;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(Gate_Driver_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PA2 PA3 PA9 PA10 */
-  GPIO_InitStruct.Pin = GPIO_PIN_2|GPIO_PIN_3|GPIO_PIN_9|GPIO_PIN_10;
+  /*Configure GPIO pins : PA2 PA3 */
+  GPIO_InitStruct.Pin = GPIO_PIN_2|GPIO_PIN_3;
   GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);

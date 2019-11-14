@@ -90,7 +90,7 @@ int main(void)
   MX_GPIO_Init();
   MX_ADC_Init();
   /* USER CODE BEGIN 2 */
-
+  HAL_ADC_Start(&hadc);
   Spot_Welder_Main();
 
   /* USER CODE END 2 */
