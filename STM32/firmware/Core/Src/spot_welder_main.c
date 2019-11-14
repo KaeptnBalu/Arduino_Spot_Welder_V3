@@ -25,6 +25,15 @@ uint8_t Welder_Enable_Flag = 1;
 uint8_t Batt_Voltage = 0;
 
 
+Soft_I2C_t Soft_I2C1;
+
+#define SOFT_I2C_SDA_PIN		GPIO_PIN_10
+#define SOFT_I2C_SDA_PORT		GPIOA
+
+#define SOFT_I2C_SCL_PIN		GPIO_PIN_9
+#define SOFT_I2C_SCL_PORT		GPIOA
+
+
 void Systic_Callback()
     {
     Encoder_Scan();
@@ -142,6 +151,14 @@ void Foot_Switch_Callback(uint8_t Clicked_Count)
 void Spot_Welder_Main()
     {
 
+    Soft_I2C1.GPIO_SCL_Pin = SOFT_I2C_SCL_PIN;
+    Soft_I2C1.GPIO_SCL_Port = SOFT_I2C_SCL_PORT;
+
+    Soft_I2C1.GPIO_SDA_Pin = SOFT_I2C_SDA_PIN;
+    Soft_I2C1.GPIO_SDA_Port = SOFT_I2C_SDA_PORT;
+
+    Soft_I2C_Init(&Soft_I2C1);
+
     ssd1306_Init();
 
     ssd1306_Fill(Black);
@@ -158,6 +175,8 @@ void Spot_Welder_Main()
     Foot_Switch.Button_Pressed_Logic = LOW;
     Foot_Switch.Callback = Foot_Switch_Callback;
     Button_Attach(&Foot_Switch);
+
+
 
     Init_Menu();
 

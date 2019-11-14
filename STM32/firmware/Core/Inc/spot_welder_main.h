@@ -17,6 +17,9 @@
 #include "stdlib.h"
 #include "menu_main.h"
 
+#include "soft_i2c.h"
+#include "at24cxx.h"
+
 
 Button_Struct_t Foot_Switch;
 Button_Struct_t Auto_Pulse;

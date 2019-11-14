@@ -1,4 +1,4 @@
-Core/Src/menu_main.o: ../Core/Src/menu_main.c ../Core/Inc/menu_main.h \
+Core/Src/delay_us.o: ../Core/Src/delay_us.c ../Core/Inc/delay_us.h \
  ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal.h \
  ../Core/Inc/stm32f0xx_hal_conf.h \
  ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_rcc.h \
@@ -24,14 +24,9 @@ Core/Src/menu_main.o: ../Core/Src/menu_main.c ../Core/Inc/menu_main.h \
  ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_i2c.h \
  ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_i2c_ex.h \
  ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_pwr.h \
- ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_pwr_ex.h \
- ../Core/Inc/ssd1306.h ../Core/Inc/fonts.h ../Core/Inc/main.h \
- ../Core/Inc/rotary_encoder.h ../Core/Inc/button.h \
- ../Core/Inc/spot_welder_main.h ../Core/Inc/adc.h ../Core/Inc/menu_main.h \
- ../Core/Inc/soft_i2c.h ../Core/Inc/at24cxx.h ../Core/Inc/menu_page1.h \
- ../Core/Inc/menu_page2.h
+ ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_pwr_ex.h
 
-../Core/Inc/menu_main.h:
+../Core/Inc/delay_us.h:
 
 ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal.h:
 
@@ -84,27 +79,3 @@ Core/Src/menu_main.o: ../Core/Src/menu_main.c ../Core/Inc/menu_main.h \
 ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_pwr.h:
 
 ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_pwr_ex.h:
-
-../Core/Inc/ssd1306.h:
-
-../Core/Inc/fonts.h:
-
-../Core/Inc/main.h:
-
-../Core/Inc/rotary_encoder.h:
-
-../Core/Inc/button.h:
-
-../Core/Inc/spot_welder_main.h:
-
-../Core/Inc/adc.h:
-
-../Core/Inc/menu_main.h:
-
-../Core/Inc/soft_i2c.h:
-
-../Core/Inc/at24cxx.h:
-
-../Core/Inc/menu_page1.h:
-
-../Core/Inc/menu_page2.h:
