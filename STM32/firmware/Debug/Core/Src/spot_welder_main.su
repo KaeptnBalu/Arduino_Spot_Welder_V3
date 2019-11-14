@@ -1,0 +1,16 @@
+spot_welder_main.c:133:6:Foot_Switch_Callback	0	static
+spot_welder_main.c:28:6:Systic_Callback	8	static
+spot_welder_main.c:34:6:Set_Auto_Pulse_Delay	0	static
+spot_welder_main.c:47:10:Get_Auto_Pulse_Delay	0	static
+spot_welder_main.c:53:6:Set_Main_Pulse_Duration	0	static
+spot_welder_main.c:66:10:Get_Main_Pulse_Duration	0	static
+spot_welder_main.c:71:6:Set_Short_Pulse_Duration	0	static
+spot_welder_main.c:84:10:Get_Short_Pulse_Duration	0	static
+spot_welder_main.c:90:6:Set_Batt_Alarm	0	static
+spot_welder_main.c:103:10:Get_Batt_Alarm	0	static
+spot_welder_main.c:108:6:Disble_Welder	0	static
+spot_welder_main.c:113:9:Get_Welder_Status	0	static
+spot_welder_main.c:118:6:Disble_Auto_Welder	0	static
+spot_welder_main.c:123:6:Enable_Auto_Welder	0	static
+spot_welder_main.c:128:9:Get_Auto_Status	0	static
+spot_welder_main.c:142:6:Spot_Welder_Main	8	static

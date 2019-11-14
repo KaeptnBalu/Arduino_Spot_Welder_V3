@@ -1,0 +1,10 @@
+menu_page1.c:12:6:Show_Page1_Screen1	8	static
+menu_page1.c:25:6:Show_Page1_Screen2	8	static
+menu_page1.c:37:6:Show_Page1_Screen3	8	static
+menu_page1.c:51:6:Show_Page1_Screen4	8	static
+menu_page1.c:65:6:Show_Page1	8	static
+menu_page1.c:85:6:Execute_Page1_Element1	40	static
+menu_page1.c:152:6:Execute_Page1_Element2	8	static
+menu_page1.c:158:6:Execute_Page1_Element3	32	static
+menu_page1.c:188:6:Execute_Page1_Element4	32	static
+menu_page1.c:214:6:Execute_Page1_Element	8	static
