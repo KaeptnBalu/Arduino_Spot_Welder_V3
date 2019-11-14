@@ -39,19 +39,28 @@ void Systic_Callback()
 Encoder_Struct_t Encoder;
 Button_Struct_t Encoder_Button;
 Button_Struct_t Foot_Switch;
+Button_Struct_t Auto_Pulse;
 
 uint8_t Encoder_Buttorn_Clicks = 0;
 uint8_t Spot_Welder_Enabled_Flag = 0;
 uint8_t Spot_Welder_Auto_Flag = 0;
 
-int16_t  Spot_Welder_Pulse_Time = 1;
+int16_t  Main_Pulse_Duration = 1;
+int16_t  Short_Pulse_Duration = 1;
 int16_t  Auto_Pulse_Delay = 1000;
 
-float Batt_Alarm = 11.0;
+int16_t  Batt_Alarm = 11000; // in mv
+
+uint8_t Foot_Switchn_Flag = 0;
+uint8_t Welder_Enable_Flag = 1;
+
+
 
 uint8_t Menu = 1;
 uint8_t Page = 1;
-uint8_t Refresh_Menu_Flag = 0;
+
+uint8_t Batt_Voltage = 0;
+
 
 
 void (*Show_Current_Page)(void);
@@ -80,7 +89,7 @@ uint16_t Get_Auto_Pulse_Delay()
     }
 
 
-void Set_Pulse_Duration(int16_t duration)
+void Set_Main_Pulse_Duration(int16_t duration)
     {
     if (duration <= 1)
 	{
@@ -90,24 +99,42 @@ void Set_Pulse_Duration(int16_t duration)
 	{
 	duration = 100;
 	}
-    Spot_Welder_Pulse_Time = duration;
+    Main_Pulse_Duration = duration;
     }
 
-uint16_t Get_Pulse_Duration()
+uint16_t Get_Main_Pulse_Duration()
     {
-    return Spot_Welder_Pulse_Time;
+    return Main_Pulse_Duration;
     }
 
-
-void Set_Batt_Alarm(float voltage)
+void Set_Short_Pulse_Duration(int16_t duration)
     {
-    if (voltage <= 10.0)
+    if (duration <= 1)
 	{
-	voltage = 10.0;
+	duration = 1;
 	}
-    if (voltage > 13.0)
+    if (duration > 100)
 	{
-	voltage = 13.0;
+	duration = 100;
+	}
+    Short_Pulse_Duration = duration;
+    }
+
+uint16_t Get_Short_Pulse_Duration()
+    {
+    return Short_Pulse_Duration;
+    }
+
+
+void Set_Batt_Alarm(int16_t voltage)
+    {
+    if (voltage <= 10000)
+	{
+	voltage = 10000;
+	}
+    if (voltage > 13000)
+	{
+	voltage = 13000;
 	}
     Batt_Alarm = voltage;
     }
@@ -123,18 +150,14 @@ void Encoder_Buttorn_Callback(uint8_t Clicked_Count)
     Encoder_Buttorn_Clicks = Clicked_Count;
     }
 
-void Spot_Welder_Give_Pusle(uint8_t milli_seconds)
-    {
-    HAL_GPIO_WritePin(Gate_Driver_GPIO_Port, Gate_Driver_Pin, GPIO_PIN_SET);
-    HAL_Delay(milli_seconds);
-    HAL_GPIO_WritePin(Gate_Driver_GPIO_Port, Gate_Driver_Pin, GPIO_PIN_RESET);
-    HAL_Delay(milli_seconds);
-    }
 
 void Foot_Switch_Callback(uint8_t Clicked_Count)
     {
 
-
+    if(Clicked_Count == 1)
+	{
+	Foot_Switchn_Flag = 1;
+	}
     }
 
 void Show_Page1_Menu1()
@@ -190,10 +213,7 @@ void Show_Page1_Menu4()
 
     }
 
-void Show_Page1_Menu5()
-    {
 
-    }
 
 void Show_Page2_Comman()
     {
@@ -220,7 +240,7 @@ void Show_Page2_Comman()
     ssd1306_SetCursor(0, 50);
     ssd1306_WriteString(STR_Duration, Font_7x10, White);
     ssd1306_SetCursor(80, 50);
-    itoa(Get_Pulse_Duration(), temp, 10);
+    itoa(Get_Main_Pulse_Duration(), temp, 10);
     ssd1306_WriteString(temp, Font_7x10, White);
 
     ssd1306_UpdateScreen();
@@ -267,7 +287,7 @@ void Show_Page2_Menu4()
     {
 
     char temp[10];
-    itoa(Get_Pulse_Duration(), temp, 10);
+    itoa(Get_Main_Pulse_Duration(), temp, 10);
 
     ssd1306_SetCursor(0, 50);
     ssd1306_WriteString(STR_Duration, Font_7x10, Black);
@@ -298,11 +318,8 @@ void Page1()
 	Show_Page1_Menu4();
 	break;
     case 5:
-	Show_Page1_Menu5();
+	Menu = 4;
 	break;
-    case 6:
-    	Menu = 5;
-    	break;
 	}
     }
 
@@ -350,32 +367,55 @@ void Execute_Page1_Menu1()
 
 	Encoder_Set_Count(&Encoder, 0);
 
-	Set_Pulse_Duration(count + Get_Pulse_Duration());
+	Set_Main_Pulse_Duration(count + Get_Main_Pulse_Duration());
 
 	if (Encoder_Buttorn_Clicks == 1)
 	    {
 	    Encoder_Buttorn_Clicks = 0;
 	    Encoder_Set_Count(&Encoder, 0);
 	    in_menu_loop_flag = 0;
-	    Refresh_Menu_Flag = 1;
+	    //Refresh_Menu_Flag = 1;
 	    }
 
-	itoa(Get_Pulse_Duration(), temp, 10);
+	if(Foot_Switchn_Flag && Welder_Enable_Flag)
+	    {
+	    Foot_Switchn_Flag = 0;
+	    ssd1306_Fill(Black);
+	    ssd1306_SetCursor(0, 0);
+	    ssd1306_WriteString("Pulse:", Font_11x18, White);
+	    itoa(Get_Main_Pulse_Duration(), temp, 10);
+	    ssd1306_WriteString(temp, Font_11x18, White);
+	    ssd1306_WriteString("ms", Font_11x18, White);
+	    ssd1306_UpdateScreen();
+
+	    HAL_GPIO_WritePin(Gate_Driver_GPIO_Port, Gate_Driver_Pin, GPIO_PIN_SET);
+	    HAL_Delay(Get_Main_Pulse_Duration());
+	    HAL_GPIO_WritePin(Gate_Driver_GPIO_Port, Gate_Driver_Pin, GPIO_PIN_RESET);
+	    HAL_Delay(1000);
+	    }
+
+
+
+
 	ssd1306_Fill(Black);
 
 	ssd1306_SetCursor(45, 0);
+	itoa(Get_Main_Pulse_Duration(), temp, 10);
 	ssd1306_WriteString(temp, Font_11x18, White);
 	ssd1306_WriteString("ms", Font_11x18, White);
 
 	ssd1306_SetCursor(0, 20);
 	ssd1306_WriteString("Battery:", Font_7x10, White);
 	ssd1306_SetCursor(75, 20);
-	ssd1306_WriteString("13.4V  ", Font_7x10, White);
+	itoa(Batt_Voltage*4, temp, 10);
+	ssd1306_WriteString(temp, Font_7x10, White);
+	ssd1306_WriteString("mV", Font_7x10, White);
 
 	ssd1306_SetCursor(0, 35);
 	ssd1306_WriteString("Tot Welds:", Font_7x10, White);
 	ssd1306_SetCursor(75, 35);
 	ssd1306_WriteString("125", Font_7x10, White);
+
 
 	ssd1306_SetCursor(0, 50);
 	ssd1306_WriteString(STR_Auto, Font_7x10, White);
@@ -401,6 +441,9 @@ void Execute_Page1_Menu3()
     {
 
     uint8_t in_menu_loop_flag = 1;
+    char temp[10];
+
+    ssd1306_Fill(Black);
 
     do
 	{
@@ -410,8 +453,7 @@ void Execute_Page1_Menu3()
 
 	Encoder_Set_Count(&Encoder, 0);
 
-	//Set_Batt_Alarm(Get_Batt_Alarm() + (count/10));
-
+	Set_Batt_Alarm(Get_Batt_Alarm() + (count*10));
 
 	if (Encoder_Buttorn_Clicks == 1)
 	    {
@@ -420,9 +462,14 @@ void Execute_Page1_Menu3()
 	    in_menu_loop_flag = 0;
 	    }
 
-	ssd1306_Fill(Black);
 	ssd1306_SetCursor(0, 0);
 	ssd1306_WriteString(STR_Batt_Alarm, Font_11x18, White);
+	ssd1306_UpdateScreen();
+
+	ssd1306_SetCursor(0, 20);
+	itoa(Get_Batt_Alarm(), temp, 10);
+	ssd1306_WriteString(temp, Font_11x18, White);
+	ssd1306_WriteString(" mV", Font_11x18, White);
 	ssd1306_UpdateScreen();
 
 	}
@@ -430,13 +477,43 @@ void Execute_Page1_Menu3()
 
     }
 
+
 void Execute_Page1_Menu4()
     {
+    uint8_t in_menu_loop_flag = 1;
+    char temp[10];
 
-    }
+    ssd1306_Fill(Black);
 
-void Execute_Page1_Menu5()
-    {
+    do
+	{
+
+	int16_t count = 0;
+	count = Encoder_Get_Count(&Encoder);
+
+	Encoder_Set_Count(&Encoder, 0);
+
+	Set_Short_Pulse_Duration(Get_Short_Pulse_Duration() + (count));
+
+	if (Encoder_Buttorn_Clicks == 1)
+	    {
+	    Encoder_Buttorn_Clicks = 0;
+	    Encoder_Set_Count(&Encoder, 0);
+	    in_menu_loop_flag = 0;
+	    }
+
+	ssd1306_SetCursor(0, 0);
+	ssd1306_WriteString(STR_Shrt_Pulse, Font_11x18, White);
+	ssd1306_UpdateScreen();
+
+	ssd1306_SetCursor(0, 20);
+	itoa(Get_Short_Pulse_Duration(), temp, 10);
+	ssd1306_WriteString(temp, Font_11x18, White);
+	ssd1306_WriteString(" ms ", Font_11x18, White);
+	ssd1306_UpdateScreen();
+
+	}
+    while (in_menu_loop_flag);
 
     }
 
@@ -505,7 +582,7 @@ void Execute_Page2_Menu4()
 
 	Encoder_Set_Count(&Encoder, 0);
 
-	Set_Pulse_Duration(count + Get_Pulse_Duration());
+	Set_Main_Pulse_Duration(count + Get_Main_Pulse_Duration());
 
 	if (Encoder_Buttorn_Clicks == 1)
 	    {
@@ -538,9 +615,6 @@ void Page1_Menus()
     case 4:
 	Execute_Page1_Menu4();
 	break;
-    case 5:
-    	Execute_Page1_Menu5();
-    	break;
 	}
     }
 
@@ -563,10 +637,9 @@ void Page2_Menus()
 	}
     }
 
+
 void Spot_Welder_Main()
     {
-
-    ssd1306_Init();
 
     ssd1306_Init();
 
@@ -597,12 +670,14 @@ void Spot_Welder_Main()
     Foot_Switch.Callback = Foot_Switch_Callback;
     Button_Attach(&Foot_Switch);
 
+
     HAL_Delay(2000);
 
     Show_Current_Page = Page1;
     Execute_Current_Menu = Page1_Menus;
 
-    Execute_Current_Menu();
+    /*simulate button click to execute first menu*/
+    Encoder_Buttorn_Clicks = 1;
 
     while (1)
 	{
@@ -639,14 +714,6 @@ void Spot_Welder_Main()
 		Show_Current_Page();
 		Encoder_Set_Count(&Encoder, 0);
 		}
-
-	    if (Refresh_Menu_Flag)
-		{
-		Refresh_Menu_Flag = 0;
-		Show_Current_Page();
-		Encoder_Set_Count(&Encoder, 0);
-		}
-
 	    }
 
 	}
