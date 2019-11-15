@@ -198,7 +198,7 @@ uint8_t Enter_Page1_Screen1(uint8_t button, int16_t count)
 
 uint8_t Enter_Page1_Screen2(uint8_t button, int16_t count)
     {
-    Change_Page(2);
+    Menu_Change_Page(2);
     return 0;
     }
 

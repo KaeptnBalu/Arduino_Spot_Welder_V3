@@ -29,13 +29,6 @@ Soft_I2C_t Soft_I2C1;
 #define SOFT_I2C_SCL_PIN		GPIO_PIN_9
 #define SOFT_I2C_SCL_PORT		GPIOA
 
-
-void Systic_Callback()
-    {
-    Encoder_Scan();
-    Button_Scan();
-    }
-
 void Set_Auto_Pulse_Delay(int16_t delay)
     {
     if (delay <= 500)
@@ -175,7 +168,7 @@ void Spot_Welder_Main()
     ssd1306_WriteString("    V3", Font_11x18, White);
     ssd1306_UpdateScreen();
 
-    Init_Menu();
+    Menu_Init();
 
     HAL_Delay(2000);
 
@@ -189,7 +182,7 @@ void Spot_Welder_Main()
 
 	    Scan_Time_Stamp = HAL_GetTick();
 
-	    Handle_Menu();
+	    Menu_Loop();
 
 	    }
 

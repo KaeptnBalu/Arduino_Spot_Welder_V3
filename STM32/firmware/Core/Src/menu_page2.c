@@ -113,7 +113,7 @@ case 4:
 
 uint8_t Enter_Page2_Screen1(uint8_t button, int16_t count)
 {
-Change_Page(1);
+Menu_Change_Page(1);
 return 0; // execution complete
 }
 

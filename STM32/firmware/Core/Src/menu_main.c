@@ -36,13 +36,21 @@ static uint8_t Refresh_Screen = 0;
 void (*Show_Page)(uint8_t screen);
 uint8_t (*Enter_Page_Screen)(uint8_t screen , uint8_t button, int16_t count);
 
+void Systic_Callback()
+    {
+    Encoder_Scan();
+    Button_Scan();
+    }
+
 void Encoder_Button_Callback(uint8_t Clicked_Count)
     {
     Encoder_Clicks = Clicked_Count;
     }
 
-void Change_Page(uint8_t page_no)
+void Menu_Change_Page(uint8_t page_no)
     {
+
+    Refresh_Screen = 1;
 
     switch (page_no)
 	{
@@ -51,7 +59,6 @@ void Change_Page(uint8_t page_no)
 	Enter_Page_Screen = Enter_Page1_Screen;
 	Page_Screen = 1;
 	Screens_In_Page = 4;
-	Refresh_Screen = 1;
 	break;
 
     case 2:
@@ -59,13 +66,12 @@ void Change_Page(uint8_t page_no)
 	Enter_Page_Screen = Enter_Page2_Screen;
 	Page_Screen = 1;
 	Screens_In_Page = 4;
-	Refresh_Screen = 1;
 	break;
 	}
 
     }
 
-void Init_Menu()
+void Menu_Init()
     {
     Encoder.Encoder_Pin_0 = ENCDR_B_Pin;
     Encoder.Encoder_Pin_0_Port = ENCDR_B_GPIO_Port;
@@ -79,11 +85,11 @@ void Init_Menu()
     Encoder_Button.Callback = Encoder_Button_Callback;
     Button_Attach(&Encoder_Button);
 
-    Change_Page(1);
+    Menu_Change_Page(1);
     Refresh_Screen = 0;
     }
 
-void Handle_Menu()
+void Menu_Loop()
     {
 
     static uint8_t in_screen = 0;
@@ -128,6 +134,7 @@ void Handle_Menu()
 	    Refresh_Screen = 0;
 	    Show_Page(Page_Screen);
 	    }
+
 	}
     else
 	{
@@ -143,7 +150,6 @@ void Handle_Menu()
 	    {
 	    in_screen = Enter_Page_Screen(Page_Screen, Encoder_Clicks, count);
 	    }
-
 	}
 
     }
