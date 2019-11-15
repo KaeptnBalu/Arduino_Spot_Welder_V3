@@ -29,12 +29,12 @@ const char* STR_Auto_Value = STR_OFF;
 
 static uint8_t Encoder_Clicks = 1;
 static uint8_t Page_Screen = 1;
-static uint8_t Elements_In_Page = 1;
+static uint8_t Screens_In_Page = 1;
 static uint8_t Refresh_Screen = 0;
 
 
 void (*Show_Page)(uint8_t screen);
-uint8_t (*Execute_Page_Element)(uint8_t screen , uint8_t button, int16_t count);
+uint8_t (*Enter_Page_Screen)(uint8_t screen , uint8_t button, int16_t count);
 
 void Encoder_Button_Callback(uint8_t Clicked_Count)
     {
@@ -48,17 +48,17 @@ void Change_Page(uint8_t page_no)
 	{
     case 1:
 	Show_Page = Show_Page1;
-	Execute_Page_Element = Execute_Page1_Element;
+	Enter_Page_Screen = Enter_Page1_Screen;
 	Page_Screen = 1;
-	Elements_In_Page = 4;
+	Screens_In_Page = 4;
 	Refresh_Screen = 1;
 	break;
 
     case 2:
 	Show_Page = Show_Page2;
-	Execute_Page_Element = Execute_Page2_Element;
+	Enter_Page_Screen = Enter_Page2_Screen;
 	Page_Screen = 1;
-	Elements_In_Page = 4;
+	Screens_In_Page = 4;
 	Refresh_Screen = 1;
 	break;
 	}
@@ -86,29 +86,28 @@ void Init_Menu()
 void Handle_Menu()
     {
 
-    static uint8_t call_again = 0;
+    static uint8_t in_screen = 0;
 
 
     int16_t count = 0;
     count = Encoder_Get_Count(&Encoder);
+    Encoder_Set_Count(&Encoder, 0);
 
-    if (!call_again)
+    if (!in_screen)
 	{
 
 	if (count < 0)
 	    {
-	    Encoder_Set_Count(&Encoder, 0);
 	    Page_Screen++;
-	    if(Page_Screen > Elements_In_Page)
+	    if(Page_Screen > Screens_In_Page)
 		{
-		Page_Screen = Elements_In_Page;
+		Page_Screen = Screens_In_Page;
 		}
 	    Show_Page(Page_Screen);
 	    }
 
 	if (count > 0)
 	    {
-	    Encoder_Set_Count(&Encoder, 0);
 	    Page_Screen--;
 	    if(Page_Screen == 0)
 		{
@@ -120,7 +119,7 @@ void Handle_Menu()
 	if (Encoder_Clicks == 1)
 	    {
 	    Encoder_Clicks = 0;
-	    call_again = Execute_Page_Element(Page_Screen, 0, 0);
+	    in_screen = Enter_Page_Screen(Page_Screen, 0, 0);
 	    Encoder_Set_Count(&Encoder, 0);
 	    }
 
@@ -135,14 +134,14 @@ void Handle_Menu()
 
 	if (Encoder_Clicks || count)
 	    {
-	    call_again = Execute_Page_Element(Page_Screen, Encoder_Clicks, count);
+	    in_screen = Enter_Page_Screen(Page_Screen, Encoder_Clicks, count);
 	    Encoder_Set_Count(&Encoder, 0);
 	    Encoder_Clicks = 0;
 	    Refresh_Screen = 1;
 	    }
 	else
 	    {
-	    call_again = Execute_Page_Element(Page_Screen, Encoder_Clicks, count);
+	    in_screen = Enter_Page_Screen(Page_Screen, Encoder_Clicks, count);
 	    }
 
 	}

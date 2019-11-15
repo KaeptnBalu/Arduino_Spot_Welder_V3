@@ -4,8 +4,8 @@ menu_page2.c:49:6:Show_Page2_Screen2	8	static
 menu_page2.c:60:6:Show_Page2_Screen3	24	static
 menu_page2.c:75:6:Show_Page2_Screen4	24	static
 menu_page2.c:89:6:Show_Page2	8	static
-menu_page2.c:114:9:Execute_Page2_Element1	8	static
-menu_page2.c:120:9:Execute_Page2_Element2	8	static
-menu_page2.c:144:9:Execute_Page2_Element3	16	static
-menu_page2.c:162:9:Execute_Page2_Element4	16	static
-menu_page2.c:179:9:Execute_Page2_Element	8	static
+menu_page2.c:114:9:Enter_Page2_Screen1	8	static
+menu_page2.c:120:9:Enter_Page2_Screen2	8	static
+menu_page2.c:144:9:Enter_Page2_Screen3	16	static
+menu_page2.c:162:9:Enter_Page2_Screen4	16	static
+menu_page2.c:179:9:Enter_Page2_Screen	8	static

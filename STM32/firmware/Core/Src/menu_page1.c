@@ -82,7 +82,7 @@ void Show_Page1(uint8_t screen)
 	}
     }
 
-uint8_t Execute_Page1_Element1(uint8_t button, int16_t count)
+uint8_t Enter_Page1_Screen1(uint8_t button, int16_t count)
     {
 
     uint8_t xreturn = 1;
@@ -174,13 +174,13 @@ uint8_t Execute_Page1_Element1(uint8_t button, int16_t count)
     return xreturn;
     }
 
-uint8_t Execute_Page1_Element2(uint8_t button, int16_t count)
+uint8_t Enter_Page1_Screen2(uint8_t button, int16_t count)
     {
     Change_Page(2);
     return 0;
     }
 
-uint8_t Execute_Page1_Element3(uint8_t button, int16_t count)
+uint8_t Enter_Page1_Screen3(uint8_t button, int16_t count)
     {
 
     uint8_t xreturn = 1;
@@ -207,7 +207,7 @@ uint8_t Execute_Page1_Element3(uint8_t button, int16_t count)
     }
 
 
-uint8_t Execute_Page1_Element4(uint8_t button, int16_t count)
+uint8_t Enter_Page1_Screen4(uint8_t button, int16_t count)
     {
 
     uint8_t xreturn = 1;
@@ -233,7 +233,7 @@ uint8_t Execute_Page1_Element4(uint8_t button, int16_t count)
     return xreturn;
     }
 
-uint8_t Execute_Page1_Element(uint8_t screen, uint8_t button, int16_t count)
+uint8_t Enter_Page1_Screen(uint8_t screen, uint8_t button, int16_t count)
     {
 
     uint8_t xreturn = 0;
@@ -241,16 +241,16 @@ uint8_t Execute_Page1_Element(uint8_t screen, uint8_t button, int16_t count)
     switch (screen)
 	{
     case 1:
-	xreturn = Execute_Page1_Element1(button, count);
+	xreturn = Enter_Page1_Screen1(button, count);
 	break;
     case 2:
-	xreturn = Execute_Page1_Element2(button, count);
+	xreturn = Enter_Page1_Screen2(button, count);
 	break;
     case 3:
-	xreturn = Execute_Page1_Element3(button, count);
+	xreturn = Enter_Page1_Screen3(button, count);
 	break;
     case 4:
-	xreturn = Execute_Page1_Element4(button, count);
+	xreturn = Enter_Page1_Screen4(button, count);
 	break;
 	}
 
