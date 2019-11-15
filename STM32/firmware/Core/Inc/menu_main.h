@@ -38,7 +38,6 @@ extern const char* STR_Auto_Value    ;
 Encoder_Struct_t Encoder;
 Button_Struct_t Encoder_Button;
 
-uint8_t In_Loop;
 
 void Init_Menu();
 void Handle_Menu();

@@ -111,18 +111,16 @@ case 4:
     }
 }
 
-void Execute_Page2_Element1(uint8_t button, int16_t count)
+uint8_t Execute_Page2_Element1(uint8_t button, int16_t count)
 {
-In_Loop = 0;
 Change_Page(1);
+return 0; // execution complete
 }
 
-void Execute_Page2_Element2(uint8_t button, int16_t count)
+uint8_t Execute_Page2_Element2(uint8_t button, int16_t count)
 {
 
 static uint8_t toggle = 0;
-
-In_Loop = 0;
 
 if (toggle)
     {
@@ -139,52 +137,65 @@ else
 Show_Page2_Comman();
 Show_Page2_Screen2();
 
+return 0; // execution complete
+
 }
 
-void Execute_Page2_Element3(uint8_t button, int16_t count)
+uint8_t Execute_Page2_Element3(uint8_t button, int16_t count)
 {
+
+uint8_t xreturn = 1;
 
 Set_Auto_Pulse_Delay(count + Get_Auto_Pulse_Delay());
 
 if (button == 1)
     {
-    In_Loop = 0;
+    xreturn = 0;
     }
 
 Show_Page2_Screen3();
 
+return xreturn;
+
 }
 
-void Execute_Page2_Element4(uint8_t button, int16_t count)
+uint8_t Execute_Page2_Element4(uint8_t button, int16_t count)
 {
+
+uint8_t xreturn = 1;
 
 if (button == 1)
     {
-    In_Loop = 0;
+    xreturn = 0;
     }
 
 Set_Main_Pulse_Duration(count + Get_Main_Pulse_Duration());
 
 Show_Page2_Screen4();
 
+return xreturn;
 }
 
-void Execute_Page2_Element(uint8_t screen, uint8_t button, int16_t count)
+uint8_t Execute_Page2_Element(uint8_t screen, uint8_t button, int16_t count)
 {
+
+uint8_t xreturn = 0;
 
 switch (screen)
     {
 case 1:
-    Execute_Page2_Element1(button, count);
+    xreturn = Execute_Page2_Element1(button, count);
     break;
 case 2:
-    Execute_Page2_Element2(button, count);
+    xreturn = Execute_Page2_Element2(button, count);
     break;
 case 3:
-    Execute_Page2_Element3(button, count);
+    xreturn = Execute_Page2_Element3(button, count);
     break;
 case 4:
-    Execute_Page2_Element4(button, count);
+    xreturn = Execute_Page2_Element4(button, count);
     break;
     }
+
+return xreturn;
 }

@@ -35,7 +35,7 @@ static uint8_t Refresh_Screen = 0;
 extern uint8_t Foot_Switchn_Flag;
 
 void (*Show_Page)(uint8_t screen);
-void (*Execute_Page_Element)(uint8_t screen , uint8_t button, int16_t count);
+uint8_t (*Execute_Page_Element)(uint8_t screen , uint8_t button, int16_t count);
 
 void Encoder_Button_Callback(uint8_t Clicked_Count)
     {
@@ -87,10 +87,13 @@ void Init_Menu()
 void Handle_Menu()
     {
 
+    static uint8_t call_again = 0;
+
+
     int16_t count = 0;
     count = Encoder_Get_Count(&Encoder);
 
-    if (!In_Loop)
+    if (!call_again)
 	{
 
 	Foot_Switchn_Flag = 0;
@@ -120,8 +123,7 @@ void Handle_Menu()
 	if (Encoder_Clicks == 1)
 	    {
 	    Encoder_Clicks = 0;
-	    In_Loop = 1; // reset to exit loop
-	    Execute_Page_Element(Page_Screen, 0, 0);
+	    call_again = Execute_Page_Element(Page_Screen, 0, 0);
 	    Encoder_Set_Count(&Encoder, 0);
 	    }
 
@@ -137,14 +139,14 @@ void Handle_Menu()
 	if (Encoder_Clicks || count)
 	    {
 	    Foot_Switchn_Flag = 0;
-	    Execute_Page_Element(Page_Screen, Encoder_Clicks, count);
+	    call_again = Execute_Page_Element(Page_Screen, Encoder_Clicks, count);
 	    Encoder_Set_Count(&Encoder, 0);
 	    Encoder_Clicks = 0;
 	    Refresh_Screen = 1;
 	    }
 	else
 	    {
-	    Execute_Page_Element(Page_Screen, Encoder_Clicks, count);
+	    call_again = Execute_Page_Element(Page_Screen, Encoder_Clicks, count);
 	    }
 
 	}

@@ -11,7 +11,7 @@
 #include "menu_main.h"
 
 void Show_Page2(uint8_t screen);
-void Execute_Page2_Element(uint8_t screen, uint8_t button, int16_t count);
+uint8_t Execute_Page2_Element(uint8_t screen, uint8_t button, int16_t count);
 
 
 #endif /* INC_MENU_PAGE2_H_ */

@@ -82,149 +82,142 @@ void Show_Page1(uint8_t screen)
 	}
     }
 
-void Execute_Page1_Element1(uint8_t button, int16_t count)
+uint8_t Execute_Page1_Element1(uint8_t button, int16_t count)
     {
 
+    uint8_t xreturn = 1;
     char temp[10];
 
     int16_t bat_voltage;
 
-    if (In_Loop)
+    if (button == 1)
 	{
-
-        if(button == 1)
-            {
-            In_Loop = 0; // exit loop
-            }
-
-	Set_Main_Pulse_Duration(count + Get_Main_Pulse_Duration());
-
-
-	HAL_ADC_PollForConversion(&hadc, 10);
-	bat_voltage = HAL_ADC_GetValue(&hadc)*13;
-
-	if(bat_voltage < Get_Batt_Alarm())
-	    {
-	    //Disble_Welder();
-	    }
-
-	if (Foot_Switchn_Flag)
-	    {
-	    Foot_Switchn_Flag = 0;
-
-	    if (Get_Welder_Status())
-		{
-		ssd1306_Fill(Black);
-		ssd1306_SetCursor(0, 0);
-		ssd1306_WriteString("Pulse:", Font_11x18, White);
-		itoa(Get_Main_Pulse_Duration(), temp, 10);
-		ssd1306_WriteString(temp, Font_11x18, White);
-		ssd1306_WriteString("ms", Font_11x18, White);
-		ssd1306_UpdateScreen();
-
-		HAL_GPIO_WritePin(Gate_Driver_GPIO_Port, Gate_Driver_Pin,
-			GPIO_PIN_SET);
-		HAL_Delay(Get_Main_Pulse_Duration());
-		HAL_GPIO_WritePin(Gate_Driver_GPIO_Port, Gate_Driver_Pin,
-			GPIO_PIN_RESET);
-		HAL_Delay(1000);
-		}
-	    else
-		{
-		ssd1306_Fill(Black);
-		ssd1306_SetCursor(0, 0);
-		ssd1306_WriteString("Battery Low", Font_7x10, White);
-		ssd1306_SetCursor(0, 15);
-		ssd1306_WriteString("Under Voltage", Font_7x10, White);
-		ssd1306_SetCursor(0, 30);
-		ssd1306_WriteString("Lock Out", Font_7x10, White);
-		ssd1306_SetCursor(0, 45);
-		ssd1306_WriteString("Reboot Welder", Font_7x10, White);
-		ssd1306_UpdateScreen();
-		HAL_Delay(2000);
-		}
-	    }
-
-	ssd1306_Fill(Black);
-
-	ssd1306_SetCursor(45, 0);
-	itoa(Get_Main_Pulse_Duration(), temp, 10);
-	ssd1306_WriteString(temp, Font_11x18, White);
-	ssd1306_WriteString("ms", Font_11x18, White);
-
-	ssd1306_SetCursor(0, 20);
-	ssd1306_WriteString("Battery:", Font_7x10, White);
-	ssd1306_SetCursor(75, 20);
-	itoa(bat_voltage, temp, 10);
-	ssd1306_WriteString(temp, Font_7x10, White);
-	ssd1306_WriteString("mV", Font_7x10, White);
-
-	ssd1306_SetCursor(0, 35);
-	ssd1306_WriteString("Tot Welds:", Font_7x10, White);
-	ssd1306_SetCursor(75, 35);
-	ssd1306_WriteString("125", Font_7x10, White);
-
-	ssd1306_SetCursor(0, 50);
-	ssd1306_WriteString(STR_Auto, Font_7x10, White);
-	ssd1306_WriteString(STR_Space, Font_7x10, White);
-	ssd1306_WriteString(STR_Auto_Value, Font_7x10, White);
-
-	ssd1306_SetCursor(100, 50);
-	ssd1306_WriteString(">>", Font_7x10, White);
-
-	ssd1306_UpdateScreen();
-
+	xreturn = 0; // exit loop
 	}
+
+    Set_Main_Pulse_Duration(count + Get_Main_Pulse_Duration());
+
+    HAL_ADC_PollForConversion(&hadc, 10);
+    bat_voltage = HAL_ADC_GetValue(&hadc) * 13;
+
+    if (bat_voltage < Get_Batt_Alarm())
+	{
+	//Disble_Welder();
+	}
+
+    if (Foot_Switchn_Flag)
+	{
+	Foot_Switchn_Flag = 0;
+
+	if (Get_Welder_Status())
+	    {
+	    ssd1306_Fill(Black);
+	    ssd1306_SetCursor(0, 0);
+	    ssd1306_WriteString("Pulse:", Font_11x18, White);
+	    itoa(Get_Main_Pulse_Duration(), temp, 10);
+	    ssd1306_WriteString(temp, Font_11x18, White);
+	    ssd1306_WriteString("ms", Font_11x18, White);
+	    ssd1306_UpdateScreen();
+
+	    HAL_GPIO_WritePin(Gate_Driver_GPIO_Port, Gate_Driver_Pin,
+		    GPIO_PIN_SET);
+	    HAL_Delay(Get_Main_Pulse_Duration());
+	    HAL_GPIO_WritePin(Gate_Driver_GPIO_Port, Gate_Driver_Pin,
+		    GPIO_PIN_RESET);
+	    HAL_Delay(1000);
+	    }
+	else
+	    {
+	    ssd1306_Fill(Black);
+	    ssd1306_SetCursor(0, 0);
+	    ssd1306_WriteString("Battery Low", Font_7x10, White);
+	    ssd1306_SetCursor(0, 15);
+	    ssd1306_WriteString("Under Voltage", Font_7x10, White);
+	    ssd1306_SetCursor(0, 30);
+	    ssd1306_WriteString("Lock Out", Font_7x10, White);
+	    ssd1306_SetCursor(0, 45);
+	    ssd1306_WriteString("Reboot Welder", Font_7x10, White);
+	    ssd1306_UpdateScreen();
+	    HAL_Delay(2000);
+	    }
+	}
+
+    ssd1306_Fill(Black);
+
+    ssd1306_SetCursor(45, 0);
+    itoa(Get_Main_Pulse_Duration(), temp, 10);
+    ssd1306_WriteString(temp, Font_11x18, White);
+    ssd1306_WriteString("ms", Font_11x18, White);
+
+    ssd1306_SetCursor(0, 20);
+    ssd1306_WriteString("Battery:", Font_7x10, White);
+    ssd1306_SetCursor(75, 20);
+    itoa(bat_voltage, temp, 10);
+    ssd1306_WriteString(temp, Font_7x10, White);
+    ssd1306_WriteString("mV", Font_7x10, White);
+
+    ssd1306_SetCursor(0, 35);
+    ssd1306_WriteString("Tot Welds:", Font_7x10, White);
+    ssd1306_SetCursor(75, 35);
+    ssd1306_WriteString("125", Font_7x10, White);
+
+    ssd1306_SetCursor(0, 50);
+    ssd1306_WriteString(STR_Auto, Font_7x10, White);
+    ssd1306_WriteString(STR_Space, Font_7x10, White);
+    ssd1306_WriteString(STR_Auto_Value, Font_7x10, White);
+
+    ssd1306_SetCursor(100, 50);
+    ssd1306_WriteString(">>", Font_7x10, White);
+
+    ssd1306_UpdateScreen();
+
+    return xreturn;
     }
 
-void Execute_Page1_Element2(uint8_t button, int16_t count)
+uint8_t Execute_Page1_Element2(uint8_t button, int16_t count)
     {
-    In_Loop = 0;
     Change_Page(2);
+    return 0;
     }
 
-void Execute_Page1_Element3(uint8_t button, int16_t count)
+uint8_t Execute_Page1_Element3(uint8_t button, int16_t count)
     {
 
+    uint8_t xreturn = 1;
     char temp[10];
 
-    if (In_Loop)
+    if (button == 1)
 	{
-
-	if (button == 1)
-	    {
-	    In_Loop = 0;
-	    }
-
-	Set_Batt_Alarm(Get_Batt_Alarm() + (count * 10));
-
-	ssd1306_Fill(Black);
-	ssd1306_SetCursor(0, 0);
-	ssd1306_WriteString(STR_Batt_Alarm, Font_11x18, White);
-
-	ssd1306_SetCursor(0, 20);
-	itoa(Get_Batt_Alarm(), temp, 10);
-	ssd1306_WriteString(temp, Font_11x18, White);
-	ssd1306_WriteString(" mV", Font_11x18, White);
-	ssd1306_UpdateScreen();
-
+	xreturn = 0; // execution complete
 	}
 
+    Set_Batt_Alarm(Get_Batt_Alarm() + (count * 10));
+
+    ssd1306_Fill(Black);
+    ssd1306_SetCursor(0, 0);
+    ssd1306_WriteString(STR_Batt_Alarm, Font_11x18, White);
+
+    ssd1306_SetCursor(0, 20);
+    itoa(Get_Batt_Alarm(), temp, 10);
+    ssd1306_WriteString(temp, Font_11x18, White);
+    ssd1306_WriteString(" mV", Font_11x18, White);
+    ssd1306_UpdateScreen();
+
+    return xreturn;
     }
 
 
-void Execute_Page1_Element4(uint8_t button, int16_t count)
+uint8_t Execute_Page1_Element4(uint8_t button, int16_t count)
     {
 
+    uint8_t xreturn = 1;
     char temp[10];
-
-
 
     Set_Short_Pulse_Duration(Get_Short_Pulse_Duration() + (count));
 
     if (button == 1)
 	{
-	In_Loop = 0; //exit loop
+	xreturn = 0; //execution complete
 	}
 
     ssd1306_Fill(Black);
@@ -237,23 +230,29 @@ void Execute_Page1_Element4(uint8_t button, int16_t count)
     ssd1306_WriteString(" ms ", Font_11x18, White);
     ssd1306_UpdateScreen();
 
+    return xreturn;
     }
 
-void Execute_Page1_Element(uint8_t screen, uint8_t button, int16_t count)
+uint8_t Execute_Page1_Element(uint8_t screen, uint8_t button, int16_t count)
     {
+
+    uint8_t xreturn = 0;
+
     switch (screen)
 	{
     case 1:
-	Execute_Page1_Element1(button, count);
+	xreturn = Execute_Page1_Element1(button, count);
 	break;
     case 2:
-	Execute_Page1_Element2(button, count);
+	xreturn = Execute_Page1_Element2(button, count);
 	break;
     case 3:
-	Execute_Page1_Element3(button, count);
+	xreturn = Execute_Page1_Element3(button, count);
 	break;
     case 4:
-	Execute_Page1_Element4(button, count);
+	xreturn = Execute_Page1_Element4(button, count);
 	break;
 	}
+
+    return xreturn;
     }

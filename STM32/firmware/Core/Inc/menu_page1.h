@@ -11,6 +11,6 @@
 #include "menu_main.h"
 
 void Show_Page1(uint8_t screen);
-void Execute_Page1_Element(uint8_t screen, uint8_t button, int16_t count);
+uint8_t Execute_Page1_Element(uint8_t screen, uint8_t button, int16_t count);
 
 #endif /* INC_MENU_PAGE1_H_ */
