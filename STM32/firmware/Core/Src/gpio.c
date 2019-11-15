@@ -60,7 +60,7 @@ void MX_GPIO_Init(void)
 
   /*Configure GPIO pins : PAPin PAPin PAPin PAPin 
                            PA10 */
-  GPIO_InitStruct.Pin = Auto_Pulse_Pin_Pin|Foot_Switch_Pin|ENCDR_B_Pin|ENCDR_A_Pin 
+  GPIO_InitStruct.Pin = Auto_Pulse_In_Pin|Foot_Switch_Pin|ENCDR_B_Pin|ENCDR_A_Pin 
                           |GPIO_PIN_10;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;

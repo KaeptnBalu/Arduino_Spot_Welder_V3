@@ -7,8 +7,6 @@
 
 #include "menu_main.h"
 
-extern uint8_t Foot_Switchn_Flag;
-
 void Show_Page1_Screen1()
     {
     ssd1306_Fill(Black);
@@ -105,11 +103,14 @@ uint8_t Enter_Page1_Screen1(uint8_t button, int16_t count)
 	Disble_Welder();
 	}
 
-    if (Get_Foot_Switch_Status())
+    if (Get_Foot_Switch_Status() || Get_Auto_Puse_In_Status())
 	{
 
 	if (Get_Welder_Status())
 	    {
+
+	    HAL_Delay(Get_Auto_Pulse_Delay());
+
 	    ssd1306_Fill(Black);
 	    ssd1306_SetCursor(0, 0);
 	    ssd1306_WriteString("Pulse:", Font_11x18, White);
@@ -123,7 +124,28 @@ uint8_t Enter_Page1_Screen1(uint8_t button, int16_t count)
 	    HAL_Delay(Get_Main_Pulse_Duration());
 	    HAL_GPIO_WritePin(Gate_Driver_GPIO_Port, Gate_Driver_Pin,
 		    GPIO_PIN_RESET);
-	    HAL_Delay(1000);
+
+	    HAL_Delay(100);
+
+	    while (Get_Auto_Puse_In_Status())
+		{
+		ssd1306_Fill(Black);
+		ssd1306_SetCursor(0, 0);
+		ssd1306_WriteString("Disconnect", Font_7x10, White);
+		ssd1306_SetCursor(0, 15);
+		ssd1306_WriteString("Now", Font_7x10, White);
+		ssd1306_UpdateScreen();
+		}
+
+	    while (Get_Foot_Switch_Status())
+		{
+		ssd1306_Fill(Black);
+		ssd1306_SetCursor(0, 0);
+		ssd1306_WriteString("Release", Font_7x10, White);
+		ssd1306_SetCursor(0, 15);
+		ssd1306_WriteString("Foot SW", Font_7x10, White);
+		ssd1306_UpdateScreen();
+		}
 	    }
 	else
 	    {
@@ -139,7 +161,7 @@ uint8_t Enter_Page1_Screen1(uint8_t button, int16_t count)
 	    ssd1306_UpdateScreen();
 	    HAL_Delay(2000);
 	    }
-	Get_Foot_Switch_Status();
+
 	}
 
     ssd1306_Fill(Black);

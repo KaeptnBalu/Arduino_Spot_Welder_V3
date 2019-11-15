@@ -13,53 +13,59 @@
 // using gpio_read_bit instead of digitalRead gives about 4x more speed http://forums.leaflabs.com/topic.php?id=1107
 #define MAX_ENCODERS 2
 
-static Encoder_Struct_t* Encoder_Struct_PTR_Array[MAX_ENCODERS];
+static Encoder_Struct_t *Encoder_Struct_PTR_Array[MAX_ENCODERS];
 
 static uint8_t Attached_Encoders = 0;
 
-uint8_t Encoder_Attach(Encoder_Struct_t* Encoder_Struct_PTR)
+uint8_t Encoder_Attach(Encoder_Struct_t *Encoder_Struct_PTR)
     {
     //init GPIOs as input
 
     GPIO_InitTypeDef GPIO_InitStruct;
 
-    /* GPIO Ports Clock Enable */
-    __HAL_RCC_GPIOC_CLK_ENABLE()
-    ;
-    __HAL_RCC_GPIOD_CLK_ENABLE()
-    ;
-    __HAL_RCC_GPIOA_CLK_ENABLE()
-    ;
-    __HAL_RCC_GPIOB_CLK_ENABLE()
-    ;
+    if (Attached_Encoders < MAX_ENCODERS)
+	{
 
-    GPIO_InitStruct.Pin = Encoder_Struct_PTR->Encoder_Pin_0;
-    GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-    GPIO_InitStruct.Pull = GPIO_PULLUP;
-    HAL_GPIO_Init(Encoder_Struct_PTR->Encoder_Pin_0_Port, &GPIO_InitStruct);
+	/* GPIO Ports Clock Enable */
+	__HAL_RCC_GPIOC_CLK_ENABLE()
+	;
+	__HAL_RCC_GPIOD_CLK_ENABLE()
+	;
+	__HAL_RCC_GPIOA_CLK_ENABLE()
+	;
+	__HAL_RCC_GPIOB_CLK_ENABLE()
+	;
 
-    GPIO_InitStruct.Pin = Encoder_Struct_PTR->Encoder_Pin_1;
-    HAL_GPIO_Init(Encoder_Struct_PTR->Encoder_Pin_1_Port, &GPIO_InitStruct);
+	GPIO_InitStruct.Pin = Encoder_Struct_PTR->Encoder_Pin_0;
+	GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+	GPIO_InitStruct.Pull = GPIO_PULLUP;
+	HAL_GPIO_Init(Encoder_Struct_PTR->Encoder_Pin_0_Port, &GPIO_InitStruct);
 
-    Encoder_Struct_PTR->Encoder_Time_Stamp = 0;
-    Encoder_Struct_PTR->Encoder_Count = 0;
+	GPIO_InitStruct.Pin = Encoder_Struct_PTR->Encoder_Pin_1;
+	HAL_GPIO_Init(Encoder_Struct_PTR->Encoder_Pin_1_Port, &GPIO_InitStruct);
 
-    Encoder_Struct_PTR->Encoder_Pin_0__State = HAL_GPIO_ReadPin(
-	    Encoder_Struct_PTR->Encoder_Pin_0_Port,
-	    Encoder_Struct_PTR->Encoder_Pin_0);
+	Encoder_Struct_PTR->Encoder_Time_Stamp = 0;
+	Encoder_Struct_PTR->Encoder_Count = 0;
 
-    Encoder_Struct_PTR->Encoder_Pin_1__State = HAL_GPIO_ReadPin(
-	    Encoder_Struct_PTR->Encoder_Pin_1_Port,
-	    Encoder_Struct_PTR->Encoder_Pin_1);
+	Encoder_Struct_PTR->Encoder_Pin_0__State = HAL_GPIO_ReadPin(
+		Encoder_Struct_PTR->Encoder_Pin_0_Port,
+		Encoder_Struct_PTR->Encoder_Pin_0);
 
-    Encoder_Struct_PTR_Array[Attached_Encoders] = Encoder_Struct_PTR;
-    Attached_Encoders++;
+	Encoder_Struct_PTR->Encoder_Pin_1__State = HAL_GPIO_ReadPin(
+		Encoder_Struct_PTR->Encoder_Pin_1_Port,
+		Encoder_Struct_PTR->Encoder_Pin_1);
 
-    if (Attached_Encoders > MAX_ENCODERS)
+	Encoder_Struct_PTR_Array[Attached_Encoders] = Encoder_Struct_PTR;
+	Attached_Encoders++;
+
+	return (Attached_Encoders - 1); //return encoder ID
+	}
+    else
 	{
 	//Error
+	return (255); //return error
 	}
-    return (Attached_Encoders - 1); //return encoder ID
+
     }
 
 /* call in millis callback or systick callback */
@@ -70,6 +76,7 @@ void Encoder_Scan()
 
     for (uint8_t Index = 0; Index < Attached_Encoders; Index++)
 	{
+
 	PTR = Encoder_Struct_PTR_Array[Index];
 
 	if (HAL_GPIO_ReadPin(PTR->Encoder_Pin_0_Port, PTR->Encoder_Pin_0)
@@ -119,25 +126,31 @@ void Encoder_Scan()
 
     }
 
-int16_t Encoder_Get_Count(Encoder_Struct_t* PTR)
+int16_t Encoder_Get_Count(Encoder_Struct_t *PTR)
     {
-    if (PTR == NULL)
-	{
-	//Error
-	}
-    return PTR->Encoder_Count;
-    }
 
-/* to reset*/
-void Encoder_Set_Count(Encoder_Struct_t* PTR, int16_t count)
-    {
-    if (PTR == NULL)
+    if (PTR != NULL)
 	{
-	//Error
+	return PTR->Encoder_Count;
 	}
     else
 	{
+	//Error
+	return 0;
+	}
+    }
+
+/* to reset*/
+void Encoder_Set_Count(Encoder_Struct_t *PTR, int16_t count)
+    {
+
+    if (PTR != NULL)
+	{
 	PTR->Encoder_Count = count;
+	}
+    else
+	{
+	//Error
 	}
     }
 

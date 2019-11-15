@@ -10,8 +10,8 @@
 
 #include "spot_welder_main.h"
 
-
 static uint8_t Welder_Auto_Flag = 0;
+static uint8_t Welder_Enable_Flag = 1;
 
 static int16_t  Main_Pulse_Duration = 1;
 static int16_t  Short_Pulse_Duration = 1;
@@ -19,8 +19,6 @@ static int16_t  Auto_Pulse_Delay = 1000;
 
 static int16_t  Batt_Alarm = 11000; // in mv
 
-static uint8_t Foot_Switchn_Flag = 0;
-static uint8_t Welder_Enable_Flag = 1;
 
 
 Soft_I2C_t Soft_I2C1;
@@ -139,20 +137,20 @@ uint8_t Get_Auto_Status()
 
 uint8_t Get_Foot_Switch_Status()
     {
-    uint8_t temp = Foot_Switchn_Flag;
-    Foot_Switchn_Flag = 0;
-    return temp;
+    if (!Get_Auto_Status())
+	{
+	return HAL_GPIO_ReadPin(Foot_Switch_GPIO_Port, Foot_Switch_Pin)?0:1;
+	}
+    return 0;
     }
 
-
-
-void Foot_Switch_Callback(uint8_t Clicked_Count)
+uint8_t Get_Auto_Puse_In_Status()
     {
-
-    if(Clicked_Count == 1)
+    if (Get_Auto_Status())
 	{
-	Foot_Switchn_Flag = 1;
+	return HAL_GPIO_ReadPin(Auto_Pulse_In_GPIO_Port, Auto_Pulse_In_Pin);
 	}
+    return 0;
     }
 
 void Spot_Welder_Main()
@@ -177,14 +175,6 @@ void Spot_Welder_Main()
     ssd1306_WriteString("    V3", Font_11x18, White);
     ssd1306_UpdateScreen();
 
-    Foot_Switch.Button_Pin = Foot_Switch_Pin;
-    Foot_Switch.Button_Pin_Port = Foot_Switch_GPIO_Port;
-    Foot_Switch.Button_Pressed_Logic = LOW;
-    Foot_Switch.Callback = Foot_Switch_Callback;
-    Button_Attach(&Foot_Switch);
-
-
-
     Init_Menu();
 
     HAL_Delay(2000);
@@ -200,6 +190,7 @@ void Spot_Welder_Main()
 	    Scan_Time_Stamp = HAL_GetTick();
 
 	    Handle_Menu();
+
 	    }
 
 	}

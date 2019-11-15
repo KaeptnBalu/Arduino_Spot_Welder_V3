@@ -21,10 +21,6 @@
 #include "at24cxx.h"
 
 
-Button_Struct_t Foot_Switch;
-Button_Struct_t Auto_Pulse;
-
-
 void Spot_Welder_Main();
 
 void Set_Auto_Pulse_Delay(int16_t delay);
@@ -43,6 +39,7 @@ void Disble_Auto_Welder();
 void Enable_Auto_Welder();
 uint8_t Get_Auto_Status();
 uint8_t Get_Foot_Switch_Status();
+uint8_t Get_Auto_Puse_In_Status();
 
 
 #endif /* INC_SPOT_WELDER_MAIN_H_ */

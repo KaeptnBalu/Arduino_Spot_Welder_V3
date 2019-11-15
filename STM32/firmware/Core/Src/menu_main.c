@@ -132,7 +132,7 @@ void Handle_Menu()
     else
 	{
 
-	if (Encoder_Clicks || count)
+	if (Encoder_Clicks == 1 || count)
 	    {
 	    in_screen = Enter_Page_Screen(Page_Screen, Encoder_Clicks, count);
 	    Encoder_Set_Count(&Encoder, 0);

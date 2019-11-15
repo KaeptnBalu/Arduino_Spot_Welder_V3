@@ -58,8 +58,8 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define Auto_Pulse_Pin_Pin GPIO_PIN_0
-#define Auto_Pulse_Pin_GPIO_Port GPIOA
+#define Auto_Pulse_In_Pin GPIO_PIN_0
+#define Auto_Pulse_In_GPIO_Port GPIOA
 #define Gate_Driver_Pin GPIO_PIN_1
 #define Gate_Driver_GPIO_Port GPIOA
 #define Foot_Switch_Pin GPIO_PIN_4
