@@ -1,4 +1,4 @@
-menu_main.c:40:6:Encoder_Button_Callback	0	static
-menu_main.c:45:6:Change_Page	0	static
-menu_main.c:69:6:Init_Menu	8	static
-menu_main.c:87:6:Handle_Menu	24	static
+menu_main.c:39:6:Encoder_Button_Callback	0	static
+menu_main.c:44:6:Change_Page	0	static
+menu_main.c:68:6:Init_Menu	8	static
+menu_main.c:86:6:Handle_Menu	24	static

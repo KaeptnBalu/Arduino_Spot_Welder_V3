@@ -32,7 +32,6 @@ static uint8_t Page_Screen = 1;
 static uint8_t Elements_In_Page = 1;
 static uint8_t Refresh_Screen = 0;
 
-extern uint8_t Foot_Switchn_Flag;
 
 void (*Show_Page)(uint8_t screen);
 uint8_t (*Execute_Page_Element)(uint8_t screen , uint8_t button, int16_t count);
@@ -96,8 +95,6 @@ void Handle_Menu()
     if (!call_again)
 	{
 
-	Foot_Switchn_Flag = 0;
-
 	if (count < 0)
 	    {
 	    Encoder_Set_Count(&Encoder, 0);
@@ -138,7 +135,6 @@ void Handle_Menu()
 
 	if (Encoder_Clicks || count)
 	    {
-	    Foot_Switchn_Flag = 0;
 	    call_again = Execute_Page_Element(Page_Screen, Encoder_Clicks, count);
 	    Encoder_Set_Count(&Encoder, 0);
 	    Encoder_Clicks = 0;

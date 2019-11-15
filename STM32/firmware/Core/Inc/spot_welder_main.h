@@ -42,6 +42,7 @@ uint8_t Get_Welder_Status();
 void Disble_Auto_Welder();
 void Enable_Auto_Welder();
 uint8_t Get_Auto_Status();
+uint8_t Get_Foot_Switch_Status();
 
 
 #endif /* INC_SPOT_WELDER_MAIN_H_ */

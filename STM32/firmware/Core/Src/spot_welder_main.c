@@ -11,16 +11,16 @@
 #include "spot_welder_main.h"
 
 
-uint8_t Welder_Auto_Flag = 0;
+static uint8_t Welder_Auto_Flag = 0;
 
-int16_t  Main_Pulse_Duration = 1;
-int16_t  Short_Pulse_Duration = 1;
-int16_t  Auto_Pulse_Delay = 1000;
+static int16_t  Main_Pulse_Duration = 1;
+static int16_t  Short_Pulse_Duration = 1;
+static int16_t  Auto_Pulse_Delay = 1000;
 
-int16_t  Batt_Alarm = 11000; // in mv
+static int16_t  Batt_Alarm = 11000; // in mv
 
-uint8_t Foot_Switchn_Flag = 0;
-uint8_t Welder_Enable_Flag = 1;
+static uint8_t Foot_Switchn_Flag = 0;
+static uint8_t Welder_Enable_Flag = 1;
 
 
 Soft_I2C_t Soft_I2C1;
@@ -136,6 +136,15 @@ uint8_t Get_Auto_Status()
     {
     return Welder_Auto_Flag;
     }
+
+uint8_t Get_Foot_Switch_Status()
+    {
+    uint8_t temp = Foot_Switchn_Flag;
+    Foot_Switchn_Flag = 0;
+    return temp;
+    }
+
+
 
 void Foot_Switch_Callback(uint8_t Clicked_Count)
     {

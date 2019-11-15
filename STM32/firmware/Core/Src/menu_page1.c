@@ -102,12 +102,11 @@ uint8_t Execute_Page1_Element1(uint8_t button, int16_t count)
 
     if (bat_voltage < Get_Batt_Alarm())
 	{
-	//Disble_Welder();
+	Disble_Welder();
 	}
 
-    if (Foot_Switchn_Flag)
+    if (Get_Foot_Switch_Status())
 	{
-	Foot_Switchn_Flag = 0;
 
 	if (Get_Welder_Status())
 	    {
@@ -140,6 +139,7 @@ uint8_t Execute_Page1_Element1(uint8_t button, int16_t count)
 	    ssd1306_UpdateScreen();
 	    HAL_Delay(2000);
 	    }
+	Get_Foot_Switch_Status();
 	}
 
     ssd1306_Fill(Black);
