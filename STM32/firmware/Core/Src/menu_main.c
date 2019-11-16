@@ -9,32 +9,30 @@
 #include "menu_page1.h"
 #include "menu_page2.h"
 
-const char STR_Back[]         = "Back";
-const char STR_Auto_Pulse[]   = "Auto Pulse";
-const char STR_ON[]           = "ON";
-const char STR_OFF[]          = "OFF";
-const char STR_Batt_Alarm[]   = "Batt Alarm";
-const char STR_Shrt_Pulse[]   = "Shrt Pulse";
-const char STR_Auto[]         = "Auto:";
-const char STR_Space[]        = " ";
-const char STR_2Space[]       = "  ";
-const char STR_3Space[]       = "   ";
-const char STR_4Space[]       = "    ";
+const char STR_Back[] = "Back";
+const char STR_Auto_Pulse[] = "Auto Pulse";
+const char STR_ON[] = "ON";
+const char STR_OFF[] = "OFF";
+const char STR_Batt_Alarm[] = "Batt Alarm";
+const char STR_Shrt_Pulse[] = "Shrt Pulse";
+const char STR_Auto[] = "Auto:";
+const char STR_Space[] = " ";
+const char STR_2Space[] = "  ";
+const char STR_3Space[] = "   ";
+const char STR_4Space[] = "    ";
 
 const char STR_Auto_Pulse_C[] = "Auto Pulse:";
-const char STR_Delay[]        = "Delay:";
-const char STR_Duration[]     = "Duration:";
+const char STR_Delay[] = "Delay:";
+const char STR_Duration[] = "Duration:";
 
-const char* STR_Auto_Value = STR_OFF;
+//const char *STR_Auto_Value = STR_OFF;
 
-static uint8_t Encoder_Clicks = 1;
 static uint8_t Page_Screen = 1;
-static uint8_t Screens_In_Page = 1;
+static uint8_t Screens_In_Page = 0;
 static uint8_t Refresh_Screen = 0;
 
-
 void (*Show_Page)(uint8_t screen);
-uint8_t (*Enter_Page_Screen)(uint8_t screen , uint8_t button, int16_t count);
+uint8_t (*Enter_Page_Screen)(uint8_t screen, uint8_t button, int16_t count);
 
 void Systic_Callback()
     {
@@ -44,7 +42,7 @@ void Systic_Callback()
 
 void Encoder_Button_Callback(uint8_t Clicked_Count)
     {
-    Encoder_Clicks = Clicked_Count;
+
     }
 
 void Menu_Change_Page(uint8_t page_no)
@@ -89,67 +87,76 @@ void Menu_Init()
     Refresh_Screen = 0;
     }
 
+
 void Menu_Loop()
     {
 
-    static uint8_t in_screen = 0;
+    static uint8_t in_screen = 1;
 
+    static uint32_t Scan_Time_Stamp = 0;
 
-    int16_t count = 0;
-    count = Encoder_Get_Count(&Encoder);
-    Encoder_Set_Count(&Encoder, 0);
-
-    if (!in_screen)
+    if (HAL_GetTick() - Scan_Time_Stamp > (100 - 1))
 	{
 
-	if (count < 0)
+	Scan_Time_Stamp = HAL_GetTick();
+
+	int16_t count = Encoder_Get_Count(&Encoder);
+	Encoder_Reset_Count(&Encoder);
+
+	uint8_t clicks = Button_Get_Clicked_Count(&Encoder_Button);
+	Button_Reset_Count(&Encoder_Button);
+
+	if (!in_screen)
 	    {
-	    Page_Screen++;
-	    if(Page_Screen > Screens_In_Page)
+
+	    if (count < 0)
 		{
-		Page_Screen = Screens_In_Page;
+		Page_Screen++;
+		if (Page_Screen > Screens_In_Page)
+		    {
+		    Page_Screen = Screens_In_Page;
+		    }
+		Show_Page(Page_Screen);
 		}
-	    Show_Page(Page_Screen);
-	    }
 
-	if (count > 0)
-	    {
-	    Page_Screen--;
-	    if(Page_Screen == 0)
+	    if (count > 0)
 		{
-		Page_Screen = 1;
+		Page_Screen--;
+		if (Page_Screen == 0)
+		    {
+		    Page_Screen = 1;
+		    }
+		Show_Page(Page_Screen);
 		}
-	    Show_Page(Page_Screen);
-	    }
 
-	if (Encoder_Clicks == 1)
-	    {
-	    Encoder_Clicks = 0;
-	    in_screen = Enter_Page_Screen(Page_Screen, 0, 0);
-	    Encoder_Set_Count(&Encoder, 0);
-	    }
+	    if (clicks == 1)
+		{
+		in_screen = Enter_Page_Screen(Page_Screen, 0, 0);
+		Encoder_Reset_Count(&Encoder);
+		}
 
-	if(Refresh_Screen)
-	    {
-	    Refresh_Screen = 0;
-	    Show_Page(Page_Screen);
-	    }
+	    if (Refresh_Screen)
+		{
+		Refresh_Screen = 0;
+		Show_Page(Page_Screen);
+		}
 
-	}
-    else
-	{
-
-	if (Encoder_Clicks == 1 || count)
-	    {
-	    in_screen = Enter_Page_Screen(Page_Screen, Encoder_Clicks, count);
-	    Encoder_Set_Count(&Encoder, 0);
-	    Encoder_Clicks = 0;
-	    Refresh_Screen = 1;
 	    }
 	else
 	    {
-	    in_screen = Enter_Page_Screen(Page_Screen, Encoder_Clicks, count);
+
+	    if (clicks == 1 || count)
+		{
+		in_screen = Enter_Page_Screen(Page_Screen, clicks, count);
+		Encoder_Reset_Count(&Encoder);
+		Refresh_Screen = 1;
+		}
+	    else
+		{
+		in_screen = Enter_Page_Screen(Page_Screen, clicks, count);
+		}
 	    }
+
 	}
 
     }

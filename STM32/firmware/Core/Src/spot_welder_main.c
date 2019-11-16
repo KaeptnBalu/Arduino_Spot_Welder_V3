@@ -10,16 +10,21 @@
 
 #include "spot_welder_main.h"
 
-static uint8_t Welder_Auto_Flag = 0;
+struct Welder_Dtata_t
+    {
+    int16_t Welder_Auto_Flag;
+    int16_t Main_Pulse_Duration;
+    int16_t Short_Pulse_Duration;
+    int16_t Auto_Pulse_Delay;
+    int16_t Batt_Alarm;
+    }Welder_Dtata;
+
+struct Welder_Dtata_t* Welder_Data_Handle = &Welder_Dtata;
+
 static uint8_t Welder_Enable_Flag = 1;
 
-static int16_t  Main_Pulse_Duration = 1;
-static int16_t  Short_Pulse_Duration = 1;
-static int16_t  Auto_Pulse_Delay = 1000;
-
-static int16_t  Batt_Alarm = 11000; // in mv
-
-
+Button_Struct_t Foot_Switch;
+Button_Struct_t Auto_Pulse_SW;
 
 Soft_I2C_t Soft_I2C1;
 
@@ -28,6 +33,30 @@ Soft_I2C_t Soft_I2C1;
 
 #define SOFT_I2C_SCL_PIN		GPIO_PIN_9
 #define SOFT_I2C_SCL_PORT		GPIOA
+
+void Update_Data_In_EEPROM()
+    {
+
+    uint8_t cmp_buffer[sizeof(Welder_Dtata)];
+    uint8_t* data = (uint8_t*)Welder_Data_Handle;
+
+    AT24CXX_Read_Buffer(0x00, cmp_buffer, sizeof(Welder_Dtata));
+
+    for(uint8_t i=0; i<sizeof(Welder_Dtata); i++)
+	{
+	if(cmp_buffer[i] != data[i])
+	    {
+	    AT24CXX_Write_Byte(i, data[i]);
+	    }
+	}
+    HAL_Delay(AT24CXX_WRITE_DELAY);
+
+    }
+
+void Read_Data_From_EEPROM()
+    {
+    AT24CXX_Read_Buffer(0x00, (uint8_t*)Welder_Data_Handle, sizeof(Welder_Dtata));
+    }
 
 void Set_Auto_Pulse_Delay(int16_t delay)
     {
@@ -39,12 +68,13 @@ void Set_Auto_Pulse_Delay(int16_t delay)
 	{
 	delay = 10000;
 	}
-    Auto_Pulse_Delay = delay;
+    Welder_Data_Handle->Auto_Pulse_Delay = delay;
+    Update_Data_In_EEPROM();
     }
 
 uint16_t Get_Auto_Pulse_Delay()
     {
-    return Auto_Pulse_Delay;
+    return Welder_Data_Handle->Auto_Pulse_Delay;
     }
 
 
@@ -58,12 +88,13 @@ void Set_Main_Pulse_Duration(int16_t duration)
 	{
 	duration = 50;
 	}
-    Main_Pulse_Duration = duration;
+    Welder_Data_Handle->Main_Pulse_Duration = duration;
+    Update_Data_In_EEPROM();
     }
 
 uint16_t Get_Main_Pulse_Duration()
     {
-    return Main_Pulse_Duration;
+    return Welder_Data_Handle->Main_Pulse_Duration;
     }
 
 void Set_Short_Pulse_Duration(int16_t duration)
@@ -76,12 +107,13 @@ void Set_Short_Pulse_Duration(int16_t duration)
 	{
 	duration = 20;
 	}
-    Short_Pulse_Duration = duration;
+    Welder_Data_Handle->Short_Pulse_Duration = duration;
+    Update_Data_In_EEPROM();
     }
 
 uint16_t Get_Short_Pulse_Duration()
     {
-    return Short_Pulse_Duration;
+    return Welder_Data_Handle->Short_Pulse_Duration;
     }
 
 
@@ -95,12 +127,13 @@ void Set_Batt_Alarm(int16_t voltage)
 	{
 	voltage = 13000;
 	}
-    Batt_Alarm = voltage;
+    Welder_Data_Handle->Batt_Alarm = voltage;
+    Update_Data_In_EEPROM();
     }
 
 uint16_t Get_Batt_Alarm()
     {
-    return Batt_Alarm;
+    return Welder_Data_Handle->Batt_Alarm;
     }
 
 void Disble_Welder()
@@ -115,17 +148,19 @@ uint8_t Get_Welder_Status()
 
 void Disble_Auto_Welder()
     {
-    Welder_Auto_Flag = 0;
+    Welder_Data_Handle->Welder_Auto_Flag = 0;
+    Update_Data_In_EEPROM();
     }
 
 void Enable_Auto_Welder()
     {
-    Welder_Auto_Flag = 1;
+    Welder_Data_Handle->Welder_Auto_Flag = 1;
+    Update_Data_In_EEPROM();
     }
 
 uint8_t Get_Auto_Status()
     {
-    return Welder_Auto_Flag;
+    return Welder_Data_Handle->Welder_Auto_Flag;
     }
 
 uint8_t Get_Foot_Switch_Status()
@@ -146,6 +181,22 @@ uint8_t Get_Auto_Puse_In_Status()
     return 0;
     }
 
+void Foot_Switch_Callback(uint8_t Clicked_Count)
+    {
+
+    if(Clicked_Count == 1)
+	{
+	}
+    }
+
+void Auto_Pulse_In_Callback(uint8_t Clicked_Count)
+    {
+
+    if(Clicked_Count == 1)
+	{
+	}
+    }
+
 void Spot_Welder_Main()
     {
 
@@ -156,6 +207,20 @@ void Spot_Welder_Main()
     Soft_I2C1.GPIO_SDA_Port = SOFT_I2C_SDA_PORT;
 
     Soft_I2C_Init(&Soft_I2C1);
+
+    Foot_Switch.Button_Pin = Foot_Switch_Pin;
+    Foot_Switch.Button_Pin_Port = Foot_Switch_GPIO_Port;
+    Foot_Switch.Button_Pressed_Logic = LOW;
+    Foot_Switch.Callback = Foot_Switch_Callback;
+    Button_Attach(&Foot_Switch);
+
+    Auto_Pulse_SW.Button_Pin = Auto_Pulse_In_Pin;
+    Auto_Pulse_SW.Button_Pin_Port = Auto_Pulse_In_GPIO_Port;
+    Auto_Pulse_SW.Button_Pressed_Logic = HIGH;
+    Auto_Pulse_SW.Callback = Auto_Pulse_In_Callback;
+    Button_Attach(&Auto_Pulse_SW);
+
+    Read_Data_From_EEPROM();
 
     ssd1306_Init();
 
@@ -175,16 +240,7 @@ void Spot_Welder_Main()
     while (1)
 	{
 
-	static uint32_t Scan_Time_Stamp = 0;
-
-	if (HAL_GetTick() - Scan_Time_Stamp > (100 - 1))
-	    {
-
-	    Scan_Time_Stamp = HAL_GetTick();
-
-	    Menu_Loop();
-
-	    }
+	Menu_Loop();
 
 	}
 

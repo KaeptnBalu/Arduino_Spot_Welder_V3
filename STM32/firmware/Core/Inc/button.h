@@ -39,7 +39,7 @@ typedef struct Button_Struct_t
 void Button_Scan();
 uint8_t Button_Get_Clicked_Count(Button_Struct_t* PTR);
 Button_Event_t Button_Get_Status(Button_Struct_t* PTR);
-void Button_Reset(Button_Struct_t* PTR);
+void Button_Reset_Count(Button_Struct_t* PTR);
 uint8_t Button_Attach(Button_Struct_t*  Button_Struct_t_PTR);
 
 

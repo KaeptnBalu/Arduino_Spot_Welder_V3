@@ -141,6 +141,19 @@ int16_t Encoder_Get_Count(Encoder_Struct_t *PTR)
     }
 
 /* to reset*/
+void Encoder_Reset_Count(Encoder_Struct_t *PTR)
+    {
+
+    if (PTR != NULL)
+	{
+	PTR->Encoder_Count = 0;
+	}
+    else
+	{
+	//Error
+	}
+    }
+
 void Encoder_Set_Count(Encoder_Struct_t *PTR, int16_t count)
     {
 

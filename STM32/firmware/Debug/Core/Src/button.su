@@ -2,4 +2,4 @@ button.c:24:9:Button_Attach	56	static
 button.c:82:6:Button_Scan	24	static
 button.c:168:16:Button_Get_Status	0	static
 button.c:182:9:Button_Get_Clicked_Count	0	static
-button.c:196:6:Button_Reset	0	static
+button.c:196:6:Button_Reset_Count	0	static

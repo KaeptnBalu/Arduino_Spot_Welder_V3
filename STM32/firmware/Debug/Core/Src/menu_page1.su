@@ -4,7 +4,7 @@ menu_page1.c:35:6:Show_Page1_Screen3	8	static
 menu_page1.c:49:6:Show_Page1_Screen4	8	static
 menu_page1.c:63:6:Show_Page1	8	static
 menu_page1.c:83:9:Enter_Page1_Screen1	48	static
-menu_page1.c:199:9:Enter_Page1_Screen2	8	static
-menu_page1.c:205:9:Enter_Page1_Screen3	32	static
-menu_page1.c:232:9:Enter_Page1_Screen4	32	static
-menu_page1.c:258:9:Enter_Page1_Screen	8	static
+menu_page1.c:205:9:Enter_Page1_Screen2	8	static
+menu_page1.c:211:9:Enter_Page1_Screen3	32	static
+menu_page1.c:238:9:Enter_Page1_Screen4	32	static
+menu_page1.c:264:9:Enter_Page1_Screen	8	static

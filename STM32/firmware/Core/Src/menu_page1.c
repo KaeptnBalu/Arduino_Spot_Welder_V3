@@ -186,8 +186,14 @@ uint8_t Enter_Page1_Screen1(uint8_t button, int16_t count)
     ssd1306_SetCursor(0, 50);
     ssd1306_WriteString(STR_Auto, Font_7x10, White);
     ssd1306_WriteString(STR_Space, Font_7x10, White);
-    ssd1306_WriteString(STR_Auto_Value, Font_7x10, White);
-
+    if(Get_Auto_Status())
+	{
+	ssd1306_WriteString(STR_ON, Font_7x10, White);
+	}
+    else
+	{
+	ssd1306_WriteString(STR_OFF, Font_7x10, White);
+	}
     ssd1306_SetCursor(100, 50);
     ssd1306_WriteString(">>", Font_7x10, White);
 

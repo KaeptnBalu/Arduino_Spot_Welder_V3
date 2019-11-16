@@ -10,7 +10,7 @@
 
 #define MAX_BUTTONS 5
 
-#define BUTTON_SCAN_TICK 5         // Button_Scan() called every BUTTON_SCAN_TICK
+#define BUTTON_SCAN_TICK 10         // Button_Scan() called every BUTTON_SCAN_TICK
 
 #define BUTTON_DEBOUNCE_DELAY      (50/BUTTON_SCAN_TICK)   //ticks
 #define BUTTON_CLICKED_DELAY       (250/BUTTON_SCAN_TICK)  // confirm clicked in foreground after released for CLICKED_DELAY
@@ -193,13 +193,12 @@ uint8_t Button_Get_Clicked_Count(Button_Struct_t *PTR)
 	}
     }
 
-void Button_Reset(Button_Struct_t *PTR)
+void Button_Reset_Count(Button_Struct_t *PTR)
     {
 
     if (PTR != NULL)
 	{
 	PTR->Button_Clicked_Count = 0;
-	PTR->Button_Event = Button_Idle;
 	}
     else
 	{

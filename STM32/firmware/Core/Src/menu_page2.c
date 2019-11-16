@@ -20,7 +20,15 @@ void Show_Page2_Comman()
     ssd1306_SetCursor(0, 20);
     ssd1306_WriteString(STR_Auto_Pulse_C, Font_7x10, White);
     ssd1306_SetCursor(80, 20);
-    ssd1306_WriteString(STR_Auto_Value, Font_7x10, White);
+    if(Get_Auto_Status())
+	{
+	ssd1306_WriteString(STR_ON, Font_7x10, White);
+	}
+    else
+	{
+	ssd1306_WriteString(STR_OFF, Font_7x10, White);
+	}
+
 
     ssd1306_SetCursor(0, 35);
     ssd1306_WriteString(STR_Delay, Font_7x10, White);
@@ -52,8 +60,14 @@ void Show_Page2_Screen2()
     ssd1306_SetCursor(0, 20);
     ssd1306_WriteString(STR_Auto_Pulse_C, Font_7x10, Black);
     ssd1306_SetCursor(80, 20);
-    ssd1306_WriteString(STR_Auto_Value, Font_7x10, Black);
-
+    if(Get_Auto_Status())
+	{
+	ssd1306_WriteString(STR_ON, Font_7x10, White);
+	}
+    else
+	{
+	ssd1306_WriteString(STR_OFF, Font_7x10, White);
+	}
     ssd1306_UpdateScreen();
     }
 
@@ -126,13 +140,11 @@ if (toggle)
     {
     toggle = 0;
     Disble_Auto_Welder();
-    STR_Auto_Value = STR_OFF;
     }
 else
     {
     toggle = 1;
     Enable_Auto_Welder();
-    STR_Auto_Value = STR_ON;
     }
 Show_Page2_Comman();
 Show_Page2_Screen2();

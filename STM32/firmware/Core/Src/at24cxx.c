@@ -44,7 +44,7 @@ uint8_t AT24CXX_Write_Byte(uint16_t register_address, uint8_t data)
 
     Soft_I2C_Stop(&AT24C_I2C_Handle);
 
-    HAL_Delay(AT24CXX_WRITE_DELAY);/*Memory Programming Time approx 5ms*//*3ms for BL24CXX */
+    //HAL_Delay(AT24CXX_WRITE_DELAY);/*Memory Programming Time approx 5ms*//*3ms for BL24CXX */
 
     return AT24CXX_OK;
     }
