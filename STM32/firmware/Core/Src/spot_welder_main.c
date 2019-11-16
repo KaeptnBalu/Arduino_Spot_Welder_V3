@@ -17,6 +17,7 @@ struct Welder_Dtata_t
     int16_t Short_Pulse_Duration;
     int16_t Auto_Pulse_Delay;
     int16_t Batt_Alarm;
+    int16_t Weld_Counter;
     }Welder_Dtata;
 
 struct Welder_Dtata_t* Welder_Data_Handle = &Welder_Dtata;
@@ -39,8 +40,8 @@ void Update_Data_In_EEPROM()
 
     static uint32_t Update_Time_Stamp = 0;
 
-    /* update only every 5000ms if data is changed*/
-    if (HAL_GetTick() - Update_Time_Stamp > (5000 - 1))
+    /* update only every 2000ms if data is changed*/
+    if (HAL_GetTick() - Update_Time_Stamp > (2000 - 1))
 	{
 	uint8_t cmp_buffer[sizeof(Welder_Dtata)];
 	uint8_t *data = (uint8_t*) Welder_Data_Handle;
@@ -171,6 +172,17 @@ uint8_t Get_Auto_Status()
     return Welder_Data_Handle->Welder_Auto_Flag;
     }
 
+void Increment_Weld_Count()
+    {
+    Welder_Data_Handle->Weld_Counter++;
+    Update_Data_In_EEPROM();
+    }
+
+uint16_t Get_Weld_Count()
+    {
+    return Welder_Data_Handle->Weld_Counter;
+    }
+
 uint8_t Get_Foot_Switch_Status()
     {
     if (!Get_Auto_Status())
@@ -187,6 +199,16 @@ uint8_t Get_Auto_Puse_In_Status()
 	return HAL_GPIO_ReadPin(Auto_Pulse_In_GPIO_Port, Auto_Pulse_In_Pin);
 	}
     return 0;
+    }
+
+void Reset_Welder_Data()
+    {
+    Set_Main_Pulse_Duration(3);
+    Set_Short_Pulse_Duration(2);
+    Set_Batt_Alarm(11000);
+    Set_Auto_Pulse_Delay(1000);
+    Disble_Auto_Welder();
+    Update_Data_In_EEPROM();
     }
 
 void Foot_Switch_Callback(uint8_t Clicked_Count)

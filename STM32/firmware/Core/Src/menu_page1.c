@@ -138,6 +138,8 @@ uint8_t Enter_Page1_Screen1(uint8_t button, int16_t count)
 
 	    HAL_Delay(100);
 
+	    Increment_Weld_Count();
+
 	    while (Get_Auto_Puse_In_Status())
 		{
 		ssd1306_Fill(Black);
@@ -192,11 +194,12 @@ uint8_t Enter_Page1_Screen1(uint8_t button, int16_t count)
     ssd1306_SetCursor(0, 35);
     ssd1306_WriteString("Tot Welds:", Font_7x10, White);
     ssd1306_SetCursor(75, 35);
-    ssd1306_WriteString("125", Font_7x10, White);
+    itoa(Get_Weld_Count(), temp, 10);
+    ssd1306_WriteString(temp, Font_7x10, White);
 
     ssd1306_SetCursor(0, 50);
     ssd1306_WriteString(STR_Auto, Font_7x10, White);
-    ssd1306_WriteString(STR_Space, Font_7x10, White);
+    ssd1306_WriteString(" ", Font_7x10, White);
     if(Get_Auto_Status())
 	{
 	ssd1306_WriteString(STR_ON, Font_7x10, White);

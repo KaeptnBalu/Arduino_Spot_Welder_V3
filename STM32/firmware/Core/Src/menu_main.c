@@ -16,10 +16,6 @@ const char STR_OFF[] = "OFF";
 const char STR_Batt_Alarm[] = "Batt Alarm";
 const char STR_Shrt_Pulse[] = "Shrt Pulse";
 const char STR_Auto[] = "Auto:";
-const char STR_Space[] = " ";
-const char STR_2Space[] = "  ";
-const char STR_3Space[] = "   ";
-const char STR_4Space[] = "    ";
 
 const char STR_Auto_Pulse_C[] = "Auto Pulse:";
 const char STR_Delay[] = "Delay:";

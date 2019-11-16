@@ -40,6 +40,8 @@ void Enable_Auto_Welder();
 uint8_t Get_Auto_Status();
 uint8_t Get_Foot_Switch_Status();
 uint8_t Get_Auto_Puse_In_Status();
+void Increment_Weld_Count();
+uint16_t Get_Weld_Count();
 
 
 #endif /* INC_SPOT_WELDER_MAIN_H_ */
