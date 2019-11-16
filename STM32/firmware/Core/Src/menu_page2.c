@@ -18,7 +18,8 @@ void Show_Page2_Comman()
     ssd1306_WriteString(STR_Back, Font_7x10, White);
 
     ssd1306_SetCursor(0, 20);
-    ssd1306_WriteString(STR_Auto_Pulse_C, Font_7x10, White);
+    ssd1306_WriteString(STR_Auto_Pulse, Font_7x10, White);
+    ssd1306_WriteString(":", Font_7x10, White);
     ssd1306_SetCursor(80, 20);
     if(Get_Auto_Status())
 	{
@@ -58,7 +59,8 @@ void Show_Page2_Screen2()
     {
 
     ssd1306_SetCursor(0, 20);
-    ssd1306_WriteString(STR_Auto_Pulse_C, Font_7x10, Black);
+    ssd1306_WriteString(STR_Auto_Pulse, Font_7x10, Black);
+    ssd1306_WriteString(":", Font_7x10, White);
     ssd1306_SetCursor(80, 20);
     if(Get_Auto_Status())
 	{

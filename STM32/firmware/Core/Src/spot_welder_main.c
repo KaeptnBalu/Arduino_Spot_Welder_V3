@@ -24,8 +24,6 @@ struct Welder_Dtata_t* Welder_Data_Handle = &Welder_Data;
 
 static uint8_t Welder_Enable_Flag = 1;
 
-Button_Struct_t Foot_Switch;
-Button_Struct_t Auto_Pulse_SW;
 
 Soft_I2C_t Soft_I2C1;
 
@@ -237,18 +235,6 @@ void Spot_Welder_Main()
     Soft_I2C1.GPIO_SDA_Port = SOFT_I2C_SDA_PORT;
 
     Soft_I2C_Init(&Soft_I2C1);
-
-    Foot_Switch.Button_Pin = Foot_Switch_Pin;
-    Foot_Switch.Button_Pin_Port = Foot_Switch_GPIO_Port;
-    Foot_Switch.Button_Pressed_Logic = LOW;
-    Foot_Switch.Callback = Foot_Switch_Callback;
-    Button_Attach(&Foot_Switch);
-
-    Auto_Pulse_SW.Button_Pin = Auto_Pulse_In_Pin;
-    Auto_Pulse_SW.Button_Pin_Port = Auto_Pulse_In_GPIO_Port;
-    Auto_Pulse_SW.Button_Pressed_Logic = HIGH;
-    Auto_Pulse_SW.Callback = Auto_Pulse_In_Callback;
-    Button_Attach(&Auto_Pulse_SW);
 
     Read_Data_From_EEPROM();
 

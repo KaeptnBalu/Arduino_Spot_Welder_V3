@@ -17,9 +17,10 @@ const char STR_Batt_Alarm[] = "Batt Alarm";
 const char STR_Shrt_Pulse[] = "Shrt Pulse";
 const char STR_Auto[] = "Auto:";
 
-const char STR_Auto_Pulse_C[] = "Auto Pulse:";
 const char STR_Delay[] = "Delay:";
 const char STR_Duration[] = "Duration:";
+
+const char STR_Reset[] = "Reset";
 
 //const char *STR_Auto_Value = STR_OFF;
 
@@ -52,14 +53,14 @@ void Menu_Change_Page(uint8_t page_no)
 	Show_Page = Show_Page1;
 	Enter_Page_Screen = Enter_Page1_Screen;
 	Page_Screen = 1;
-	Screens_In_Page = 4;
+	Screens_In_Page = 5; // 5 screens in page 1
 	break;
 
     case 2:
 	Show_Page = Show_Page2;
 	Enter_Page_Screen = Enter_Page2_Screen;
 	Page_Screen = 1;
-	Screens_In_Page = 4;
+	Screens_In_Page = 4;// 4 screens in page 2
 	break;
 	}
 
@@ -100,7 +101,6 @@ void Menu_Loop()
 	Encoder_Reset_Count(&Encoder);
 
 	uint8_t clicks = Button_Get_Clicked_Count(&Encoder_Button);
-	Button_Reset_Count(&Encoder_Button);
 
 	if (!in_screen)
 	    {
@@ -141,7 +141,7 @@ void Menu_Loop()
 	else
 	    {
 
-	    if (clicks == 1 || count)
+	    if (clicks || count)
 		{
 		in_screen = Enter_Page_Screen(Page_Screen, clicks, count);
 		Encoder_Reset_Count(&Encoder);

@@ -32,7 +32,7 @@ extern const char STR_4Space[]       ;
 extern const char STR_Auto_Pulse_C[] ;
 extern const char STR_Delay[]        ;
 extern const char STR_Duration[]     ;
-
+extern const char STR_Reset[]                ;
 
 Encoder_Struct_t Encoder;
 Button_Struct_t Encoder_Button;

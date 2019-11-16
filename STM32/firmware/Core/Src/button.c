@@ -121,6 +121,7 @@ void Button_Scan()
 		    {   //long pressed detected
 		    PTR->Button_Event = Button_Long_Pressed;
 		    PTR->Button_Clicked_Count = 0xFF; //0xFF for long press
+		    PTR->Button_Count_Captured = 0xFF;
 		    if (PTR->Callback != NULL)
 			{
 			PTR->Callback(PTR->Button_Clicked_Count);
@@ -154,10 +155,10 @@ void Button_Scan()
 		    if (PTR->Callback != NULL
 			    && PTR->Button_Event != Button_Idle)
 			{
+			PTR->Button_Event = Button_Idle;
+			PTR->Button_Count_Captured = PTR->Button_Clicked_Count;
 			PTR->Callback(PTR->Button_Clicked_Count);
 			PTR->Button_Clicked_Count = 0;
-			PTR->Button_Event = Button_Idle;
-
 			}
 		    }
 		}
@@ -182,15 +183,23 @@ Button_Event_t Button_Get_Status(Button_Struct_t *PTR)
 uint8_t Button_Get_Clicked_Count(Button_Struct_t *PTR)
     {
 
+    uint8_t count = 0;
+
     if (PTR != NULL)
 	{
-	return PTR->Button_Clicked_Count;
+	if (PTR->Button_Event == Button_Idle || PTR->Button_Event == Button_Long_Pressed)
+	    {
+	    count = PTR->Button_Count_Captured;
+	    PTR->Button_Count_Captured = 0;
+	    }
 	}
     else
 	{
 	//Error
-	return 0;
 	}
+
+    return count;
+
     }
 
 void Button_Reset_Count(Button_Struct_t *PTR)

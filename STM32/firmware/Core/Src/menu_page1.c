@@ -60,6 +60,20 @@ void Show_Page1_Screen4()
 
     }
 
+void Show_Page1_Screen5()
+    {
+
+    ssd1306_Fill(Black);
+    ssd1306_SetCursor(0, 0);
+    ssd1306_WriteString(STR_Batt_Alarm, Font_11x18, White);
+    ssd1306_SetCursor(0, 20);
+    ssd1306_WriteString(STR_Shrt_Pulse, Font_11x18, White);
+    ssd1306_SetCursor(0, 40);
+    ssd1306_WriteString(STR_Reset, Font_11x18, Black);
+    ssd1306_UpdateScreen();
+
+    }
+
 void Show_Page1(uint8_t screen)
     {
 
@@ -77,6 +91,10 @@ void Show_Page1(uint8_t screen)
     case 4:
 	Show_Page1_Screen4();
 	break;
+    case 5:
+    	Show_Page1_Screen5();
+    	break;
+
 	}
     }
 
@@ -275,6 +293,45 @@ uint8_t Enter_Page1_Screen4(uint8_t button, int16_t count)
     return xreturn;
     }
 
+uint8_t Enter_Page1_Screen5(uint8_t button, int16_t count)
+    {
+
+    uint8_t xreturn = 1;
+
+    ssd1306_Fill(Black);
+    ssd1306_SetCursor(0, 0);
+    ssd1306_WriteString(STR_Reset, Font_11x18, White);
+    ssd1306_WriteString("?", Font_11x18, White);
+
+    ssd1306_SetCursor(0, 20);
+    ssd1306_WriteString("long press", Font_7x10, White);
+    ssd1306_SetCursor(0, 35);
+    ssd1306_WriteString("to RESET", Font_7x10, White);
+
+    ssd1306_UpdateScreen();
+
+    if (button == 1)
+	{
+	xreturn = 0; //execution complete
+	}
+
+    if (button == 255)
+	{
+	xreturn = 0;
+	ssd1306_Fill(Black);
+	ssd1306_SetCursor(0, 0);
+	ssd1306_WriteString("RESETTING..", Font_7x10, White);
+	ssd1306_UpdateScreen();
+	HAL_Delay(2000);
+	Reset_Welder_Data();
+	}
+
+
+
+    return xreturn;
+    }
+
+
 uint8_t Enter_Page1_Screen(uint8_t screen, uint8_t button, int16_t count)
     {
 
@@ -294,7 +351,10 @@ uint8_t Enter_Page1_Screen(uint8_t screen, uint8_t button, int16_t count)
     case 4:
 	xreturn = Enter_Page1_Screen4(button, count);
 	break;
-	}
+    case 5:
+    	xreturn = Enter_Page1_Screen5(button, count);
+    	break;
+    	}
 
     return xreturn;
     }
