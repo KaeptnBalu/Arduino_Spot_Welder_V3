@@ -4440,7 +4440,7 @@ LOAD /opt/st/stm32cubeide_1.0.2/plugins/com.st.stm32cube.ide.mcu.externaltools.g
                 0x0000000020000008                Font_7x10
  .data.Page_Screen
                 0x0000000020000010        0x1 Core/Src/menu_main.o
- .data.in_screen.6244
+ .data.in_screen.6247
                 0x0000000020000011        0x1 Core/Src/menu_main.o
  *fill*         0x0000000020000012        0x2 
  .data.Welder_Data_Handle
@@ -4482,18 +4482,18 @@ LOAD /opt/st/stm32cubeide_1.0.2/plugins/com.st.stm32cube.ide.mcu.externaltools.g
  .bss.Refresh_Screen
                 0x0000000020000060        0x1 Core/Src/menu_main.o
  *fill*         0x0000000020000061        0x3 
- .bss.Scan_Time_Stamp.6245
+ .bss.Scan_Time_Stamp.6248
                 0x0000000020000064        0x4 Core/Src/menu_main.o
  .bss.Screens_In_Page
                 0x0000000020000068        0x1 Core/Src/menu_main.o
- .bss.toggle.6223
+ .bss.toggle.6226
                 0x0000000020000069        0x1 Core/Src/menu_page2.o
  .bss.Attached_Encoders
                 0x000000002000006a        0x1 Core/Src/rotary_encoder.o
  *fill*         0x000000002000006b        0x1 
  .bss.Encoder_Struct_PTR_Array
                 0x000000002000006c        0x8 Core/Src/rotary_encoder.o
- .bss.Update_Time_Stamp.6208
+ .bss.Update_Time_Stamp.6211
                 0x0000000020000074        0x4 Core/Src/spot_welder_main.o
  .bss.SSD1306   0x0000000020000078        0x6 Core/Src/ssd1306.o
  .bss.SSD1306_Buffer

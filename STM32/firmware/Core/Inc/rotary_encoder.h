@@ -37,7 +37,7 @@ typedef struct Encoder_Struct_t
 int16_t Encoder_Get_Count(Encoder_Struct_t* PTR);
 void Encoder_Scan();
 void Encoder_Reset_Count(Encoder_Struct_t *PTR);
-//void Encoder_Set_Count(Encoder_Struct_t* PTR, int16_t count);
+void Encoder_Set_Count(Encoder_Struct_t* PTR, int16_t count);
 
 uint8_t Encoder_Attach(Encoder_Struct_t*  Encoder_Struct_PTR);
 
