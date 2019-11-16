@@ -37,19 +37,27 @@ Soft_I2C_t Soft_I2C1;
 void Update_Data_In_EEPROM()
     {
 
-    uint8_t cmp_buffer[sizeof(Welder_Dtata)];
-    uint8_t* data = (uint8_t*)Welder_Data_Handle;
+    static uint32_t Update_Time_Stamp = 0;
 
-    AT24CXX_Read_Buffer(0x00, cmp_buffer, sizeof(Welder_Dtata));
-
-    for(uint8_t i=0; i<sizeof(Welder_Dtata); i++)
+    /* update only every 5000ms if data is changed*/
+    if (HAL_GetTick() - Update_Time_Stamp > (5000 - 1))
 	{
-	if(cmp_buffer[i] != data[i])
+	uint8_t cmp_buffer[sizeof(Welder_Dtata)];
+	uint8_t *data = (uint8_t*) Welder_Data_Handle;
+
+	Update_Time_Stamp = HAL_GetTick();
+
+	AT24CXX_Read_Buffer(0x00, cmp_buffer, sizeof(Welder_Dtata));
+
+	for (uint8_t i = 0; i < sizeof(Welder_Dtata); i++)
 	    {
-	    AT24CXX_Write_Byte(i, data[i]);
+	    if (cmp_buffer[i] != data[i])
+		{
+		AT24CXX_Write_Byte(i, data[i]);
+		}
 	    }
+	HAL_Delay(AT24CXX_WRITE_DELAY);
 	}
-    HAL_Delay(AT24CXX_WRITE_DELAY);
 
     }
 
@@ -80,9 +88,9 @@ uint16_t Get_Auto_Pulse_Delay()
 
 void Set_Main_Pulse_Duration(int16_t duration)
     {
-    if (duration <= 1)
+    if (duration <= 3)
 	{
-	duration = 1;
+	duration = 3;
 	}
     if (duration > 50)
 	{
@@ -99,9 +107,9 @@ uint16_t Get_Main_Pulse_Duration()
 
 void Set_Short_Pulse_Duration(int16_t duration)
     {
-    if (duration <= 1)
+    if (duration <= 2)
 	{
-	duration = 1;
+	duration = 2;
 	}
     if (duration > 20)
 	{

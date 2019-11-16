@@ -119,11 +119,22 @@ uint8_t Enter_Page1_Screen1(uint8_t button, int16_t count)
 	    ssd1306_WriteString("ms", Font_11x18, White);
 	    ssd1306_UpdateScreen();
 
+	    /*short pulse*/
+	    HAL_GPIO_WritePin(Gate_Driver_GPIO_Port, Gate_Driver_Pin,
+		    GPIO_PIN_SET);
+	    HAL_Delay(Get_Short_Pulse_Duration());
+	    HAL_GPIO_WritePin(Gate_Driver_GPIO_Port, Gate_Driver_Pin,
+		    GPIO_PIN_RESET);
+	    HAL_Delay(Get_Short_Pulse_Duration());
+	    /*short pulse*/
+
+	    /*main pulse*/
 	    HAL_GPIO_WritePin(Gate_Driver_GPIO_Port, Gate_Driver_Pin,
 		    GPIO_PIN_SET);
 	    HAL_Delay(Get_Main_Pulse_Duration());
 	    HAL_GPIO_WritePin(Gate_Driver_GPIO_Port, Gate_Driver_Pin,
 		    GPIO_PIN_RESET);
+	    /*main pulse*/
 
 	    HAL_Delay(100);
 
