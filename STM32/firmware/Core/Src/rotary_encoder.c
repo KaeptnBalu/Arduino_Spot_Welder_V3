@@ -47,11 +47,11 @@ uint8_t Encoder_Attach(Encoder_Struct_t *Encoder_Struct_PTR)
 	Encoder_Struct_PTR->Encoder_Time_Stamp = 0;
 	Encoder_Struct_PTR->Encoder_Count = 0;
 
-	Encoder_Struct_PTR->Encoder_Pin_0__State = HAL_GPIO_ReadPin(
+	Encoder_Struct_PTR->Encoder_Pin_0_State = HAL_GPIO_ReadPin(
 		Encoder_Struct_PTR->Encoder_Pin_0_Port,
 		Encoder_Struct_PTR->Encoder_Pin_0);
 
-	Encoder_Struct_PTR->Encoder_Pin_1__State = HAL_GPIO_ReadPin(
+	Encoder_Struct_PTR->Encoder_Pin_1_State = HAL_GPIO_ReadPin(
 		Encoder_Struct_PTR->Encoder_Pin_1_Port,
 		Encoder_Struct_PTR->Encoder_Pin_1);
 
@@ -80,10 +80,10 @@ void Encoder_Scan()
 	PTR = Encoder_Struct_PTR_Array[Index];
 
 	if (HAL_GPIO_ReadPin(PTR->Encoder_Pin_0_Port, PTR->Encoder_Pin_0)
-		!= PTR->Encoder_Pin_0__State)
+		!= PTR->Encoder_Pin_0_State)
 	    {
-	    PTR->Encoder_Pin_0__State = !PTR->Encoder_Pin_0__State;
-	    if (PTR->Encoder_Pin_0__State && !PTR->Encoder_Pin_1__State)
+	    PTR->Encoder_Pin_0_State = !PTR->Encoder_Pin_0_State;
+	    if (PTR->Encoder_Pin_0_State && !PTR->Encoder_Pin_1_State)
 		{
 		if (HAL_GetTick() - PTR->Encoder_Time_Stamp > 10)
 		    {
@@ -102,10 +102,10 @@ void Encoder_Scan()
 		}
 	    }
 	if (HAL_GPIO_ReadPin(PTR->Encoder_Pin_1_Port, PTR->Encoder_Pin_1)
-		!= PTR->Encoder_Pin_1__State)
+		!= PTR->Encoder_Pin_1_State)
 	    {
-	    PTR->Encoder_Pin_1__State = !PTR->Encoder_Pin_1__State;
-	    if (PTR->Encoder_Pin_1__State && !PTR->Encoder_Pin_0__State)
+	    PTR->Encoder_Pin_1_State = !PTR->Encoder_Pin_1_State;
+	    if (PTR->Encoder_Pin_1_State && !PTR->Encoder_Pin_0_State)
 		{
 		if (HAL_GetTick() - PTR->Encoder_Time_Stamp > 10)
 		    {

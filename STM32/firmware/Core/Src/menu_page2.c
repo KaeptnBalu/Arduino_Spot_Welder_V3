@@ -139,7 +139,7 @@ static uint8_t toggle = 0;
 if (toggle)
     {
     toggle = 0;
-    Disble_Auto_Welder();
+    Disable_Auto_Welder();
     }
 else
     {

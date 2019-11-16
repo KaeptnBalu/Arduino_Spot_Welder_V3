@@ -41,11 +41,11 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
  18 .debug_line   0000a75b  00000000  00000000  000429ef  2**0
                   CONTENTS, READONLY, DEBUGGING
- 19 .debug_str    00041ecb  00000000  00000000  0004d14a  2**0
+ 19 .debug_str    00041ebe  00000000  00000000  0004d14a  2**0
                   CONTENTS, READONLY, DEBUGGING
- 20 .comment      0000007b  00000000  00000000  0008f015  2**0
+ 20 .comment      0000007b  00000000  00000000  0008f008  2**0
                   CONTENTS, READONLY
- 21 .debug_frame  000013e0  00000000  00000000  0008f090  2**2
+ 21 .debug_frame  000013e0  00000000  00000000  0008f084  2**2
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -502,7 +502,7 @@ uint8_t AT24CXX_Write_Byte(uint16_t register_address, uint8_t data)
     return AT24CXX_OK;
  8000358:	2500      	movs	r5, #0
  800035a:	e7de      	b.n	800031a <AT24CXX_Write_Byte+0x1a>
- 800035c:	20000534 	.word	0x20000534
+ 800035c:	20000540 	.word	0x20000540
 
 08000360 <AT24CXX_Read_Buffer>:
 
@@ -604,7 +604,7 @@ uint8_t AT24CXX_Read_Buffer(uint16_t start_address, uint8_t *buf, uint16_t len)
  80003e0:	f001 f80a 	bl	80013f8 <Soft_I2C_ACK>
  80003e4:	e7f9      	b.n	80003da <AT24CXX_Read_Buffer+0x7a>
  80003e6:	46c0      	nop			; (mov r8, r8)
- 80003e8:	20000534 	.word	0x20000534
+ 80003e8:	20000540 	.word	0x20000540
 
 080003ec <Button_Attach>:
 static Button_Struct_t *Button_Struct_PTR_Array[MAX_BUTTONS];
@@ -1871,8 +1871,8 @@ void Show_Page1(uint8_t screen)
  8000a5e:	4287      	cmp	r7, r0
  8000a60:	da01      	bge.n	8000a66 <Enter_Page1_Screen1+0x3e>
 	{
-	Disble_Welder();
- 8000a62:	f000 fe2b 	bl	80016bc <Disble_Welder>
+	Disable_Welder();
+ 8000a62:	f000 fe2b 	bl	80016bc <Disable_Welder>
 	}
 
     if (Get_Foot_Switch_Status() || Get_Auto_Puse_In_Status())
@@ -2806,8 +2806,8 @@ if (toggle)
     toggle = 0;
  800108e:	2200      	movs	r2, #0
  8001090:	701a      	strb	r2, [r3, #0]
-    Disble_Auto_Welder();
- 8001092:	f000 fb1f 	bl	80016d4 <Disble_Auto_Welder>
+    Disable_Auto_Welder();
+ 8001092:	f000 fb1f 	bl	80016d4 <Disable_Auto_Welder>
 else
     {
     toggle = 1;
@@ -3058,20 +3058,20 @@ uint8_t Encoder_Attach(Encoder_Struct_t *Encoder_Struct_PTR)
  80011a0:	9305      	str	r3, [sp, #20]
 	HAL_GPIO_Init(Encoder_Struct_PTR->Encoder_Pin_1_Port, &GPIO_InitStruct);
  80011a2:	f000 ff61 	bl	8002068 <HAL_GPIO_Init>
-	Encoder_Struct_PTR->Encoder_Pin_0__State = HAL_GPIO_ReadPin(
+	Encoder_Struct_PTR->Encoder_Pin_0_State = HAL_GPIO_ReadPin(
  80011a6:	8821      	ldrh	r1, [r4, #0]
 	Encoder_Struct_PTR->Encoder_Time_Stamp = 0;
  80011a8:	6126      	str	r6, [r4, #16]
 	Encoder_Struct_PTR->Encoder_Count = 0;
  80011aa:	82a6      	strh	r6, [r4, #20]
-	Encoder_Struct_PTR->Encoder_Pin_0__State = HAL_GPIO_ReadPin(
+	Encoder_Struct_PTR->Encoder_Pin_0_State = HAL_GPIO_ReadPin(
  80011ac:	6860      	ldr	r0, [r4, #4]
  80011ae:	f001 f80b 	bl	80021c8 <HAL_GPIO_ReadPin>
-	Encoder_Struct_PTR->Encoder_Pin_1__State = HAL_GPIO_ReadPin(
+	Encoder_Struct_PTR->Encoder_Pin_1_State = HAL_GPIO_ReadPin(
  80011b2:	8861      	ldrh	r1, [r4, #2]
-	Encoder_Struct_PTR->Encoder_Pin_0__State = HAL_GPIO_ReadPin(
+	Encoder_Struct_PTR->Encoder_Pin_0_State = HAL_GPIO_ReadPin(
  80011b4:	7320      	strb	r0, [r4, #12]
-	Encoder_Struct_PTR->Encoder_Pin_1__State = HAL_GPIO_ReadPin(
+	Encoder_Struct_PTR->Encoder_Pin_1_State = HAL_GPIO_ReadPin(
  80011b6:	68a0      	ldr	r0, [r4, #8]
  80011b8:	f001 f806 	bl	80021c8 <HAL_GPIO_ReadPin>
  80011bc:	7360      	strb	r0, [r4, #13]
@@ -3123,16 +3123,16 @@ void Encoder_Scan()
  80011f0:	8821      	ldrh	r1, [r4, #0]
  80011f2:	6860      	ldr	r0, [r4, #4]
  80011f4:	f000 ffe8 	bl	80021c8 <HAL_GPIO_ReadPin>
-		!= PTR->Encoder_Pin_0__State)
+		!= PTR->Encoder_Pin_0_State)
  80011f8:	7b23      	ldrb	r3, [r4, #12]
 	if (HAL_GPIO_ReadPin(PTR->Encoder_Pin_0_Port, PTR->Encoder_Pin_0)
  80011fa:	4298      	cmp	r0, r3
  80011fc:	d013      	beq.n	8001226 <Encoder_Scan+0x4a>
-	    PTR->Encoder_Pin_0__State = !PTR->Encoder_Pin_0__State;
+	    PTR->Encoder_Pin_0_State = !PTR->Encoder_Pin_0_State;
  80011fe:	425a      	negs	r2, r3
  8001200:	415a      	adcs	r2, r3
  8001202:	7322      	strb	r2, [r4, #12]
-	    if (PTR->Encoder_Pin_0__State && !PTR->Encoder_Pin_1__State)
+	    if (PTR->Encoder_Pin_0_State && !PTR->Encoder_Pin_1_State)
  8001204:	2b00      	cmp	r3, #0
  8001206:	d10e      	bne.n	8001226 <Encoder_Scan+0x4a>
  8001208:	7b63      	ldrb	r3, [r4, #13]
@@ -3156,16 +3156,16 @@ void Encoder_Scan()
  8001226:	8861      	ldrh	r1, [r4, #2]
  8001228:	68a0      	ldr	r0, [r4, #8]
  800122a:	f000 ffcd 	bl	80021c8 <HAL_GPIO_ReadPin>
-		!= PTR->Encoder_Pin_1__State)
+		!= PTR->Encoder_Pin_1_State)
  800122e:	7b63      	ldrb	r3, [r4, #13]
 	if (HAL_GPIO_ReadPin(PTR->Encoder_Pin_1_Port, PTR->Encoder_Pin_1)
  8001230:	4298      	cmp	r0, r3
  8001232:	d013      	beq.n	800125c <Encoder_Scan+0x80>
-	    PTR->Encoder_Pin_1__State = !PTR->Encoder_Pin_1__State;
+	    PTR->Encoder_Pin_1_State = !PTR->Encoder_Pin_1_State;
  8001234:	425a      	negs	r2, r3
  8001236:	415a      	adcs	r2, r3
  8001238:	7362      	strb	r2, [r4, #13]
-	    if (PTR->Encoder_Pin_1__State && !PTR->Encoder_Pin_0__State)
+	    if (PTR->Encoder_Pin_1_State && !PTR->Encoder_Pin_0_State)
  800123a:	2b00      	cmp	r3, #0
  800123c:	d10e      	bne.n	800125c <Encoder_Scan+0x80>
  800123e:	7b23      	ldrb	r3, [r4, #12]
@@ -3898,17 +3898,17 @@ uint8_t Soft_I2C_Write_Bytes(Soft_I2C_t* i2c_handle,
  8001590:	d918      	bls.n	80015c4 <Update_Data_In_EEPROM+0x44>
 	uint8_t *data = (uint8_t*) Welder_Data_Handle;
  8001592:	4b0f      	ldr	r3, [pc, #60]	; (80015d0 <Update_Data_In_EEPROM+0x50>)
-	AT24CXX_Read_Buffer(0x00, cmp_buffer, sizeof(Welder_Dtata));
+	AT24CXX_Read_Buffer(0x00, cmp_buffer, sizeof(Welder_Data));
  8001594:	ad01      	add	r5, sp, #4
 	uint8_t *data = (uint8_t*) Welder_Data_Handle;
  8001596:	681e      	ldr	r6, [r3, #0]
 	Update_Time_Stamp = HAL_GetTick();
  8001598:	f000 fb0c 	bl	8001bb4 <HAL_GetTick>
-	AT24CXX_Read_Buffer(0x00, cmp_buffer, sizeof(Welder_Dtata));
+	AT24CXX_Read_Buffer(0x00, cmp_buffer, sizeof(Welder_Data));
  800159c:	220c      	movs	r2, #12
 	Update_Time_Stamp = HAL_GetTick();
  800159e:	6020      	str	r0, [r4, #0]
-	AT24CXX_Read_Buffer(0x00, cmp_buffer, sizeof(Welder_Dtata));
+	AT24CXX_Read_Buffer(0x00, cmp_buffer, sizeof(Welder_Data));
  80015a0:	0029      	movs	r1, r5
  80015a2:	2000      	movs	r0, #0
  80015a4:	f7fe fedc 	bl	8000360 <AT24CXX_Read_Buffer>
@@ -3922,7 +3922,7 @@ uint8_t Soft_I2C_Write_Bytes(Soft_I2C_t* i2c_handle,
  80015b2:	b2a0      	uxth	r0, r4
  80015b4:	f7fe fea4 	bl	8000300 <AT24CXX_Write_Byte>
  80015b8:	3401      	adds	r4, #1
-	for (uint8_t i = 0; i < sizeof(Welder_Dtata); i++)
+	for (uint8_t i = 0; i < sizeof(Welder_Data); i++)
  80015ba:	2c0c      	cmp	r4, #12
  80015bc:	d1f5      	bne.n	80015aa <Update_Data_In_EEPROM+0x2a>
 	HAL_Delay(AT24CXX_WRITE_DELAY);
@@ -3938,7 +3938,7 @@ uint8_t Soft_I2C_Write_Bytes(Soft_I2C_t* i2c_handle,
 080015d4 <Read_Data_From_EEPROM>:
     {
  80015d4:	b510      	push	{r4, lr}
-    AT24CXX_Read_Buffer(0x00, (uint8_t*)Welder_Data_Handle, sizeof(Welder_Dtata));
+    AT24CXX_Read_Buffer(0x00, (uint8_t*)Welder_Data_Handle, sizeof(Welder_Data));
  80015d6:	4b03      	ldr	r3, [pc, #12]	; (80015e4 <Read_Data_From_EEPROM+0x10>)
  80015d8:	220c      	movs	r2, #12
  80015da:	6819      	ldr	r1, [r3, #0]
@@ -4079,10 +4079,10 @@ uint8_t Soft_I2C_Write_Bytes(Soft_I2C_t* i2c_handle,
  80016b6:	4770      	bx	lr
  80016b8:	20000014 	.word	0x20000014
 
-080016bc <Disble_Welder>:
+080016bc <Disable_Welder>:
     Welder_Enable_Flag = 0;
  80016bc:	2200      	movs	r2, #0
- 80016be:	4b01      	ldr	r3, [pc, #4]	; (80016c4 <Disble_Welder+0x8>)
+ 80016be:	4b01      	ldr	r3, [pc, #4]	; (80016c4 <Disable_Welder+0x8>)
  80016c0:	701a      	strb	r2, [r3, #0]
     }
  80016c2:	4770      	bx	lr
@@ -4097,13 +4097,13 @@ uint8_t Soft_I2C_Write_Bytes(Soft_I2C_t* i2c_handle,
  80016ce:	46c0      	nop			; (mov r8, r8)
  80016d0:	20000018 	.word	0x20000018
 
-080016d4 <Disble_Auto_Welder>:
+080016d4 <Disable_Auto_Welder>:
     Welder_Data_Handle->Welder_Auto_Flag = 0;
  80016d4:	2200      	movs	r2, #0
     {
  80016d6:	b510      	push	{r4, lr}
     Welder_Data_Handle->Welder_Auto_Flag = 0;
- 80016d8:	4b02      	ldr	r3, [pc, #8]	; (80016e4 <Disble_Auto_Welder+0x10>)
+ 80016d8:	4b02      	ldr	r3, [pc, #8]	; (80016e4 <Disable_Auto_Welder+0x10>)
  80016da:	681b      	ldr	r3, [r3, #0]
  80016dc:	801a      	strh	r2, [r3, #0]
     Update_Data_In_EEPROM();
@@ -4336,11 +4336,11 @@ void Spot_Welder_Main()
  8001808:	f7fe ffc6 	bl	8000798 <Menu_Loop>
  800180c:	e7fc      	b.n	8001808 <Spot_Welder_Main+0x9c>
  800180e:	46c0      	nop			; (mov r8, r8)
- 8001810:	20000534 	.word	0x20000534
- 8001814:	20000518 	.word	0x20000518
+ 8001810:	20000540 	.word	0x20000540
+ 8001814:	20000524 	.word	0x20000524
  8001818:	0800157d 	.word	0x0800157d
  800181c:	0800157f 	.word	0x0800157f
- 8001820:	200004fc 	.word	0x200004fc
+ 8001820:	20000508 	.word	0x20000508
  8001824:	20000000 	.word	0x20000000
  8001828:	08003e22 	.word	0x08003e22
  800182c:	08003e2c 	.word	0x08003e2c
@@ -4370,7 +4370,7 @@ void Spot_Welder_Main()
     }
 }
  800184e:	bd07      	pop	{r0, r1, r2, pc}
- 8001850:	20000534 	.word	0x20000534
+ 8001850:	20000540 	.word	0x20000540
 
 08001854 <ssd1306_Fill>:
 	/* Set memory */
@@ -4451,7 +4451,7 @@ void ssd1306_UpdateScreen(void)
  80018ac:	bd37      	pop	{r0, r1, r2, r4, r5, pc}
  80018ae:	46c0      	nop			; (mov r8, r8)
  80018b0:	2000007e 	.word	0x2000007e
- 80018b4:	20000534 	.word	0x20000534
+ 80018b4:	20000540 	.word	0x20000540
 
 080018b8 <ssd1306_Init>:
 {	

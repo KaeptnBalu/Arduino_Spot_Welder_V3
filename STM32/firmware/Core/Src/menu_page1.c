@@ -100,7 +100,7 @@ uint8_t Enter_Page1_Screen1(uint8_t button, int16_t count)
 
     if (bat_voltage < Get_Batt_Alarm())
 	{
-	Disble_Welder();
+	Disable_Welder();
 	}
 
     if (Get_Foot_Switch_Status() || Get_Auto_Puse_In_Status())

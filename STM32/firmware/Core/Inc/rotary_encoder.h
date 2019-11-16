@@ -27,8 +27,8 @@ typedef struct Encoder_Struct_t
 	uint16_t Encoder_Pin_1;
 	GPIO_TypeDef* Encoder_Pin_0_Port;
 	GPIO_TypeDef* Encoder_Pin_1_Port;
-	uint8_t Encoder_Pin_0__State;
-	uint8_t Encoder_Pin_1__State;
+	uint8_t Encoder_Pin_0_State;
+	uint8_t Encoder_Pin_1_State;
 	uint32_t Encoder_Time_Stamp;
 	int16_t Encoder_Count;
 

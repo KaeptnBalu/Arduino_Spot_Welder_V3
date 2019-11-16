@@ -32,10 +32,10 @@ uint16_t Get_Short_Pulse_Duration();
 void Set_Batt_Alarm(int16_t voltage);
 uint16_t Get_Batt_Alarm();
 
-void Disble_Welder();
+void Disable_Welder();
 uint8_t Get_Welder_Status();
 
-void Disble_Auto_Welder();
+void Disable_Auto_Welder();
 void Enable_Auto_Welder();
 uint8_t Get_Auto_Status();
 uint8_t Get_Foot_Switch_Status();

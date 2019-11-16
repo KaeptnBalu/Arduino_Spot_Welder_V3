@@ -30,6 +30,7 @@ Archive member included to satisfy reference by file (symbol)
 Allocating common symbols
 Common symbol       size              file
 
+Welder_Data         0xc               Core/Src/spot_welder_main.o
 Auto_Pulse_SW       0x1c              Core/Src/spot_welder_main.o
 uwTick              0x4               Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal.o
 pFlash              0x20              Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.o
@@ -40,7 +41,6 @@ Encoder             0x18              Core/Src/main.o
 Enter_Page_Screen   0x4               Core/Src/menu_main.o
 Soft_I2C1           0x10              Core/Src/spot_welder_main.o
 hadc                0x40              Core/Src/adc.o
-Welder_Dtata        0xc               Core/Src/spot_welder_main.o
 
 Discarded input sections
 
@@ -4129,15 +4129,15 @@ LOAD /opt/st/stm32cubeide_1.0.2/plugins/com.st.stm32cube.ide.mcu.externaltools.g
  .text.Get_Batt_Alarm
                 0x00000000080016b0        0xc Core/Src/spot_welder_main.o
                 0x00000000080016b0                Get_Batt_Alarm
- .text.Disble_Welder
+ .text.Disable_Welder
                 0x00000000080016bc        0xc Core/Src/spot_welder_main.o
-                0x00000000080016bc                Disble_Welder
+                0x00000000080016bc                Disable_Welder
  .text.Get_Welder_Status
                 0x00000000080016c8        0xc Core/Src/spot_welder_main.o
                 0x00000000080016c8                Get_Welder_Status
- .text.Disble_Auto_Welder
+ .text.Disable_Auto_Welder
                 0x00000000080016d4       0x14 Core/Src/spot_welder_main.o
-                0x00000000080016d4                Disble_Auto_Welder
+                0x00000000080016d4                Disable_Auto_Welder
  .text.Enable_Auto_Welder
                 0x00000000080016e8       0x14 Core/Src/spot_welder_main.o
                 0x00000000080016e8                Enable_Auto_Welder
@@ -4507,10 +4507,10 @@ LOAD /opt/st/stm32cubeide_1.0.2/plugins/com.st.stm32cube.ide.mcu.externaltools.g
                 0x00000000200004f4                Show_Page
                 0x00000000200004f8                Enter_Page_Screen
  COMMON         0x00000000200004fc       0x54 Core/Src/spot_welder_main.o
-                0x00000000200004fc                Auto_Pulse_SW
-                0x0000000020000518                Foot_Switch
-                0x0000000020000534                Soft_I2C1
-                0x0000000020000544                Welder_Dtata
+                0x00000000200004fc                Welder_Data
+                0x0000000020000508                Auto_Pulse_SW
+                0x0000000020000524                Foot_Switch
+                0x0000000020000540                Soft_I2C1
  COMMON         0x0000000020000550        0x4 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal.o
                 0x0000000020000550                uwTick
                 0x0000000020000554                . = ALIGN (0x4)
@@ -4847,7 +4847,7 @@ OUTPUT(Spot_Welder.elf elf32-littlearm)
  .debug_line    0x00000000000095b4      0x7c6 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_gpio.o
  .debug_line    0x0000000000009d7a      0x9e1 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_rcc.o
 
-.debug_str      0x0000000000000000    0x41ecb
+.debug_str      0x0000000000000000    0x41ebe
  .debug_str     0x0000000000000000    0x3cdaf Core/Src/adc.o
                                       0x3cff6 (size before relaxing)
  .debug_str     0x000000000003cdaf      0x29f Core/Src/at24cxx.o
@@ -4858,39 +4858,39 @@ OUTPUT(Spot_Welder.elf elf32-littlearm)
                                       0x3c9b6 (size before relaxing)
  .debug_str     0x000000000003d36d       0x58 Core/Src/gpio.o
                                       0x3cbfa (size before relaxing)
- .debug_str     0x000000000003d3c5     0x32f3 Core/Src/main.o
-                                      0x4047c (size before relaxing)
- .debug_str     0x00000000000406b8      0x121 Core/Src/menu_main.o
-                                      0x4041d (size before relaxing)
- .debug_str     0x00000000000407d9      0x28f Core/Src/menu_page1.o
-                                      0x4055f (size before relaxing)
- .debug_str     0x0000000000040a68      0x127 Core/Src/menu_page2.o
-                                      0x40481 (size before relaxing)
+ .debug_str     0x000000000003d3c5     0x32f1 Core/Src/main.o
+                                      0x4047a (size before relaxing)
+ .debug_str     0x00000000000406b6      0x121 Core/Src/menu_main.o
+                                      0x4041b (size before relaxing)
+ .debug_str     0x00000000000407d7      0x290 Core/Src/menu_page1.o
+                                      0x4055e (size before relaxing)
+ .debug_str     0x0000000000040a67      0x128 Core/Src/menu_page2.o
+                                      0x40480 (size before relaxing)
  .debug_str     0x0000000000040b8f       0x7c Core/Src/rotary_encoder.o
-                                      0x3cd41 (size before relaxing)
+                                      0x3cd3f (size before relaxing)
  .debug_str     0x0000000000040c0b      0x15f Core/Src/soft_i2c.o
                                       0x3cc93 (size before relaxing)
- .debug_str     0x0000000000040d6a      0x1a5 Core/Src/spot_welder_main.o
-                                      0x406fb (size before relaxing)
- .debug_str     0x0000000000040f0f       0xb8 Core/Src/ssd1306.o
+ .debug_str     0x0000000000040d6a      0x198 Core/Src/spot_welder_main.o
+                                      0x406fa (size before relaxing)
+ .debug_str     0x0000000000040f02       0xb8 Core/Src/ssd1306.o
                                       0x3cd38 (size before relaxing)
- .debug_str     0x0000000000040fc7       0x2c Core/Src/stm32f0xx_hal_msp.o
+ .debug_str     0x0000000000040fba       0x2c Core/Src/stm32f0xx_hal_msp.o
                                       0x3cb27 (size before relaxing)
- .debug_str     0x0000000000040ff3       0x82 Core/Src/stm32f0xx_it.o
+ .debug_str     0x0000000000040fe6       0x82 Core/Src/stm32f0xx_it.o
                                       0x3cb33 (size before relaxing)
- .debug_str     0x0000000000041075       0x5f Core/Src/system_stm32f0xx.o
+ .debug_str     0x0000000000041068       0x5f Core/Src/system_stm32f0xx.o
                                       0x3c9da (size before relaxing)
- .debug_str     0x00000000000410d4       0x36 Core/Startup/startup_stm32f030f4px.o
+ .debug_str     0x00000000000410c7       0x36 Core/Startup/startup_stm32f030f4px.o
                                          0x8b (size before relaxing)
- .debug_str     0x000000000004110a      0x495 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal.o
+ .debug_str     0x00000000000410fd      0x495 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal.o
                                       0x3ced9 (size before relaxing)
- .debug_str     0x000000000004159f      0x356 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_adc.o
+ .debug_str     0x0000000000041592      0x356 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_adc.o
                                       0x3d105 (size before relaxing)
- .debug_str     0x00000000000418f5      0x1d0 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_cortex.o
+ .debug_str     0x00000000000418e8      0x1d0 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_cortex.o
                                       0x3cd65 (size before relaxing)
- .debug_str     0x0000000000041ac5      0x1c7 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_gpio.o
+ .debug_str     0x0000000000041ab8      0x1c7 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_gpio.o
                                       0x3cc76 (size before relaxing)
- .debug_str     0x0000000000041c8c      0x23f Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_rcc.o
+ .debug_str     0x0000000000041c7f      0x23f Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_rcc.o
                                       0x3ce23 (size before relaxing)
 
 .comment        0x0000000000000000       0x7b

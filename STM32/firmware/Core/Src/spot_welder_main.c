@@ -18,9 +18,9 @@ struct Welder_Dtata_t
     int16_t Auto_Pulse_Delay;
     int16_t Batt_Alarm;
     int16_t Weld_Counter;
-    }Welder_Dtata;
+    }Welder_Data;
 
-struct Welder_Dtata_t* Welder_Data_Handle = &Welder_Dtata;
+struct Welder_Dtata_t* Welder_Data_Handle = &Welder_Data;
 
 static uint8_t Welder_Enable_Flag = 1;
 
@@ -43,14 +43,14 @@ void Update_Data_In_EEPROM()
     /* update only every 2000ms if data is changed*/
     if (HAL_GetTick() - Update_Time_Stamp > (2000 - 1))
 	{
-	uint8_t cmp_buffer[sizeof(Welder_Dtata)];
+	uint8_t cmp_buffer[sizeof(Welder_Data)];
 	uint8_t *data = (uint8_t*) Welder_Data_Handle;
 
 	Update_Time_Stamp = HAL_GetTick();
 
-	AT24CXX_Read_Buffer(0x00, cmp_buffer, sizeof(Welder_Dtata));
+	AT24CXX_Read_Buffer(0x00, cmp_buffer, sizeof(Welder_Data));
 
-	for (uint8_t i = 0; i < sizeof(Welder_Dtata); i++)
+	for (uint8_t i = 0; i < sizeof(Welder_Data); i++)
 	    {
 	    if (cmp_buffer[i] != data[i])
 		{
@@ -64,7 +64,7 @@ void Update_Data_In_EEPROM()
 
 void Read_Data_From_EEPROM()
     {
-    AT24CXX_Read_Buffer(0x00, (uint8_t*)Welder_Data_Handle, sizeof(Welder_Dtata));
+    AT24CXX_Read_Buffer(0x00, (uint8_t*)Welder_Data_Handle, sizeof(Welder_Data));
     }
 
 void Set_Auto_Pulse_Delay(int16_t delay)
@@ -145,7 +145,7 @@ uint16_t Get_Batt_Alarm()
     return Welder_Data_Handle->Batt_Alarm;
     }
 
-void Disble_Welder()
+void Disable_Welder()
     {
     Welder_Enable_Flag = 0;
     }
@@ -155,7 +155,7 @@ uint8_t Get_Welder_Status()
     return Welder_Enable_Flag;
     }
 
-void Disble_Auto_Welder()
+void Disable_Auto_Welder()
     {
     Welder_Data_Handle->Welder_Auto_Flag = 0;
     Update_Data_In_EEPROM();
@@ -207,7 +207,7 @@ void Reset_Welder_Data()
     Set_Short_Pulse_Duration(2);
     Set_Batt_Alarm(11000);
     Set_Auto_Pulse_Delay(1000);
-    Disble_Auto_Welder();
+    Disable_Auto_Welder();
     Update_Data_In_EEPROM();
     }
 
