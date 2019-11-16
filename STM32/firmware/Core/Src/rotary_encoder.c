@@ -26,15 +26,15 @@ uint8_t Encoder_Attach(Encoder_Struct_t *Encoder_Struct_PTR)
     if (Attached_Encoders < MAX_ENCODERS)
 	{
 
-	/* GPIO Ports Clock Enable */
-	__HAL_RCC_GPIOC_CLK_ENABLE()
-	;
-	__HAL_RCC_GPIOD_CLK_ENABLE()
-	;
-	__HAL_RCC_GPIOA_CLK_ENABLE()
-	;
-	__HAL_RCC_GPIOB_CLK_ENABLE()
-	;
+	/* GPIO Ports Clock Enable
+	__HAL_RCC_GPIOA_CLK_ENABLE();
+	__HAL_RCC_GPIOB_CLK_ENABLE();
+	__HAL_RCC_GPIOC_CLK_ENABLE();
+	__HAL_RCC_GPIOD_CLK_ENABLE();
+	__HAL_RCC_GPIOE_CLK_ENABLE();
+	__HAL_RCC_GPIOF_CLK_ENABLE();
+	*/
+
 
 	GPIO_InitStruct.Pin = Encoder_Struct_PTR->Encoder_Pin_0;
 	GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
@@ -129,15 +129,28 @@ void Encoder_Scan()
 int16_t Encoder_Get_Count(Encoder_Struct_t *PTR)
     {
 
+    int16_t count = 0;
+
     if (PTR != NULL)
 	{
-	return PTR->Encoder_Count;
+
+	/*reset encoder count after 500ms of inactivity*/
+	if (HAL_GetTick() - PTR->Encoder_Time_Stamp > 500)
+	    {
+	    PTR->Encoder_Count = 0;
+	    }
+
+	count = PTR->Encoder_Count;
+	PTR->Encoder_Count = 0;
+
 	}
     else
 	{
 	//Error
-	return 0;
 	}
+
+    return count;
+
     }
 
 /* to reset*/

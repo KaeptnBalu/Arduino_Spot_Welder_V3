@@ -37,20 +37,20 @@ uint8_t Soft_I2C_SCL_Read(Soft_I2C_t* i2c_handle)
     return HAL_GPIO_ReadPin(i2c_handle->GPIO_SCL_Port, i2c_handle->GPIO_SCL_Pin);
     }
 
-void Soft_I2C_Init(Soft_I2C_t* i2c_handle)
+void Soft_I2C_Init(Soft_I2C_t *i2c_handle)
     {
 
     GPIO_InitTypeDef GPIO_Init;
 
-    /* GPIO Ports Clock Enable */
-    __HAL_RCC_GPIOC_CLK_ENABLE()
-    ;
-    __HAL_RCC_GPIOD_CLK_ENABLE()
-    ;
-    __HAL_RCC_GPIOA_CLK_ENABLE()
-    ;
-    __HAL_RCC_GPIOB_CLK_ENABLE()
-    ;
+    /* GPIO Ports Clock Enable
+     __HAL_RCC_GPIOA_CLK_ENABLE();
+     __HAL_RCC_GPIOB_CLK_ENABLE();
+     __HAL_RCC_GPIOC_CLK_ENABLE();
+     __HAL_RCC_GPIOD_CLK_ENABLE();
+     __HAL_RCC_GPIOE_CLK_ENABLE();
+     __HAL_RCC_GPIOF_CLK_ENABLE();
+     */
+
     Soft_I2C_SDA_High(i2c_handle);
     Soft_I2C_SCL_High(i2c_handle);
 

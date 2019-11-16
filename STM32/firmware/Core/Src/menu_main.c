@@ -98,7 +98,6 @@ void Menu_Loop()
 	Scan_Time_Stamp = HAL_GetTick();
 
 	int16_t count = Encoder_Get_Count(&Encoder);
-	Encoder_Reset_Count(&Encoder);
 
 	uint8_t clicks = Button_Get_Clicked_Count(&Encoder_Button);
 
@@ -128,7 +127,6 @@ void Menu_Loop()
 	    if (clicks == 1)
 		{
 		in_screen = Enter_Page_Screen(Page_Screen, 0, 0);
-		Encoder_Reset_Count(&Encoder);
 		}
 
 	    if (Refresh_Screen)
@@ -144,7 +142,6 @@ void Menu_Loop()
 	    if (clicks || count)
 		{
 		in_screen = Enter_Page_Screen(Page_Screen, clicks, count);
-		Encoder_Reset_Count(&Encoder);
 		Refresh_Screen = 1;
 		}
 	    else

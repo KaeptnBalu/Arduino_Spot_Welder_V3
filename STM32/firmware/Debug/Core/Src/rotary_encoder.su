@@ -1,5 +1,5 @@
-rotary_encoder.c:20:9:Encoder_Attach	56	static
+rotary_encoder.c:20:9:Encoder_Attach	40	static
 rotary_encoder.c:72:6:Encoder_Scan	16	static
-rotary_encoder.c:129:9:Encoder_Get_Count	0	static
-rotary_encoder.c:144:6:Encoder_Reset_Count	0	static
-rotary_encoder.c:157:6:Encoder_Set_Count	0	static
+rotary_encoder.c:129:9:Encoder_Get_Count	16	static
+rotary_encoder.c:157:6:Encoder_Reset_Count	0	static
+rotary_encoder.c:170:6:Encoder_Set_Count	0	static

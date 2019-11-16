@@ -2,4 +2,4 @@ menu_main.c:40:6:Encoder_Button_Callback	0	static
 menu_main.c:34:6:Systic_Callback	8	static
 menu_main.c:45:6:Menu_Change_Page	0	static
 menu_main.c:69:6:Menu_Init	8	static
-menu_main.c:88:6:Menu_Loop	24	static
+menu_main.c:88:6:Menu_Loop	16	static

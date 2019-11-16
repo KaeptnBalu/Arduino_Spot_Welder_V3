@@ -4,7 +4,7 @@ soft_i2c.c:18:9:Soft_I2C_SDA_Read	8	static
 soft_i2c.c:23:6:Soft_I2C_SCL_High	8	static
 soft_i2c.c:29:6:Soft_I2C_SCL_Low	8	static
 soft_i2c.c:35:9:Soft_I2C_SCL_Read	8	static
-soft_i2c.c:40:6:Soft_I2C_Init	48	static
+soft_i2c.c:40:6:Soft_I2C_Init	32	static
 soft_i2c.c:68:6:Soft_I2C_Delay	0	static,ignoring_inline_asm
 soft_i2c.c:77:9:Soft_I2C_Start	8	static,ignoring_inline_asm
 soft_i2c.c:95:6:Soft_I2C_Stop	8	static,ignoring_inline_asm

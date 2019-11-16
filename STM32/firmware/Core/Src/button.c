@@ -23,21 +23,22 @@ static uint8_t Attached_Buttons = 0;
 
 uint8_t Button_Attach(Button_Struct_t *Button_Struct_PTR)
     {
+
     //init GPIOs as input
     if (Attached_Buttons < MAX_BUTTONS)
 	{
 
 	GPIO_InitTypeDef GPIO_InitStruct;
 
-	/* GPIO Ports Clock Enable */
-	__HAL_RCC_GPIOC_CLK_ENABLE()
-	;
-	__HAL_RCC_GPIOD_CLK_ENABLE()
-	;
-	__HAL_RCC_GPIOA_CLK_ENABLE()
-	;
-	__HAL_RCC_GPIOB_CLK_ENABLE()
-	;
+	/* GPIO Ports Clock Enable
+	 __HAL_RCC_GPIOA_CLK_ENABLE();
+	 __HAL_RCC_GPIOB_CLK_ENABLE();
+	 __HAL_RCC_GPIOC_CLK_ENABLE();
+	 __HAL_RCC_GPIOD_CLK_ENABLE();
+	 __HAL_RCC_GPIOE_CLK_ENABLE();
+	 __HAL_RCC_GPIOF_CLK_ENABLE();
+	 */
+
 
 	GPIO_InitStruct.Pin = Button_Struct_PTR->Button_Pin;
 	GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
