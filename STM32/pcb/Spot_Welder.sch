@@ -298,17 +298,6 @@ Wire Notes Line
 Wire Notes Line
 	5700 500  3900 500 
 $Comp
-L Driver_FET:ZXGD3009E6 U4
-U 1 1 5D633BA2
-P 6750 1100
-F 0 "U4" H 6450 1500 50  0000 C CNN
-F 1 "ZXGD3009E6" H 6450 1400 50  0000 C CNN
-F 2 "Package_TO_SOT_SMD:SOT-23-6" H 6750 600 50  0001 C CNN
-F 3 "https://www.diodes.com/assets/Datasheets/ZXGD3009E6.pdf" H 6400 1350 50  0001 C CNN
-	1    6750 1100
-	1    0    0    -1  
-$EndComp
-$Comp
 L power:GND #PWR010
 U 1 1 5D634D23
 P 6750 1550
@@ -321,26 +310,12 @@ F 3 "" H 6750 1550 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	6750 1400 6750 1550
-Text GLabel 6850 650  2    50   Input ~ 0
-12V_VCC
-Wire Wire Line
-	6850 650  6750 650 
-Wire Wire Line
-	6750 650  6750 800 
 Wire Notes Line
 	5750 500  5750 1900
-Wire Wire Line
-	7250 1000 7350 1000
-Wire Wire Line
-	7350 1000 7350 1100
-Wire Wire Line
-	7350 1200 7250 1200
 Text GLabel 6000 1250 3    50   Input ~ 0
 MCU_Gate
 Wire Wire Line
 	6000 1250 6000 1100
-Wire Wire Line
-	6000 1100 6250 1100
 Wire Notes Line
 	7950 500  7950 1900
 Wire Notes Line
@@ -974,11 +949,6 @@ Text GLabel 7600 1300 3    50   Input ~ 0
 Gate_Drive
 Wire Wire Line
 	7600 1300 7600 1100
-Wire Wire Line
-	7600 1100 7350 1100
-Connection ~ 7350 1100
-Wire Wire Line
-	7350 1100 7350 1200
 $Sheet
 S 6400 3800 1200 450 
 U 5D9E2BB1
@@ -1546,4 +1516,56 @@ Wire Wire Line
 Connection ~ 1500 2800
 Wire Wire Line
 	1500 2800 1500 2900
+$Comp
+L Driver_FET:MCP1416 U4
+U 1 1 5DD08CA7
+P 6750 1100
+F 0 "U4" H 7194 1146 50  0000 L CNN
+F 1 "MCP1416" H 6100 1300 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23-5" H 6750 700 50  0001 C CIN
+F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/20002092F.pdf" H 6550 1350 50  0001 C CNN
+	1    6750 1100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6000 1100 6450 1100
+Wire Wire Line
+	7150 1100 7600 1100
+Text GLabel 6800 600  2    50   Input ~ 0
+12V_VCC
+Wire Wire Line
+	6800 600  6750 600 
+Wire Wire Line
+	6750 600  6750 750 
+Wire Wire Line
+	6750 750  7300 750 
+Connection ~ 6750 750 
+Wire Wire Line
+	6750 750  6750 800 
+$Comp
+L power:GND #PWR0116
+U 1 1 5DD265CC
+P 7750 900
+F 0 "#PWR0116" H 7750 650 50  0001 C CNN
+F 1 "GND" H 7755 727 50  0000 C CNN
+F 2 "" H 7750 900 50  0001 C CNN
+F 3 "" H 7750 900 50  0001 C CNN
+	1    7750 900 
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7750 900  7750 750 
+Wire Wire Line
+	7750 750  7600 750 
+$Comp
+L Device:C C16
+U 1 1 5DD18B9A
+P 7450 750
+F 0 "C16" V 7400 600 50  0000 R CNN
+F 1 "10u" V 7550 650 50  0000 R CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 7488 600 50  0001 C CNN
+F 3 "~" H 7450 750 50  0001 C CNN
+	1    7450 750 
+	0    1    1    0   
+$EndComp
 $EndSCHEMATC
