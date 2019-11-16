@@ -22,8 +22,6 @@ const char STR_Duration[] = "Duration:";
 
 const char STR_Reset[] = "Reset";
 
-//const char *STR_Auto_Value = STR_OFF;
-
 static uint8_t Page_Screen = 1;
 static uint8_t Screens_In_Page = 0;
 static uint8_t Refresh_Screen = 0;
@@ -42,25 +40,30 @@ void Encoder_Button_Callback(uint8_t Clicked_Count)
 
     }
 
-void Menu_Change_Page(uint8_t page_no)
+void Menu_Change_Page(uint8_t page_no, uint8_t page_screen)
     {
 
     Refresh_Screen = 1;
+
+    if (Page_Screen == 0)
+	{
+	Page_Screen = 1;
+	}
 
     switch (page_no)
 	{
     case 1:
 	Show_Page = Show_Page1;
 	Enter_Page_Screen = Enter_Page1_Screen;
-	Page_Screen = 1;
+	Page_Screen = page_screen;
 	Screens_In_Page = 5; // 5 screens in page 1
 	break;
 
     case 2:
 	Show_Page = Show_Page2;
 	Enter_Page_Screen = Enter_Page2_Screen;
-	Page_Screen = 1;
-	Screens_In_Page = 4;// 4 screens in page 2
+	Page_Screen = page_screen;
+	Screens_In_Page = 4; // 4 screens in page 2
 	break;
 	}
 
@@ -80,7 +83,7 @@ void Menu_Init()
     Encoder_Button.Callback = Encoder_Button_Callback;
     Button_Attach(&Encoder_Button);
 
-    Menu_Change_Page(1);
+    Menu_Change_Page(1,1);
     Refresh_Screen = 0;
     }
 
@@ -139,15 +142,13 @@ void Menu_Loop()
 	else
 	    {
 
-	    if (clicks || count)
+	    in_screen = Enter_Page_Screen(Page_Screen, clicks, count);
+
+	    if(!in_screen)
 		{
-		in_screen = Enter_Page_Screen(Page_Screen, clicks, count);
 		Refresh_Screen = 1;
 		}
-	    else
-		{
-		in_screen = Enter_Page_Screen(Page_Screen, clicks, count);
-		}
+
 	    }
 
 	}

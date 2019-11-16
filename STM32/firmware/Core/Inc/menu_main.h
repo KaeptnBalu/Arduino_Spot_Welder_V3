@@ -40,6 +40,6 @@ Button_Struct_t Encoder_Button;
 
 void Menu_Init();
 void Menu_Loop();
-void Menu_Change_Page(uint8_t page_no);
+void Menu_Change_Page(uint8_t page_no, uint8_t page_screen);
 
 #endif /* INC_MENU_MAIN_H_ */
