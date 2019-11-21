@@ -10,7 +10,7 @@
 
 #include "menu_main.h"
 
-void Show_Page2(uint8_t screen);
+void Show_Page2_Screen(uint8_t screen);
 uint8_t Enter_Page2_Screen(uint8_t screen, Menu_Event_t* event);
 
 

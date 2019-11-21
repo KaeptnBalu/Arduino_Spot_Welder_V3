@@ -14,6 +14,7 @@ C_SRCS += \
 ../Core/Src/menu_main.c \
 ../Core/Src/menu_page1.c \
 ../Core/Src/menu_page2.c \
+../Core/Src/menu_strings.c \
 ../Core/Src/rotary_encoder.c \
 ../Core/Src/soft_i2c.c \
 ../Core/Src/spot_welder_main.c \
@@ -36,6 +37,7 @@ OBJS += \
 ./Core/Src/menu_main.o \
 ./Core/Src/menu_page1.o \
 ./Core/Src/menu_page2.o \
+./Core/Src/menu_strings.o \
 ./Core/Src/rotary_encoder.o \
 ./Core/Src/soft_i2c.o \
 ./Core/Src/spot_welder_main.o \
@@ -58,6 +60,7 @@ C_DEPS += \
 ./Core/Src/menu_main.d \
 ./Core/Src/menu_page1.d \
 ./Core/Src/menu_page2.d \
+./Core/Src/menu_strings.d \
 ./Core/Src/rotary_encoder.d \
 ./Core/Src/soft_i2c.d \
 ./Core/Src/spot_welder_main.d \
@@ -91,6 +94,8 @@ Core/Src/menu_page1.o: ../Core/Src/menu_page1.c
 	arm-none-eabi-gcc "$<" -mcpu=cortex-m0 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32F030x6 -DDEBUG -c -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/CMSIS/Include -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -Os -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/menu_page1.d" -MT"$@" --specs=nano.specs -mfloat-abi=soft -mthumb -o "$@"
 Core/Src/menu_page2.o: ../Core/Src/menu_page2.c
 	arm-none-eabi-gcc "$<" -mcpu=cortex-m0 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32F030x6 -DDEBUG -c -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/CMSIS/Include -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -Os -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/menu_page2.d" -MT"$@" --specs=nano.specs -mfloat-abi=soft -mthumb -o "$@"
+Core/Src/menu_strings.o: ../Core/Src/menu_strings.c
+	arm-none-eabi-gcc "$<" -mcpu=cortex-m0 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32F030x6 -DDEBUG -c -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/CMSIS/Include -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -Os -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/menu_strings.d" -MT"$@" --specs=nano.specs -mfloat-abi=soft -mthumb -o "$@"
 Core/Src/rotary_encoder.o: ../Core/Src/rotary_encoder.c
 	arm-none-eabi-gcc "$<" -mcpu=cortex-m0 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32F030x6 -DDEBUG -c -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/CMSIS/Include -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -Os -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/rotary_encoder.d" -MT"$@" --specs=nano.specs -mfloat-abi=soft -mthumb -o "$@"
 Core/Src/soft_i2c.o: ../Core/Src/soft_i2c.c

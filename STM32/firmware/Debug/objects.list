@@ -8,6 +8,7 @@
 "Core/Src/menu_main.o"
 "Core/Src/menu_page1.o"
 "Core/Src/menu_page2.o"
+"Core/Src/menu_strings.o"
 "Core/Src/rotary_encoder.o"
 "Core/Src/soft_i2c.o"
 "Core/Src/spot_welder_main.o"

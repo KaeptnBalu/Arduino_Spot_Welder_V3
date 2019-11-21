@@ -9,10 +9,8 @@
 #define INC_SPOT_WELDER_MAIN_H_
 
 #include "ssd1306.h"
-#include "rotary_encoder.h"
 #include "stm32f0xx_hal.h"
 #include "adc.h"
-#include "button.h"
 #include "main.h"
 #include "stdlib.h"
 #include "menu_main.h"

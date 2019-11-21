@@ -1,5 +1,5 @@
-menu_main.c:40:6:Encoder_Button_Callback	0	static
-menu_main.c:34:6:Systic_Callback	8	static
-menu_main.c:45:6:Menu_Change_Page	8	static
-menu_main.c:74:6:Menu_Init	8	static
-menu_main.c:92:6:Menu_Loop	24	static
+menu_main.c:39:6:Encoder_Button_Callback	0	static
+menu_main.c:33:6:Systic_Callback	8	static
+menu_main.c:44:6:Menu_Change_Page	0	static
+menu_main.c:75:6:Menu_Init	8	static
+menu_main.c:105:6:Menu_Loop	24	static

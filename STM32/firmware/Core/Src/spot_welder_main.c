@@ -238,17 +238,6 @@ void Spot_Welder_Main()
 
     Read_Data_From_EEPROM();
 
-    ssd1306_Init();
-
-    ssd1306_Fill(Black);
-    ssd1306_SetCursor(0, 0);
-    ssd1306_WriteString("  Arduino", Font_11x18, White);
-    ssd1306_SetCursor(0, 20);
-    ssd1306_WriteString("Spot Welder", Font_11x18, White);
-    ssd1306_SetCursor(0, 40);
-    ssd1306_WriteString("    V3", Font_11x18, White);
-    ssd1306_UpdateScreen();
-
     Menu_Init();
 
     HAL_Delay(2000);

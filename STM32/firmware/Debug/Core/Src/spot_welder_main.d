@@ -26,10 +26,8 @@ Core/Src/spot_welder_main.o: ../Core/Src/spot_welder_main.c \
  ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_i2c_ex.h \
  ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_pwr.h \
  ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_pwr_ex.h \
- ../Core/Inc/fonts.h ../Core/Inc/rotary_encoder.h ../Core/Inc/adc.h \
- ../Core/Inc/main.h ../Core/Inc/button.h ../Core/Inc/menu_main.h \
- ../Core/Inc/spot_welder_main.h ../Core/Inc/soft_i2c.h \
- ../Core/Inc/at24cxx.h
+ ../Core/Inc/fonts.h ../Core/Inc/adc.h ../Core/Inc/main.h \
+ ../Core/Inc/menu_main.h ../Core/Inc/soft_i2c.h ../Core/Inc/at24cxx.h
 
 ../Core/Inc/spot_welder_main.h:
 
@@ -89,17 +87,11 @@ Core/Src/spot_welder_main.o: ../Core/Src/spot_welder_main.c \
 
 ../Core/Inc/fonts.h:
 
-../Core/Inc/rotary_encoder.h:
-
 ../Core/Inc/adc.h:
 
 ../Core/Inc/main.h:
 
-../Core/Inc/button.h:
-
 ../Core/Inc/menu_main.h:
-
-../Core/Inc/spot_welder_main.h:
 
 ../Core/Inc/soft_i2c.h:
 

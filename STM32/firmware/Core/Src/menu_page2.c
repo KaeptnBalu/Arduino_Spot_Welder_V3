@@ -5,7 +5,10 @@
  *      Author: medprime
  */
 
-#include "menu_main.h"
+#include "menu_page1.h"
+#include "menu_strings.h"
+#include "ssd1306.h"
+#include "spot_welder_main.h"
 
 void Show_Page2_Comman()
     {
@@ -101,7 +104,7 @@ void Show_Page2_Screen4()
     ssd1306_UpdateScreen();
     }
 
-void Show_Page2(uint8_t screen)
+void Show_Page2_Screen(uint8_t screen)
     {
 
     switch (screen)
