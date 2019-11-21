@@ -22,9 +22,8 @@ const char STR_Duration[] = "Duration:";
 
 const char STR_Reset[] = "Reset";
 
-static uint8_t Current_Page_Screen = 1;
+static uint8_t Current_Page_Screen = 0;
 static uint8_t Screens_In_Page = 0;
-static uint8_t Refresh_Screen = 0;
 
 Encoder_Struct_t Encoder;
 Button_Struct_t Encoder_Button;
@@ -46,13 +45,6 @@ void Encoder_Button_Callback(uint8_t Clicked_Count)
 void Menu_Change_Page(uint8_t page_no, uint8_t page_screen)
     {
 
-    Refresh_Screen = 1;
-
-    if (Current_Page_Screen == 0)
-	{
-	Current_Page_Screen = 1;
-	}
-
     switch (page_no)
 	{
     case 1:
@@ -69,6 +61,13 @@ void Menu_Change_Page(uint8_t page_no, uint8_t page_screen)
 	Screens_In_Page = 4; // 4 screens in page 2
 	break;
 	}
+
+    if (Current_Page_Screen == 0)
+	{
+	Current_Page_Screen = 1;
+	}
+
+    Show_Page(Current_Page_Screen);
 
     }
 
@@ -87,14 +86,13 @@ void Menu_Init()
     Button_Attach(&Encoder_Button);
 
     Menu_Change_Page(1,1);
-    Refresh_Screen = 0;
     }
 
 
 void Menu_Loop()
     {
 
-    static uint8_t in_screen = 1;
+    static uint8_t in_page_loop = 1; // by default enter page1 screen1 (Home Screen0.
 
     static uint32_t Scan_Time_Stamp = 0;
 
@@ -109,7 +107,7 @@ void Menu_Loop()
 
 	menu_event.Enter_Button_Clicks = Button_Get_Clicked_Count(&Encoder_Button);
 
-	if (!in_screen)
+	if (!in_page_loop)
 	    {
 
 	    if (menu_event.Encoder_Count < 0)// or down button
@@ -132,28 +130,22 @@ void Menu_Loop()
 		Show_Page(Current_Page_Screen);
 		}
 
-	    if (menu_event.Enter_Button_Clicks == 1)
+	    if (menu_event.Enter_Button_Clicks == 1) // enter or select button
 		{
 		menu_event.Enter_Button_Clicks = 0;
 		menu_event.Encoder_Count = 0;
-		in_screen = Enter_Page_Screen(Current_Page_Screen, &menu_event);
-		}
-
-	    if (Refresh_Screen)
-		{
-		Refresh_Screen = 0;
-		Show_Page(Current_Page_Screen);
+		in_page_loop = Enter_Page_Screen(Current_Page_Screen, &menu_event);
 		}
 
 	    }
 	else
 	    {
 
-	    in_screen = Enter_Page_Screen(Current_Page_Screen, &menu_event);
+	    in_page_loop = Enter_Page_Screen(Current_Page_Screen, &menu_event);
 
-	    if(!in_screen)
+	    if(!in_page_loop)
 		{
-		Refresh_Screen = 1;
+		Show_Page(Current_Page_Screen);
 		}
 
 	    }

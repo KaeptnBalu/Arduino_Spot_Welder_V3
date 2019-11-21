@@ -97,7 +97,7 @@ void Show_Page1(uint8_t screen)
 	}
     }
 
-uint8_t Enter_Page1_Screen1(Menu_Event_t *event)
+uint8_t Page1_Screen1_Loop(Menu_Event_t *event)
     {
 
     uint8_t xreturn = 1;
@@ -142,10 +142,10 @@ uint8_t Enter_Page1_Screen1(Menu_Event_t *event)
 	    HAL_Delay(Get_Short_Pulse_Duration());
 	    HAL_GPIO_WritePin(Gate_Driver_GPIO_Port, Gate_Driver_Pin,
 		    GPIO_PIN_RESET);
-	    HAL_Delay(Get_Short_Pulse_Duration());
 	    /*short pulse*/
 
 	    /*main pulse*/
+	    HAL_Delay(Get_Main_Pulse_Duration());
 	    HAL_GPIO_WritePin(Gate_Driver_GPIO_Port, Gate_Driver_Pin,
 		    GPIO_PIN_SET);
 	    HAL_Delay(Get_Main_Pulse_Duration());
@@ -217,7 +217,7 @@ uint8_t Enter_Page1_Screen1(Menu_Event_t *event)
     ssd1306_SetCursor(0, 50);
     ssd1306_WriteString(STR_Auto, Font_7x10, White);
     ssd1306_WriteString(" ", Font_7x10, White);
-    if (Get_Auto_Status())
+    if (Get_Auto_Weld_Status())
 	{
 	ssd1306_WriteString(STR_ON, Font_7x10, White);
 	}
@@ -233,13 +233,13 @@ uint8_t Enter_Page1_Screen1(Menu_Event_t *event)
     return xreturn;
     }
 
-uint8_t Enter_Page1_Screen2(Menu_Event_t *event)
+uint8_t Page1_Screen2_Loop(Menu_Event_t *event)
     {
-    Menu_Change_Page(2, 1);
-    return 0;
+    Menu_Change_Page(2, 1); // change page to page2 screen1
+    return 0; // exit loop
     }
 
-uint8_t Enter_Page1_Screen3(Menu_Event_t *event)
+uint8_t Page1_Screen3_Loop(Menu_Event_t *event)
     {
 
     uint8_t xreturn = 1;
@@ -247,7 +247,7 @@ uint8_t Enter_Page1_Screen3(Menu_Event_t *event)
 
     if (event->Enter_Button_Clicks == 1)
 	{
-	xreturn = 0; // execution complete
+	xreturn = 0; // exit loop
 	}
 
     Set_Batt_Alarm(Get_Batt_Alarm() + (event->Encoder_Count * 10));
@@ -265,7 +265,7 @@ uint8_t Enter_Page1_Screen3(Menu_Event_t *event)
     return xreturn;
     }
 
-uint8_t Enter_Page1_Screen4(Menu_Event_t *event)
+uint8_t Page1_Screen4_Loop(Menu_Event_t *event)
     {
 
     uint8_t xreturn = 1;
@@ -276,7 +276,7 @@ uint8_t Enter_Page1_Screen4(Menu_Event_t *event)
 
     if (event->Enter_Button_Clicks == 1)
 	{
-	xreturn = 0; //execution complete
+	xreturn = 0; // exit loop
 	}
 
     ssd1306_Fill(Black);
@@ -292,7 +292,7 @@ uint8_t Enter_Page1_Screen4(Menu_Event_t *event)
     return xreturn;
     }
 
-uint8_t Enter_Page1_Screen5(Menu_Event_t *event)
+uint8_t Page1_Screen5_Loop(Menu_Event_t *event)
     {
 
     uint8_t xreturn = 1;
@@ -311,12 +311,12 @@ uint8_t Enter_Page1_Screen5(Menu_Event_t *event)
 
     if (event->Enter_Button_Clicks == 1)
 	{
-	xreturn = 0; //execution complete
+	xreturn = 0; // exit loop
 	}
 
     if (event->Enter_Button_Clicks == 255) //255 is for long press
 	{
-	xreturn = 0;
+	xreturn = 0; // exit loop
 	ssd1306_Fill(Black);
 	ssd1306_SetCursor(0, 0);
 	ssd1306_WriteString("RESETTING..", Font_7x10, White);
@@ -336,19 +336,19 @@ uint8_t Enter_Page1_Screen(uint8_t screen, Menu_Event_t *event)
     switch (screen)
 	{
     case 1:
-	xreturn = Enter_Page1_Screen1(event);
+	xreturn = Page1_Screen1_Loop(event);
 	break;
     case 2:
-	xreturn = Enter_Page1_Screen2(event);
+	xreturn = Page1_Screen2_Loop(event);
 	break;
     case 3:
-	xreturn = Enter_Page1_Screen3(event);
+	xreturn = Page1_Screen3_Loop(event);
 	break;
     case 4:
-	xreturn = Enter_Page1_Screen4(event);
+	xreturn = Page1_Screen4_Loop(event);
 	break;
     case 5:
-	xreturn = Enter_Page1_Screen5(event);
+	xreturn = Page1_Screen5_Loop(event);
 	break;
 	}
 

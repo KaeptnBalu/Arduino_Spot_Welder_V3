@@ -4,9 +4,9 @@ menu_page1.c:34:6:Show_Page1_Screen3	8	static
 menu_page1.c:48:6:Show_Page1_Screen4	8	static
 menu_page1.c:62:6:Show_Page1_Screen5	8	static
 menu_page1.c:76:6:Show_Page1	8	static
-menu_page1.c:100:9:Enter_Page1_Screen1	48	static
-menu_page1.c:236:9:Enter_Page1_Screen2	8	static
-menu_page1.c:242:9:Enter_Page1_Screen3	32	static
-menu_page1.c:268:9:Enter_Page1_Screen4	32	static
-menu_page1.c:295:9:Enter_Page1_Screen5	16	static
+menu_page1.c:100:9:Page1_Screen1_Loop	48	static
+menu_page1.c:236:9:Page1_Screen2_Loop	8	static
+menu_page1.c:242:9:Page1_Screen3_Loop	32	static
+menu_page1.c:268:9:Page1_Screen4_Loop	32	static
+menu_page1.c:295:9:Page1_Screen5_Loop	16	static
 menu_page1.c:331:9:Enter_Page1_Screen	8	static

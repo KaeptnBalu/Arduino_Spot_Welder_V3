@@ -153,19 +153,19 @@ uint8_t Get_Welder_Status()
     return Welder_Enable_Flag;
     }
 
-void Disable_Auto_Welder()
+void Disable_Auto_Weld()
     {
     Welder_Data_Handle->Welder_Auto_Flag = 0;
     Update_Data_In_EEPROM();
     }
 
-void Enable_Auto_Welder()
+void Enable_Auto_Weld()
     {
     Welder_Data_Handle->Welder_Auto_Flag = 1;
     Update_Data_In_EEPROM();
     }
 
-uint8_t Get_Auto_Status()
+uint8_t Get_Auto_Weld_Status()
     {
     return Welder_Data_Handle->Welder_Auto_Flag;
     }
@@ -183,7 +183,7 @@ uint16_t Get_Weld_Count()
 
 uint8_t Get_Foot_Switch_Status()
     {
-    if (!Get_Auto_Status())
+    if (!Get_Auto_Weld_Status()) // only active if Auto Weld is disabled.
 	{
 	return HAL_GPIO_ReadPin(Foot_Switch_GPIO_Port, Foot_Switch_Pin)?0:1;
 	}
@@ -192,7 +192,7 @@ uint8_t Get_Foot_Switch_Status()
 
 uint8_t Get_Auto_Puse_In_Status()
     {
-    if (Get_Auto_Status())
+    if (Get_Auto_Weld_Status())
 	{
 	return HAL_GPIO_ReadPin(Auto_Pulse_In_GPIO_Port, Auto_Pulse_In_Pin);
 	}
@@ -205,7 +205,7 @@ void Reset_Welder_Data()
     Set_Short_Pulse_Duration(2);
     Set_Batt_Alarm(11000);
     Set_Auto_Pulse_Delay(1000);
-    Disable_Auto_Welder();
+    Disable_Auto_Weld();
     Update_Data_In_EEPROM();
     }
 

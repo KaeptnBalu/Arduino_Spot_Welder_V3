@@ -10,9 +10,9 @@ spot_welder_main.c:127:6:Set_Batt_Alarm	8	static
 spot_welder_main.c:141:10:Get_Batt_Alarm	0	static
 spot_welder_main.c:146:6:Disable_Welder	0	static
 spot_welder_main.c:151:9:Get_Welder_Status	0	static
-spot_welder_main.c:156:6:Disable_Auto_Welder	8	static
-spot_welder_main.c:162:6:Enable_Auto_Welder	8	static
-spot_welder_main.c:168:9:Get_Auto_Status	0	static
+spot_welder_main.c:156:6:Disable_Auto_Weld	8	static
+spot_welder_main.c:162:6:Enable_Auto_Weld	8	static
+spot_welder_main.c:168:9:Get_Auto_Weld_Status	0	static
 spot_welder_main.c:173:6:Increment_Weld_Count	8	static
 spot_welder_main.c:179:10:Get_Weld_Count	0	static
 spot_welder_main.c:184:9:Get_Foot_Switch_Status	8	static

@@ -35,9 +35,9 @@ uint16_t Get_Batt_Alarm();
 void Disable_Welder();
 uint8_t Get_Welder_Status();
 
-void Disable_Auto_Welder();
-void Enable_Auto_Welder();
-uint8_t Get_Auto_Status();
+void Disable_Auto_Weld();
+void Enable_Auto_Weld();
+uint8_t Get_Auto_Weld_Status();
 uint8_t Get_Foot_Switch_Status();
 uint8_t Get_Auto_Puse_In_Status();
 void Increment_Weld_Count();
