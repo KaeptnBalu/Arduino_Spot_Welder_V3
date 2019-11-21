@@ -71,9 +71,9 @@ void Set_Auto_Pulse_Delay(int16_t delay)
 	{
 	delay = 500;
 	}
-    if (delay > 10000)
+    if (delay > 5000)
 	{
-	delay = 10000;
+	delay = 5000;
 	}
     Welder_Data_Handle->Auto_Pulse_Delay = delay;
     Update_Data_In_EEPROM();
@@ -87,9 +87,9 @@ uint16_t Get_Auto_Pulse_Delay()
 
 void Set_Main_Pulse_Duration(int16_t duration)
     {
-    if (duration <= 3)
+    if (duration <= 0)
 	{
-	duration = 3;
+	duration = 0;
 	}
     if (duration > 50)
 	{
@@ -106,9 +106,9 @@ uint16_t Get_Main_Pulse_Duration()
 
 void Set_Short_Pulse_Duration(int16_t duration)
     {
-    if (duration <= 2)
+    if (duration <= 0)
 	{
-	duration = 2;
+	duration = 0  ;
 	}
     if (duration > 20)
 	{

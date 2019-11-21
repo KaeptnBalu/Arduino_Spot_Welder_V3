@@ -19,7 +19,6 @@ void Show_Page1_Screen1()
     ssd1306_UpdateScreen();
     }
 
-
 void Show_Page1_Screen2()
     {
     ssd1306_Fill(Black);
@@ -92,13 +91,13 @@ void Show_Page1(uint8_t screen)
 	Show_Page1_Screen4();
 	break;
     case 5:
-    	Show_Page1_Screen5();
-    	break;
+	Show_Page1_Screen5();
+	break;
 
 	}
     }
 
-uint8_t Enter_Page1_Screen1(uint8_t button, int16_t count)
+uint8_t Enter_Page1_Screen1(Menu_Event_t *event)
     {
 
     uint8_t xreturn = 1;
@@ -106,12 +105,12 @@ uint8_t Enter_Page1_Screen1(uint8_t button, int16_t count)
 
     int16_t bat_voltage;
 
-    if (button == 1)
+    if (event->Enter_Button_Clicks == 1)
 	{
 	xreturn = 0; // exit loop
 	}
 
-    Set_Main_Pulse_Duration(count + Get_Main_Pulse_Duration());
+    Set_Main_Pulse_Duration(event->Encoder_Count + Get_Main_Pulse_Duration());
 
     HAL_ADC_PollForConversion(&hadc, 10);
     bat_voltage = HAL_ADC_GetValue(&hadc) * 13;
@@ -218,7 +217,7 @@ uint8_t Enter_Page1_Screen1(uint8_t button, int16_t count)
     ssd1306_SetCursor(0, 50);
     ssd1306_WriteString(STR_Auto, Font_7x10, White);
     ssd1306_WriteString(" ", Font_7x10, White);
-    if(Get_Auto_Status())
+    if (Get_Auto_Status())
 	{
 	ssd1306_WriteString(STR_ON, Font_7x10, White);
 	}
@@ -234,24 +233,24 @@ uint8_t Enter_Page1_Screen1(uint8_t button, int16_t count)
     return xreturn;
     }
 
-uint8_t Enter_Page1_Screen2(uint8_t button, int16_t count)
+uint8_t Enter_Page1_Screen2(Menu_Event_t *event)
     {
     Menu_Change_Page(2, 1);
     return 0;
     }
 
-uint8_t Enter_Page1_Screen3(uint8_t button, int16_t count)
+uint8_t Enter_Page1_Screen3(Menu_Event_t *event)
     {
 
     uint8_t xreturn = 1;
     char temp[10];
 
-    if (button == 1)
+    if (event->Enter_Button_Clicks == 1)
 	{
 	xreturn = 0; // execution complete
 	}
 
-    Set_Batt_Alarm(Get_Batt_Alarm() + (count * 10));
+    Set_Batt_Alarm(Get_Batt_Alarm() + (event->Encoder_Count * 10));
 
     ssd1306_Fill(Black);
     ssd1306_SetCursor(0, 0);
@@ -266,16 +265,16 @@ uint8_t Enter_Page1_Screen3(uint8_t button, int16_t count)
     return xreturn;
     }
 
-
-uint8_t Enter_Page1_Screen4(uint8_t button, int16_t count)
+uint8_t Enter_Page1_Screen4(Menu_Event_t *event)
     {
 
     uint8_t xreturn = 1;
     char temp[10];
 
-    Set_Short_Pulse_Duration(Get_Short_Pulse_Duration() + (count));
+    Set_Short_Pulse_Duration(
+	    Get_Short_Pulse_Duration() + (event->Encoder_Count));
 
-    if (button == 1)
+    if (event->Enter_Button_Clicks == 1)
 	{
 	xreturn = 0; //execution complete
 	}
@@ -293,7 +292,7 @@ uint8_t Enter_Page1_Screen4(uint8_t button, int16_t count)
     return xreturn;
     }
 
-uint8_t Enter_Page1_Screen5(uint8_t button, int16_t count)
+uint8_t Enter_Page1_Screen5(Menu_Event_t *event)
     {
 
     uint8_t xreturn = 1;
@@ -310,12 +309,12 @@ uint8_t Enter_Page1_Screen5(uint8_t button, int16_t count)
 
     ssd1306_UpdateScreen();
 
-    if (button == 1)
+    if (event->Enter_Button_Clicks == 1)
 	{
 	xreturn = 0; //execution complete
 	}
 
-    if (button == 255)
+    if (event->Enter_Button_Clicks == 255) //255 is for long press
 	{
 	xreturn = 0;
 	ssd1306_Fill(Black);
@@ -326,13 +325,10 @@ uint8_t Enter_Page1_Screen5(uint8_t button, int16_t count)
 	Reset_Welder_Data();
 	}
 
-
-
     return xreturn;
     }
 
-
-uint8_t Enter_Page1_Screen(uint8_t screen, uint8_t button, int16_t count)
+uint8_t Enter_Page1_Screen(uint8_t screen, Menu_Event_t *event)
     {
 
     uint8_t xreturn = 0;
@@ -340,21 +336,21 @@ uint8_t Enter_Page1_Screen(uint8_t screen, uint8_t button, int16_t count)
     switch (screen)
 	{
     case 1:
-	xreturn = Enter_Page1_Screen1(button, count);
+	xreturn = Enter_Page1_Screen1(event);
 	break;
     case 2:
-	xreturn = Enter_Page1_Screen2(button, count);
+	xreturn = Enter_Page1_Screen2(event);
 	break;
     case 3:
-	xreturn = Enter_Page1_Screen3(button, count);
+	xreturn = Enter_Page1_Screen3(event);
 	break;
     case 4:
-	xreturn = Enter_Page1_Screen4(button, count);
+	xreturn = Enter_Page1_Screen4(event);
 	break;
     case 5:
-    	xreturn = Enter_Page1_Screen5(button, count);
-    	break;
-    	}
+	xreturn = Enter_Page1_Screen5(event);
+	break;
+	}
 
     return xreturn;
     }

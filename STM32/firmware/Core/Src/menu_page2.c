@@ -60,15 +60,15 @@ void Show_Page2_Screen2()
 
     ssd1306_SetCursor(0, 20);
     ssd1306_WriteString(STR_Auto_Pulse, Font_7x10, Black);
-    ssd1306_WriteString(":", Font_7x10, White);
+    ssd1306_WriteString(":", Font_7x10, Black);
     ssd1306_SetCursor(80, 20);
     if(Get_Auto_Status())
 	{
-	ssd1306_WriteString(STR_ON, Font_7x10, White);
+	ssd1306_WriteString(STR_ON, Font_7x10, Black);
 	}
     else
 	{
-	ssd1306_WriteString(STR_OFF, Font_7x10, White);
+	ssd1306_WriteString(STR_OFF, Font_7x10, Black);
 	}
     ssd1306_UpdateScreen();
     }
@@ -127,13 +127,13 @@ case 4:
     }
 }
 
-uint8_t Enter_Page2_Screen1(uint8_t button, int16_t count)
+uint8_t Enter_Page2_Screen1(Menu_Event_t* event)
 {
 Menu_Change_Page(1, 2);
 return 0; // execution complete
 }
 
-uint8_t Enter_Page2_Screen2(uint8_t button, int16_t count)
+uint8_t Enter_Page2_Screen2(Menu_Event_t* event)
 {
 
 static uint8_t toggle = 0;
@@ -155,14 +155,14 @@ return 0; // execution complete
 
 }
 
-uint8_t Enter_Page2_Screen3(uint8_t button, int16_t count)
+uint8_t Enter_Page2_Screen3(Menu_Event_t* event)
 {
 
 uint8_t xreturn = 1;
 
-Set_Auto_Pulse_Delay(count + Get_Auto_Pulse_Delay());
+Set_Auto_Pulse_Delay(event->Encoder_Count + Get_Auto_Pulse_Delay());
 
-if (button == 1)
+if (event->Enter_Button_Clicks == 1)
     {
     xreturn = 0;
     }
@@ -173,24 +173,24 @@ return xreturn;
 
 }
 
-uint8_t Enter_Page2_Screen4(uint8_t button, int16_t count)
+uint8_t Enter_Page2_Screen4(Menu_Event_t* event)
 {
 
 uint8_t xreturn = 1;
 
-if (button == 1)
+if (event->Enter_Button_Clicks == 1)
     {
     xreturn = 0;
     }
 
-Set_Main_Pulse_Duration(count + Get_Main_Pulse_Duration());
+Set_Main_Pulse_Duration(event->Encoder_Count + Get_Main_Pulse_Duration());
 
 Show_Page2_Screen4();
 
 return xreturn;
 }
 
-uint8_t Enter_Page2_Screen(uint8_t screen, uint8_t button, int16_t count)
+uint8_t Enter_Page2_Screen(uint8_t screen, Menu_Event_t* event)
 {
 
 uint8_t xreturn = 0;
@@ -198,16 +198,16 @@ uint8_t xreturn = 0;
 switch (screen)
     {
 case 1:
-    xreturn = Enter_Page2_Screen1(button, count);
+    xreturn = Enter_Page2_Screen1(event);
     break;
 case 2:
-    xreturn = Enter_Page2_Screen2(button, count);
+    xreturn = Enter_Page2_Screen2(event);
     break;
 case 3:
-    xreturn = Enter_Page2_Screen3(button, count);
+    xreturn = Enter_Page2_Screen3(event);
     break;
 case 4:
-    xreturn = Enter_Page2_Screen4(button, count);
+    xreturn = Enter_Page2_Screen4(event);
     break;
     }
 

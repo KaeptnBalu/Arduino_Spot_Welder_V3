@@ -34,8 +34,17 @@ extern const char STR_Delay[]        ;
 extern const char STR_Duration[]     ;
 extern const char STR_Reset[]                ;
 
-Encoder_Struct_t Encoder;
-Button_Struct_t Encoder_Button;
+
+typedef struct Menu_Event_t
+    {
+	int16_t Encoder_Count; // encoder value if any
+	uint8_t Enter_Button_Clicks; // enter or select button
+
+	uint8_t Up_Button_Clicks;   // if any
+	uint8_t Down_Button_Clicks; // if any
+	uint8_t Left_Button_Clicks; // if any
+	uint8_t Right_Button_Clicks; // if any
+    } Menu_Event_t;
 
 
 void Menu_Init();

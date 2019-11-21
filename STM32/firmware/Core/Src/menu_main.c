@@ -22,12 +22,15 @@ const char STR_Duration[] = "Duration:";
 
 const char STR_Reset[] = "Reset";
 
-static uint8_t Page_Screen = 1;
+static uint8_t Current_Page_Screen = 1;
 static uint8_t Screens_In_Page = 0;
 static uint8_t Refresh_Screen = 0;
 
+Encoder_Struct_t Encoder;
+Button_Struct_t Encoder_Button;
+
 void (*Show_Page)(uint8_t screen);
-uint8_t (*Enter_Page_Screen)(uint8_t screen, uint8_t button, int16_t count);
+uint8_t (*Enter_Page_Screen)(uint8_t screen, Menu_Event_t* event);
 
 void Systic_Callback()
     {
@@ -45,9 +48,9 @@ void Menu_Change_Page(uint8_t page_no, uint8_t page_screen)
 
     Refresh_Screen = 1;
 
-    if (Page_Screen == 0)
+    if (Current_Page_Screen == 0)
 	{
-	Page_Screen = 1;
+	Current_Page_Screen = 1;
 	}
 
     switch (page_no)
@@ -55,14 +58,14 @@ void Menu_Change_Page(uint8_t page_no, uint8_t page_screen)
     case 1:
 	Show_Page = Show_Page1;
 	Enter_Page_Screen = Enter_Page1_Screen;
-	Page_Screen = page_screen;
+	Current_Page_Screen = page_screen;
 	Screens_In_Page = 5; // 5 screens in page 1
 	break;
 
     case 2:
 	Show_Page = Show_Page2;
 	Enter_Page_Screen = Enter_Page2_Screen;
-	Page_Screen = page_screen;
+	Current_Page_Screen = page_screen;
 	Screens_In_Page = 4; // 4 screens in page 2
 	break;
 	}
@@ -95,54 +98,58 @@ void Menu_Loop()
 
     static uint32_t Scan_Time_Stamp = 0;
 
+    Menu_Event_t menu_event;
+
     if (HAL_GetTick() - Scan_Time_Stamp > (100 - 1))
 	{
 
 	Scan_Time_Stamp = HAL_GetTick();
 
-	int16_t count = Encoder_Get_Count(&Encoder);
+	menu_event.Encoder_Count = Encoder_Get_Count(&Encoder);
 
-	uint8_t clicks = Button_Get_Clicked_Count(&Encoder_Button);
+	menu_event.Enter_Button_Clicks = Button_Get_Clicked_Count(&Encoder_Button);
 
 	if (!in_screen)
 	    {
 
-	    if (count < 0)
+	    if (menu_event.Encoder_Count < 0)// or down button
 		{
-		Page_Screen++;
-		if (Page_Screen > Screens_In_Page)
+		Current_Page_Screen++;
+		if (Current_Page_Screen > Screens_In_Page)
 		    {
-		    Page_Screen = Screens_In_Page;
+		    Current_Page_Screen = Screens_In_Page;
 		    }
-		Show_Page(Page_Screen);
+		Show_Page(Current_Page_Screen);
 		}
 
-	    if (count > 0)
+	    if (menu_event.Encoder_Count > 0)// or up button
 		{
-		Page_Screen--;
-		if (Page_Screen == 0)
+		Current_Page_Screen--;
+		if (Current_Page_Screen == 0)
 		    {
-		    Page_Screen = 1;
+		    Current_Page_Screen = 1;
 		    }
-		Show_Page(Page_Screen);
+		Show_Page(Current_Page_Screen);
 		}
 
-	    if (clicks == 1)
+	    if (menu_event.Enter_Button_Clicks == 1)
 		{
-		in_screen = Enter_Page_Screen(Page_Screen, 0, 0);
+		menu_event.Enter_Button_Clicks = 0;
+		menu_event.Encoder_Count = 0;
+		in_screen = Enter_Page_Screen(Current_Page_Screen, &menu_event);
 		}
 
 	    if (Refresh_Screen)
 		{
 		Refresh_Screen = 0;
-		Show_Page(Page_Screen);
+		Show_Page(Current_Page_Screen);
 		}
 
 	    }
 	else
 	    {
 
-	    in_screen = Enter_Page_Screen(Page_Screen, clicks, count);
+	    in_screen = Enter_Page_Screen(Current_Page_Screen, &menu_event);
 
 	    if(!in_screen)
 		{
