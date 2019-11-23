@@ -10,7 +10,6 @@
 #include "ssd1306.h"
 #include "spot_welder_main.h"
 
-
 void Show_Page1_Screen1()
     {
     ssd1306_Fill(Black);

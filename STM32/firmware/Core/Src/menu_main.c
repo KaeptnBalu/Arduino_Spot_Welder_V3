@@ -14,21 +14,15 @@
 #include "menu_page1.h"
 #include "menu_page2.h"
 
-static struct Menu_Dtata_t
-    {
-	uint8_t Current_Page_Screen;
-	uint8_t Screens_In_Current_Page;
-	uint8_t Refresh_Flag;
+static uint8_t Current_Page_Screen;
+static uint8_t Screens_In_Current_Page;
+static uint8_t Refresh_Flag;
 
-    } Menu_Data;
+static Encoder_Struct_t Encoder;
+static Button_Struct_t Encoder_Button;
 
-struct Menu_Dtata_t *Menu_Handle = &Menu_Data;
-
-Encoder_Struct_t Encoder;
-Button_Struct_t Encoder_Button;
-
-void (*Show_Page_Screen)(uint8_t screen);
-uint8_t (*Enter_Page_Screen)(uint8_t screen, Menu_Event_t *event);
+static void (*Show_Page_Screen)(uint8_t screen);
+static uint8_t (*Enter_Page_Screen)(uint8_t screen, Menu_Event_t *event);
 
 void Systic_Callback()
     {
@@ -50,25 +44,25 @@ void Menu_Change_Page(uint8_t page_no, uint8_t page_screen)
 	Show_Page_Screen = &Show_Page1_Screen;
 	Enter_Page_Screen = &Enter_Page1_Screen;
 
-	Menu_Handle->Current_Page_Screen = page_screen;
-	Menu_Handle->Screens_In_Current_Page = 5; // 5 screens in page 1
+	Current_Page_Screen = page_screen;
+	Screens_In_Current_Page = 5; // 5 screens in page 1
 	break;
 
     case 2:
 	Show_Page_Screen = &Show_Page2_Screen;
 	Enter_Page_Screen = &Enter_Page2_Screen;
 
-	Menu_Handle->Current_Page_Screen = page_screen;
-	Menu_Handle->Screens_In_Current_Page = 4; // 4 screens in page 2
+	Current_Page_Screen = page_screen;
+	Screens_In_Current_Page = 4; // 4 screens in page 2
 	break;
 	}
 
-    if (Menu_Handle->Current_Page_Screen == 0)
+    if (Current_Page_Screen == 0)
 	{
-	Menu_Handle->Current_Page_Screen = 1;
+	Current_Page_Screen = 1;
 	}
 
-    Menu_Handle->Refresh_Flag = 1;
+    Refresh_Flag = 1;
 
     }
 
@@ -99,7 +93,7 @@ void Menu_Init()
     Button_Attach(&Encoder_Button);
 
     Menu_Change_Page(1, 1); // by default show page1 screen1.
-    Menu_Handle->Refresh_Flag = 0; // do not refresh for first time
+    Refresh_Flag = 0; // do not refresh for first time
     }
 
 void Menu_Loop()
@@ -126,50 +120,47 @@ void Menu_Loop()
 
 	    if (menu_event.Encoder_Count < 0) // or down button
 		{
-		Menu_Handle->Current_Page_Screen++;
-		if (Menu_Handle->Current_Page_Screen
-			> Menu_Handle->Screens_In_Current_Page)
+		Current_Page_Screen++;
+		if (Current_Page_Screen > Screens_In_Current_Page)
 		    {
-		    Menu_Handle->Current_Page_Screen =
-			    Menu_Handle->Screens_In_Current_Page;
+		    Current_Page_Screen = Screens_In_Current_Page;
 		    }
-		Show_Page_Screen(Menu_Handle->Current_Page_Screen);
+		Show_Page_Screen(Current_Page_Screen);
 		}
 
 	    if (menu_event.Encoder_Count > 0) // or up button
 		{
-		Menu_Handle->Current_Page_Screen--;
-		if (Menu_Handle->Current_Page_Screen == 0)
+		Current_Page_Screen--;
+		if (Current_Page_Screen == 0)
 		    {
-		    Menu_Handle->Current_Page_Screen = 1;
+		    Current_Page_Screen = 1;
 		    }
-		Show_Page_Screen(Menu_Handle->Current_Page_Screen);
+		Show_Page_Screen(Current_Page_Screen);
 		}
 
 	    if (menu_event.Enter_Button_Clicks == 1) // enter or select button
 		{
-		menu_event.Enter_Button_Clicks = 0;
+		menu_event.Enter_Button_Clicks = 0;  // click and count does not belong to page loop so reset theme.
 		menu_event.Encoder_Count = 0;
-		in_page_loop = Enter_Page_Screen(
-			Menu_Handle->Current_Page_Screen, &menu_event);
+		in_page_loop = Enter_Page_Screen(Current_Page_Screen,
+			&menu_event);
 		}
 
-	    if (Menu_Handle->Refresh_Flag == 1)
+	    if (Refresh_Flag == 1)
 		{
-		Menu_Handle->Refresh_Flag = 0;
-		Show_Page_Screen(Menu_Handle->Current_Page_Screen);
+		Refresh_Flag = 0;
+		Show_Page_Screen(Current_Page_Screen);
 		}
 
 	    }
 	else
 	    {
 
-	    in_page_loop = Enter_Page_Screen(Menu_Handle->Current_Page_Screen,
-		    &menu_event);
+	    in_page_loop = Enter_Page_Screen(Current_Page_Screen, &menu_event);
 
 	    if (!in_page_loop)
 		{
-		Menu_Handle->Refresh_Flag = 1;
+		Refresh_Flag = 1;
 		}
 
 	    }
