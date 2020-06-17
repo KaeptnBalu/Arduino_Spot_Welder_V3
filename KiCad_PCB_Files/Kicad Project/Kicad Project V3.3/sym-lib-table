@@ -1,0 +1,3 @@
+(sym_lib_table
+  (lib (name "Arduino_Spot_Welder-rescue")(type "Legacy")(uri "${KIPRJMOD}/Arduino_Spot_Welder-rescue.lib")(options "")(descr ""))
+)
