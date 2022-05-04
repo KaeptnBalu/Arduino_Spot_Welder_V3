@@ -1,0 +1,6 @@
+at24cxx.c:9:6:AT24CXX_Init	0	static
+at24cxx.c:14:9:AT24CXX_Write_Byte	24	static
+at24cxx.c:52:9:AT24CXX_Read_Byte	16	static
+at24cxx.c:98:9:AT24CXX_Write_Page	32	static
+at24cxx.c:144:9:AT24CXX_Read_Buffer	24	static
+at24cxx.c:203:9:AT24CXX_Write_Buffer	32	static
