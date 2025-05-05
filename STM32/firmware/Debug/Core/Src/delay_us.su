@@ -1,0 +1,2 @@
+delay_us.c:10:10:Get_Micros	24	static
+delay_us.c:21:6:Delay_Micros	16	static,ignoring_inline_asm

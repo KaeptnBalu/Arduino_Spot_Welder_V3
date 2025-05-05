@@ -1,0 +1,8 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP HY4903B6
+D MOSFET N Trench 30V 314A 3V @ 250uA 1.7 mΩ @ 150A,10V TO-263-6 RoHS
+K TO-263-6
+$ENDCMP
+#
+#End Doc Library

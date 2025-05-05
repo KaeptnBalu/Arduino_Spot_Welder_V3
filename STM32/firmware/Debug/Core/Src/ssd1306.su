@@ -1,0 +1,8 @@
+ssd1306.c:20:7:ssd1306_WriteCommand	16	static
+ssd1306.c:87:6:ssd1306_Fill	0	static
+ssd1306.c:101:6:ssd1306_UpdateScreen	24	static
+ssd1306.c:32:9:ssd1306_Init	8	static
+ssd1306.c:124:6:ssd1306_DrawPixel	16	static
+ssd1306.c:155:6:ssd1306_WriteChar	56	static
+ssd1306.c:197:6:ssd1306_WriteString	24	static
+ssd1306.c:219:6:ssd1306_SetCursor	0	static
